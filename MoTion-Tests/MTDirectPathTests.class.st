@@ -5,6 +5,15 @@ Class {
 }
 
 { #category : #tests }
+MTDirectPathTests >> testDirectPathCreation [
+
+	| path |
+	path := #name asObjectPath.
+
+	self assert: (path resolveFrom: path) equals: { #name }
+]
+
+{ #category : #tests }
 MTDirectPathTests >> testDirectPathMessage [
 
 	"This test checks if the navigation of path that is an accessor is supported"

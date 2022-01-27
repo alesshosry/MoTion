@@ -39,6 +39,30 @@ MTDirectChildrenPathTests >> testDirectChildrenDirectPathEquivalence [
 ]
 
 { #category : #tests }
+MTDirectChildrenPathTests >> testDirectChildrenDirectPathEquivalenceCreation [
+
+	"Tests that the result yield by a DirectChildren and a DirectPath are the same when there is only one instance variable in the start object"
+
+	| directPath |
+	directPath := MTDirectPath of: #name.
+
+	self
+		assert: (#_ asObjectPath resolveFrom: directPath)
+		equals: (#name asObjectPath resolveFrom: directPath)
+]
+
+{ #category : #tests }
+MTDirectChildrenPathTests >> testDirectChildrenPathCreation [
+	
+	| path |
+	path := #_ asObjectPath.
+	
+	self assertCollection: (path resolveFrom: a) hasSameElements: { b. c. }.
+	self assert: (path resolveFrom: b) equals: { c. }.
+	self assert: (path resolveFrom: c) equals: { a. }.
+]
+
+{ #category : #tests }
 MTDirectChildrenPathTests >> testMultipleChildrenPath [
 	
 	| path |

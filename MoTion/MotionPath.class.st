@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #resolving }
+MotionPath >> asObjectPath [ 
+	^ self
+]
+
+{ #category : #resolving }
 MotionPath >> name: aName [
 	name := aName
 ]
