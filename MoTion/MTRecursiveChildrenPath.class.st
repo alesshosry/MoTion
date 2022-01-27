@@ -32,5 +32,5 @@ MTRecursiveChildrenPath >> internalResolveFrom: anObject seen: seenObjects [
 { #category : #resolving }
 MTRecursiveChildrenPath >> resolveFrom: anObject [
 
-	^ self internalResolveFrom: anObject seen: IdentitySet new
+	^ (self internalResolveFrom: anObject seen: IdentitySet new) asArray
 ]

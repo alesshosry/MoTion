@@ -7,10 +7,23 @@ Class {
 	#category : #'MoTion-paths'
 }
 
+{ #category : #'instance creation' }
+MTComposedPath class >> of: aCollectionOfPaths [
+
+	^ self new
+		  addAll: aCollectionOfPaths;
+		  yourself
+]
+
 { #category : #initialization }
-MTComposedPath >> addPath: aMotionPath [
+MTComposedPath >> add: aMotionPath [
 
 	paths add: aMotionPath
+]
+
+{ #category : #initialization }
+MTComposedPath >> addAll: anCollectionOfPaths [
+	paths addAll: anCollectionOfPaths 
 ]
 
 { #category : #initialization }
@@ -28,6 +41,10 @@ MTComposedPath >> resolveFrom: anObject [
 		copy := tmpObjects shallowCopy.
 		tmpObjects removeAll.
 		copy do: [ :intermediate | 
-			tmpObjects addAll: (each resolveFrom: intermediate) ] ].
-	^ tmpObjects
+			| result |
+			result := [ each resolveFrom: intermediate ]
+				          on: Exception
+				          do: [ #(  ) ].
+			tmpObjects addAll: result ] ].
+	^ tmpObjects asArray
 ]

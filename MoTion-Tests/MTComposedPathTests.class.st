@@ -1,0 +1,69 @@
+Class {
+	#name : #MTComposedPathTests,
+	#superclass : #MotionPathTests,
+	#instVars : [
+		'a',
+		'b',
+		'c'
+	],
+	#category : #'MoTion-Tests-paths'
+}
+
+{ #category : #running }
+MTComposedPathTests >> setUp [
+
+	super setUp.
+
+	a := MTTestObjectA new.
+	b := MTTestObjectB new.
+	c := MTTestObjectC new.
+
+	a b: b.
+	a c: c.
+	b c: c.
+	c a: a
+]
+
+{ #category : #tests }
+MTComposedPathTests >> testComplexPathOfDifferentPaths [
+
+	| path |
+	path := MTComposedPath of: { 
+			        MTDirectChildrenPath new.
+			        (MTDirectPath of: #c).
+			        (MTDirectPath of: #a) }.
+
+	self assert: (path resolveFrom: a) equals: { a }.
+
+	"Path is b>_>a>_>_>_ should yield all the elements at the end"
+	path := MTComposedPath of: { 
+			        (MTDirectPath of: #b).
+			        MTDirectChildrenPath new.
+			        (MTDirectPath of: #a).
+			        MTDirectChildrenPath new.
+			        MTDirectChildrenPath new.
+			        MTDirectChildrenPath new }.
+
+	self assertCollection: (path resolveFrom: a) hasSameElements: { 
+			a.
+			b.
+			c }.
+
+	"Path is _>a> should yield only a"
+	path := MTComposedPath of: { 
+			        MTDirectChildrenPath new.
+			        (MTDirectPath of: #a) }.
+	self assertCollection: (path resolveFrom: a) equals: { a }
+]
+
+{ #category : #tests }
+MTComposedPathTests >> testComplexPathOfDirectPath [
+
+	| path |
+	path := MTComposedPath of: { 
+			        (MTDirectPath of: #b).
+			        (MTDirectPath of: #c).
+			        (MTDirectPath of: #a) }.
+
+	self assert: (path resolveFrom: a) equals: { a }
+]
