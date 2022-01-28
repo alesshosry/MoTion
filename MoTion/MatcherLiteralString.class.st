@@ -23,8 +23,9 @@ MatcherLiteralString >> match: aNewValue withContext: aContext [
 MatcherLiteralString >> matchCollectionOfStrings: aCollectionOfLiterals withContext: aContext [
 
 	aCollectionOfLiterals do: [ :each | 
-		each isString ifTrue: [ "ifFalse: [ here we have to check if it is symbol like #name .... for the customStringMatcher]" 
-			self matchOnlyString: each withContext: aContext ] ]
+		each isString ifTrue: [ "ifFalse: [ here we have to check if it is symbol like #name .... for the customStringMatcher]"
+			self matchOnlyString: each withContext: aContext.
+			aContext isMatch ifTrue: [ ^ self ] ] ]
 ]
 
 { #category : #matching }
