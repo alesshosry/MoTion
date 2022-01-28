@@ -2,16 +2,21 @@ Class {
 	#name : #Matcher,
 	#superclass : #Object,
 	#instVars : [
-		'value',
 		'matchingContexts'
 	],
 	#category : #'MoTion-matcher'
 }
 
 { #category : #initialization }
+Matcher >> asMatcher [
+
+	^ self
+]
+
+{ #category : #initialization }
 Matcher >> initialize [ 
 	super initialize.
-	matchingContexts := Collection new.
+	matchingContexts := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -36,16 +41,4 @@ Matcher >> match: aNewValue withContext: aMatchingContext [
 Matcher >> matchingContexts [
 
 	^ matchingContexts
-]
-
-{ #category : #accessing }
-Matcher >> value [
-
-	^ value
-]
-
-{ #category : #accessing }
-Matcher >> value: aValue [
-
-	value := aValue 
 ]

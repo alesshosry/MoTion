@@ -1,6 +1,12 @@
 Extension { #name : #String }
 
 { #category : #'*MoTion' }
+String >> asMatcher [
+
+	^ MatcherLiteralString of: self
+]
+
+{ #category : #'*MoTion' }
 String >> asObjectPath [
 
 	| symbol |
