@@ -25,7 +25,9 @@ MatcherLiteralNumber >> matchCollectionOfNumbers: aCollectionOfLiterals withCont
 	aCollectionOfLiterals do: [ :each | 
 		each isNumber ifTrue: [ 
 			self matchOnlyNumber: each withContext: aContext.
-			aContext isMatch ifTrue: [ ^ self ] ] ]
+			aContext isMatch ifTrue: [ ^ self ] 
+			] 
+	]
 ]
 
 { #category : #matching }
