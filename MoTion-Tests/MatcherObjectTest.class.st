@@ -52,15 +52,55 @@ MatcherObjectTest >> testDirectPathLiterals [
 			           (#lstring -> (MatcherLiteralString of: 'foo')) }.
 
 	self assert: (matcher match: a) isMatch.
-	
+
+
 	"These test should not match"
 	matcher := MatcherObject type: MTTestObjectA withProperties: { 
 			           (#lint -> (MatcherLiteralNumber of: 15)).
 			           (#lstring -> (MatcherLiteralString of: 'foobar')) }.
 
-	self deny: (matcher match: a) isMatch
+	self deny: (matcher match: a) isMatch.
+
+	matcher := MatcherObject
+		           type: MTTestObjectA
+		           withProperties:
+		           { (#lint -> (MatcherLiteralNumber of: 16)) }.
+
+	self deny: (matcher match: a) isMatch.
+
+	matcher := MatcherObject
+		           type: MTTestObjectA
+		           withProperties:
+		           { (#lint -> (MatcherLiteralNumber of: 16)) }.
+
+	self deny: (matcher match: b) isMatch
 ]
 
 { #category : #tests }
 MatcherObjectTest >> testDirectPathMatcherCreation [
+
+	| matcher |
+	matcher := MTTestObjectA % {  }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { (#lint -> 15) }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { 
+		           (#lint -> 15).
+		           (#lstring -> 'foo') }.
+	self assert: (matcher match: a) isMatch.
+
+
+	"These test should not match"
+	matcher := MTTestObjectA % { 
+		           (#lint -> 15).
+		           (#lstring -> 'foobar') }.
+	self deny: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { (#lint -> 16) }.
+	self deny: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { (#lint -> 16) }.
+	self deny: (matcher match: b) isMatch
 ]
