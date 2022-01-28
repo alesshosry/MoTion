@@ -2,19 +2,24 @@ Class {
 	#name : #Matcher,
 	#superclass : #Object,
 	#instVars : [
-		'value',
 		'matchingContexts'
 	],
 	#category : #'MoTion-matcher'
 }
 
+{ #category : #converting }
+Matcher >> asMatcher [
+
+	^ self
+]
+
 { #category : #initialization }
 Matcher >> initialize [ 
 	super initialize.
-	matchingContexts := Collection new.
+	matchingContexts := OrderedCollection new.
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 Matcher >> match: aNewValue [
 
 	| aNewContext matcherResult |
@@ -25,27 +30,15 @@ Matcher >> match: aNewValue [
 		  (self match: aNewValue withContext: aNewContext)
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 Matcher >> match: aNewValue withContext: aMatchingContext [
 	
 	self shouldBeImplemented 
 	
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 Matcher >> matchingContexts [
 
 	^ matchingContexts
-]
-
-{ #category : #accessing }
-Matcher >> value [
-
-	^ value
-]
-
-{ #category : #accessing }
-Matcher >> value: aValue [
-
-	value := aValue 
 ]

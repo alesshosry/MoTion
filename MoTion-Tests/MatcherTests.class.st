@@ -1,7 +1,7 @@
 Class {
 	#name : #MatcherTests,
 	#superclass : #TestCase,
-	#category : #'MoTion-Tests'
+	#category : #'MoTion-Tests-matchers'
 }
 
 { #category : #tests }

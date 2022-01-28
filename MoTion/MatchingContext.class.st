@@ -22,6 +22,16 @@ MatchingContext >> bindings [
 	^ bindings
 ]
 
+{ #category : #accessing }
+MatchingContext >> copy [
+
+	| instance |
+	instance := self class new.
+	instance bindings addAll: self bindings.
+	instance isMatch: self isMatch.
+	^ instance
+]
+
 { #category : #initialization }
 MatchingContext >> initialize [ 
 	super initialize.

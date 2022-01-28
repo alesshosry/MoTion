@@ -4,7 +4,7 @@ Class {
 	#category : #'MoTion-matcher'
 }
 
-{ #category : #accessing }
+{ #category : #matching }
 MatcherLiteralNumber >> match: aNewValue withContext: aContext [
 	 		
 	
@@ -19,7 +19,7 @@ MatcherLiteralNumber >> match: aNewValue withContext: aContext [
 	^ { aContext }
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #matching }
 MatcherLiteralNumber >> matchCollectionOfNumbers: aCollectionOfLiterals withContext: aContext [
 
 
@@ -29,7 +29,8 @@ MatcherLiteralNumber >> matchCollectionOfNumbers: aCollectionOfLiterals withCont
 		 ].	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #matching }
 MatcherLiteralNumber >> matchOnlyNumber: aNumber withContext: aContext [
-	aNumber = value ifTrue: [ aContext isMatch: true ].
+
+	aContext isMatch: aNumber = value
 ]
