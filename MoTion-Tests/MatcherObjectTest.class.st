@@ -33,6 +33,43 @@ MatcherObjectTest >> setUp [
 ]
 
 { #category : #tests }
+MatcherObjectTest >> testDirectChildrenPathMatcherCreation [
+
+	| matcher |
+	matcher := MTTestObjectA % { (#_ -> MTTestObjectC % {  }) }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA
+	           % { (#'_>a' -> MTTestObjectA % { (#lint -> 15) }) }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA
+	           % { (#'_>_' -> MTTestObjectA % { (#lint -> 15) }) }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { 
+		           (#_ -> MTTestObjectB % {  }).
+		           (#_ -> MTTestObjectC % {  }) }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { 
+		           (#_ -> MTTestObjectB % {  }).
+		           (#_ -> MTTestObjectC % {  }).
+		           (#_ -> 15) }.
+	self assert: (matcher match: a) isMatch.
+
+
+	"These test should not match"
+	matcher := MTTestObjectA % { (#_ -> MTTestObjectA % {  }) }.
+	self deny: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { 
+		           (#_ -> MTTestObjectB % {  }).
+		           (#_ -> MTTestObjectA % {  }) }.
+	self deny: (matcher match: a) isMatch
+]
+
+{ #category : #tests }
 MatcherObjectTest >> testDirectPathLiterals [
 
 	| matcher |
@@ -103,4 +140,62 @@ MatcherObjectTest >> testDirectPathMatcherCreation [
 
 	matcher := MTTestObjectA % { (#lint -> 16) }.
 	self deny: (matcher match: b) isMatch
+]
+
+{ #category : #tests }
+MatcherObjectTest >> testRecursiveChildrenPathMatcherCreation [
+
+	| matcher |
+	matcher := MTTestObjectA % { (#'_*' -> MTTestObjectC % {  }) }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { (#'_*' -> MTTestObjectA % {  }) }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA
+	           % { (#'_*>a' -> MTTestObjectA % { (#lint -> 15) }) }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA
+	           % { (#'_*>_*' -> MTTestObjectA % { (#lint -> 15) }) }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { 
+		           (#'_*' -> MTTestObjectB % {  }).
+		           (#'_*' -> MTTestObjectA % { (#lint -> 15) }) }.
+	self assert: (matcher match: a) isMatch.
+
+
+	"These test should not match"
+	matcher := MTTestObjectA
+	           % { (#'_*' -> MTTestObjectA % { (#lint -> 43) }) }.
+	self deny: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { 
+		           (#'_*' -> MTTestObjectB % {  }).
+		           (#'_*' -> MTTestObjectA % { (#lint -> 16) }) }.
+	self deny: (matcher match: a) isMatch
+]
+
+{ #category : #tests }
+MatcherObjectTest >> testSimpleComposedPathMatcherCreation [
+
+	| matcher |
+	matcher := MTTestObjectA % { (#'b>c' -> MTTestObjectC % {  }) }.
+	self assert: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { 
+		           (#'c>a>b' -> MTTestObjectB % {  }).
+		           (#'b>c>lint' -> 15) }.
+	self assert: (matcher match: a) isMatch.
+
+
+	"These test should not match"
+	matcher := MTTestObjectA % { (#'b>c' -> MTTestObjectA % {  }) }.
+	self deny: (matcher match: a) isMatch.
+
+	matcher := MTTestObjectA % { 
+		           (#'c>a>b' -> MTTestObjectB % {  }).
+		           (#'b>c>lint' -> 16) }.
+	self deny: (matcher match: a) isMatch
 ]
