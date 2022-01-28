@@ -17,8 +17,7 @@ MatcherTests >> testMatcherNumber [
 { #category : #tests }
 MatcherTests >> testMatcherNumberCollection [
 	| myMatcher |
-	myMatcher := MatcherLiteralNumber  new.
-	myMatcher value: 100.
+	myMatcher := MatcherLiteralNumber of: 100.
 	 
 	self assert: (myMatcher match: {100. 200. 300 }) isMatch.
 	self deny: (myMatcher match: 900) isMatch 
@@ -28,8 +27,7 @@ MatcherTests >> testMatcherNumberCollection [
 MatcherTests >> testMatcherStringCollection [
 	
 	| myMatcher |
-	myMatcher := MatcherLiteralString new.
-	myMatcher value: 'Hello'.
+	myMatcher := MatcherLiteralString of: 'Hello'.
 	 
 	self assert: (myMatcher match: {'Hello World'. 'We are trying to'. 'test a collection' }) isMatch.
 	self assert: (myMatcher match: {'Hello'. 'Here we are using only hello'. 'test a collection' }) isMatch.
