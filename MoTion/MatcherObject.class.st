@@ -9,8 +9,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MatcherObject class >> type: aClass withProperties: properties [
+MatcherObject class >> type: aClass withProperties: aPropertiesArray [
 
+	| properties |
+	properties := aPropertiesArray collect: [ :each | 
+		              each key asObjectPath -> each value asMatcher ].
 	^ self new
 		  type: aClass;
 		  properties: properties;
@@ -22,7 +25,7 @@ MatcherObject >> initialize [
 	properties := OrderedCollection new.
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 MatcherObject >> match: anObject withContext: aContext [
 
 	| newContexts |
@@ -30,7 +33,7 @@ MatcherObject >> match: anObject withContext: aContext [
 		aContext isMatch: false.
 		^ { aContext } ].
 
-	"Here we are matching"
+	"Here we are matching" 
 	aContext isMatch: true.
 	properties ifNil: [ ^ { aContext } ].
 

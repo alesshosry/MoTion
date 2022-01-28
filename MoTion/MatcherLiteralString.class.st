@@ -4,7 +4,7 @@ Class {
 	#category : #'MoTion-matcher'
 }
 
-{ #category : #accessing }
+{ #category : #matching }
 MatcherLiteralString >> match: aNewValue withContext: aContext [
 	 		
 	 
@@ -19,27 +19,22 @@ MatcherLiteralString >> match: aNewValue withContext: aContext [
 	^ { aContext }
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 MatcherLiteralString >> matchCollectionOfStrings: aCollectionOfLiterals withContext: aContext [
- 
-		 
-		aCollectionOfLiterals do: [ :each | 
-			each isString 
-				ifTrue:[ self matchOnlyString: each withContext: aContext  ]
-				"ifFalse: [ here we have to check if it is symbol like #name .... for the customStringMatcher]"	
-		 ].	
+
+	aCollectionOfLiterals do: [ :each | 
+		each isString ifTrue: [ "ifFalse: [ here we have to check if it is symbol like #name .... for the customStringMatcher]" 
+			self matchOnlyString: each withContext: aContext ] ]
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 MatcherLiteralString >> matchOnlyString: aString withContext: aContext [
-	
+
 	"so here we are matching either fully or at least the string exist in the chain. "
-	
-	|sizeFound|
-	sizeFound :=  aString asString findString: value.
-	
-	value = aString | ((aString asString findString: value) > 0)  
-		ifTrue: [ aContext  isMatch: true ].
-	
-	 
+
+	| sizeFound |
+	sizeFound := aString asString findString: value.
+
+	aContext isMatch:
+		(value = aString or: [ (aString asString findString: value) > 0 ])
 ]

@@ -7,7 +7,7 @@ Class {
 	#category : #'MoTion-matcher'
 }
 
-{ #category : #initialization }
+{ #category : #converting }
 Matcher >> asMatcher [
 
 	^ self
@@ -19,7 +19,7 @@ Matcher >> initialize [
 	matchingContexts := OrderedCollection new.
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 Matcher >> match: aNewValue [
 
 	| aNewContext matcherResult |
@@ -30,14 +30,14 @@ Matcher >> match: aNewValue [
 		  (self match: aNewValue withContext: aNewContext)
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 Matcher >> match: aNewValue withContext: aMatchingContext [
 	
 	self shouldBeImplemented 
 	
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 Matcher >> matchingContexts [
 
 	^ matchingContexts
