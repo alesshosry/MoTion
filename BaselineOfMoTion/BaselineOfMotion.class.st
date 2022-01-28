@@ -1,11 +1,11 @@
 Class {
-	#name : #BaselineOfMotion,
+	#name : #BaselineOfMoTion,
 	#superclass : #BaselineOf,
 	#category : #BaselineOfMoTion
 }
 
 { #category : #baselines }
-BaselineOfMotion >> baseline: spec [
+BaselineOfMoTion >> baseline: spec [
    <baseline>
 	spec for: #'common' do: [
 		spec 
