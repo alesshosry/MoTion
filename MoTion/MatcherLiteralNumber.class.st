@@ -22,11 +22,12 @@ MatcherLiteralNumber >> match: aNewValue withContext: aContext [
 { #category : #matching }
 MatcherLiteralNumber >> matchCollectionOfNumbers: aCollectionOfLiterals withContext: aContext [
 
-
 	aCollectionOfLiterals do: [ :each | 
-			each isNumber 
-				ifTrue:[self matchOnlyNumber: each withContext: aContext ]	
-		 ].	
+		each isNumber ifTrue: [ 
+			self matchOnlyNumber: each withContext: aContext.
+			aContext isMatch ifTrue: [ ^ self ] 
+			] 
+	]
 ]
 
 { #category : #matching }
