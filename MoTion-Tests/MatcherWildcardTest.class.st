@@ -76,3 +76,24 @@ MatcherWildcardTest >> testWildcardMultipleMatch [
 	self assert: (aContext bindings includesKey: #foo).
 	self assert: (aContext bindings at: #foo) equals: 123
 ]
+
+{ #category : #initialization }
+MatcherWildcardTest >> testWildcardMultipleMatchCreation [
+
+	| matcher aContext |
+	matcher := #'@foo' asMatcher.
+
+	aContext := MatchingContext new.
+	matcher match: 123 withContext: aContext.
+	self assert: aContext isMatch.
+
+	matcher match: 123 withContext: aContext.
+	self assert: aContext isMatch.
+
+	matcher match: 1 withContext: aContext.
+	self deny: aContext isMatch.
+
+	self assert: (aContext bindings includesKey: #foo).
+	self assert: (aContext bindings at: #foo) equals: 123
+]
+
