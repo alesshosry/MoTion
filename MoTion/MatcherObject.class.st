@@ -35,7 +35,6 @@ MatcherObject >> match: anObject withContext: aContext [
 
 	"Here we are matching" 
 	aContext isMatch: true.
-	properties ifNil: [ ^ { aContext } ].
 
 	newContexts := { aContext }.
 	properties do: [ :entry | 

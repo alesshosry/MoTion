@@ -35,3 +35,15 @@ MTRecursiveChildrenPathTests >> testRecursivePath [
 			b.
 			c }
 ]
+
+{ #category : #running }
+MTRecursiveChildrenPathTests >> testRecursivePathCreation [
+
+	| path |
+	path := #'_*' asObjectPath .
+	
+	self assertCollection: (path resolveFrom: a) hasSameElements: { 
+			a.
+			b.
+			c }
+]

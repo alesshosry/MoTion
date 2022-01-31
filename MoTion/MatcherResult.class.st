@@ -33,3 +33,8 @@ MatcherResult >> isMatch [
 	
 	^ matchingContexts isNotEmpty and: [ matchingContexts allSatisfy: [ :each | each isMatch ]]
 ]
+
+{ #category : #accessors }
+MatcherResult >> matchingContexts [
+	^ matchingContexts
+]
