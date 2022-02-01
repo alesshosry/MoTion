@@ -13,6 +13,11 @@ MotionPath >> asObjectPath [
 ]
 
 { #category : #resolving }
+MotionPath >> isMooseObjectPath [
+	^ false
+]
+
+{ #category : #resolving }
 MotionPath >> name: aName [
 	name := aName
 ]

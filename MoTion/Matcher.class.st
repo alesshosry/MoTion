@@ -20,6 +20,12 @@ Matcher >> initialize [
 ]
 
 { #category : #matching }
+Matcher >> isMooseMatcher [
+
+	^ false
+]
+
+{ #category : #matching }
 Matcher >> match: aNewValue [
 
 	| aNewContext matcherResult |
