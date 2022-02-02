@@ -26,6 +26,12 @@ Matcher >> initialize [
 ]
 
 { #category : #matching }
+Matcher >> isBlockMatcher [
+
+	^ false
+]
+
+{ #category : #matching }
 Matcher >> isMooseMatcher [
 
 	^ false
