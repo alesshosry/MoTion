@@ -9,3 +9,9 @@ MTRecursiveMooseChildrenPath >> isMooseObjectPath [
 
 	^ true
 ]
+
+{ #category : #testing }
+MTRecursiveMooseChildrenPath >> resolveFrom: anObject [
+
+	^ anObject computeAllChildren asArray
+]

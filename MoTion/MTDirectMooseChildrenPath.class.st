@@ -9,3 +9,9 @@ MTDirectMooseChildrenPath >> isMooseObjectPath [
 
 	^ true
 ]
+
+{ #category : #testing }
+MTDirectMooseChildrenPath >> resolveFrom: anObject [
+
+	^ anObject computeChildren asArray
+]
