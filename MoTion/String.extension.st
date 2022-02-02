@@ -7,6 +7,16 @@ String >> asMatcher [
 ]
 
 { #category : #'*MoTion' }
+String >> asMooseObjectPath [
+
+	| symbol |
+	symbol := self asSymbol.
+	symbol = #_ ifTrue: [ ^ MTDirectMooseChildrenPath new ].
+	symbol = #'_*' ifTrue: [ ^ MTRecursiveMooseChildrenPath new ].
+	^ self asObjectPath
+]
+
+{ #category : #'*MoTion' }
 String >> asObjectPath [
 
 	| symbol |

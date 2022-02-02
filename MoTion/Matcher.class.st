@@ -7,6 +7,12 @@ Class {
 	#category : #'MoTion-matcher'
 }
 
+{ #category : #initialization }
+Matcher >> as: aSymbol [
+
+	^ MatcherSave of: self withAlias: aSymbol
+]
+
 { #category : #converting }
 Matcher >> asMatcher [
 
@@ -17,6 +23,18 @@ Matcher >> asMatcher [
 Matcher >> initialize [ 
 	super initialize.
 	matchingContexts := OrderedCollection new.
+]
+
+{ #category : #matching }
+Matcher >> isBlockMatcher [
+
+	^ false
+]
+
+{ #category : #matching }
+Matcher >> isMooseMatcher [
+
+	^ false
 ]
 
 { #category : #matching }

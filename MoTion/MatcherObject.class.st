@@ -8,7 +8,7 @@ Class {
 	#category : #'MoTion-matcher'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 MatcherObject class >> type: aClass withProperties: aPropertiesArray [
 
 	| properties |
@@ -33,11 +33,12 @@ MatcherObject >> match: anObject withContext: aContext [
 		aContext isMatch: false.
 		^ { aContext } ].
 
-	"Here we are matching" 
+	"Here we are matching"
 	aContext isMatch: true.
 
 	newContexts := { aContext }.
-	properties do: [ :entry | 
+	(properties sort: [ :a :b | a value isBlockMatcher not ]) do: [ 
+		:entry | 
 		| path submatcher |
 		path := entry key.
 		submatcher := entry value.
