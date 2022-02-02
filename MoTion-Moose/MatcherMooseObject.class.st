@@ -1,7 +1,7 @@
 Class {
 	#name : #MatcherMooseObject,
 	#superclass : #MatcherObject,
-	#category : #'MoTion-matcher'
+	#category : #'MoTion-Moose-matcher'
 }
 
 { #category : #'as yet unclassified' }

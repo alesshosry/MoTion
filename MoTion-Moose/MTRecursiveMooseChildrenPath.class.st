@@ -1,7 +1,7 @@
 Class {
 	#name : #MTRecursiveMooseChildrenPath,
 	#superclass : #MTRecursiveChildrenPath,
-	#category : #'MoTion-paths'
+	#category : #'MoTion-Moose-paths'
 }
 
 { #category : #testing }
