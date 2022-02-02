@@ -7,6 +7,12 @@ Class {
 	#category : #'MoTion-matcher'
 }
 
+{ #category : #initialization }
+Matcher >> as: aSymbol [
+
+	^ MatcherSave of: self withAlias: aSymbol
+]
+
 { #category : #converting }
 Matcher >> asMatcher [
 
