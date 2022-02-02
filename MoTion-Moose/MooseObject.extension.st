@@ -1,7 +1,7 @@
-Extension { #name : #MooseEntity }
+Extension { #name : #MooseObject }
 
-{ #category : #'*MoTion' }
-MooseEntity >> computeAllChildren [
+{ #category : #'*MoTion-Moose' }
+MooseObject >> computeAllChildren [
 
 	| allChildren |
 	allChildren := self computeChildren.
@@ -10,8 +10,8 @@ MooseEntity >> computeAllChildren [
 	^ allChildren
 ]
 
-{ #category : #'*MoTion' }
-MooseEntity >> computeChildren [
+{ #category : #'*MoTion-Moose' }
+MooseObject >> computeChildren [
 
 	| childrenProperties |
 	childrenProperties := self mooseDescription allProperties select: #isChildrenProperty.
