@@ -8,7 +8,7 @@ Class {
 	#category : #'MoTion-matcher'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 MatcherObject class >> type: aClass withProperties: aPropertiesArray [
 
 	| properties |
