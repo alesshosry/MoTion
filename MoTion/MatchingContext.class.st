@@ -1,3 +1,6 @@
+"
+""matchingContext handles the contexts of each match; the matched contexts are all filled as Dictionaries in bindings""
+"
 Class {
 	#name : #MatchingContext,
 	#superclass : #Object,

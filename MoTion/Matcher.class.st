@@ -16,6 +16,8 @@ Matcher >> as: aSymbol [
 { #category : #converting }
 Matcher >> asMatcher [
 
+	"creates instance of Matcher"
+
 	^ self
 ]
 
@@ -40,6 +42,8 @@ Matcher >> isMooseMatcher [
 { #category : #matching }
 Matcher >> match: aNewValue [
 
+	"It is used to match aNewValue, but it is returning a list of emptyContext as there is no context defined here. The most important thing is to generalise the return of all match and match:withContext: of all the matchers in our code to return a list of MatchingContexts."
+	
 	| aNewContext matcherResult |
 	aNewContext := MatchingContext new.
 	matcherResult := MatcherResult new.
@@ -58,5 +62,6 @@ Matcher >> match: aNewValue withContext: aMatchingContext [
 { #category : #matching }
 Matcher >> matchingContexts [
 
+	"returns the list of matchingContexts only."
 	^ matchingContexts
 ]

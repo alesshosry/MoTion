@@ -1,3 +1,6 @@
+"
+""This class is used to handle the matchingContexts returned as collection after each match""
+"
 Class {
 	#name : #MatcherResult,
 	#superclass : #Object,

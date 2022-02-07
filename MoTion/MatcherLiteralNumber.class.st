@@ -7,6 +7,7 @@ Class {
 { #category : #matching }
 MatcherLiteralNumber >> match: aNewValue withContext: aContext [
 	 		
+	"a Number matcher can either fully match a Number or can be available in a list of Numbers. So the first condition is used to match only one number while the second one is checking if the number exists in a collection of given numbers. If a match is found, aContext isMatch is returned as True. "
 	
    aNewValue isNumber 
 		ifTrue: [ self matchOnlyNumber: aNewValue withContext: aContext]
