@@ -40,11 +40,12 @@ MTComposedPath >> resolveFrom: anObject [
 	paths do: [ :each | 
 		copy := tmpObjects shallowCopy.
 		tmpObjects removeAll.
+		
 		copy do: [ :intermediate | 
 			| result |
 			result := [ each resolveFrom: intermediate ]
 				          on: Exception
-				          do: [ #(  ) ].
-			tmpObjects addAll: result ] ].
+				          do: [ #(  ) ] .
+			tmpObjects addAll: result flattened] ].
 	^ tmpObjects asArray
 ]
