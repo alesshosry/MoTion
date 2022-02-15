@@ -16,6 +16,11 @@ MatcherBlock class >> of: aBlock [
 ]
 
 { #category : #accessing }
+MatcherBlock >> block [ 
+	^ block
+]
+
+{ #category : #accessing }
 MatcherBlock >> block: aBlock [
 
 	block := aBlock
