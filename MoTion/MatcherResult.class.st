@@ -24,6 +24,13 @@ MatcherResult >> addIfMatch: aMatchingContext [
 	matchingContexts add: aMatchingContext  
 ]
 
+{ #category : #accessing }
+MatcherResult >> bindingsFor: aString [
+
+	^ (self matchingContexts collect: [ :context | 
+		   context bindings at: aString ]) removeDuplicates
+]
+
 { #category : #initialization }
 MatcherResult >> initialize [ 
 	matchingContexts := OrderedCollection new.
