@@ -3,7 +3,8 @@ Class {
 	#superclass : #Matcher,
 	#instVars : [
 		'type',
-		'properties'
+		'properties',
+		'subclassmatch'
 	],
 	#category : #'MoTion-matcher'
 }
@@ -28,8 +29,12 @@ MatcherObject >> initialize [
 { #category : #matching }
 MatcherObject >> match: anObject withContext: aContext [
 
-	| newContexts |
-	anObject class = type ifFalse: [ 
+	| newContexts sametype |
+	sametype := subclassmatch
+		            ifTrue: [ anObject isKindOf: type ]
+		            ifFalse: [ anObject class = type ].
+
+	sametype ifFalse: [ 
 		aContext isMatch: false.
 		^ { aContext } ].
 
@@ -55,6 +60,12 @@ MatcherObject >> match: anObject withContext: aContext [
 MatcherObject >> properties: aCollectionOfProperties [
 
 	properties := aCollectionOfProperties
+]
+
+{ #category : #accessing }
+MatcherObject >> subclassmatch: aBoolean [
+
+	subclassmatch := aBoolean
 ]
 
 { #category : #accessing }
