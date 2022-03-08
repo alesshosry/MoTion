@@ -96,4 +96,3 @@ MatcherWildcardTest >> testWildcardMultipleMatchCreation [
 	self assert: (aContext bindings includesKey: #foo).
 	self assert: (aContext bindings at: #foo) equals: 123
 ]
-
