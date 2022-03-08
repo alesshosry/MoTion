@@ -7,7 +7,7 @@ MooseObject >> computeAllChildren [
 	allChildren := self computeChildren.
 	allChildren addAll:
 		(allChildren flatCollect: [ :each | each computeChildren ]).
-	^ allChildren
+	^ allChildren 
 ]
 
 { #category : #'*MoTion-Moose' }
@@ -22,5 +22,5 @@ MooseObject >> computeChildren [
 				  each isMultivalued
 					  ifTrue: [ r ]
 					  ifFalse: [ { r } ] ]
-			  ifNil: [ {  } ] ]
+			  ifNil: [ {  } ] ]  
 ]

@@ -23,6 +23,7 @@ String >> asObjectPath [
 	symbol := self asSymbol.
 	symbol = #_ ifTrue: [ ^ MTDirectChildrenPath new ].
 	symbol = #'_*' ifTrue: [ ^ MTRecursiveChildrenPath new ].
+	(symbol endsWith: '*') ifTrue: [ ^ MTRecursivePath of: (symbol withoutSuffix: '*' ) ] .
 	symbol = #@ ifTrue: [ ^MTIdentityPath new ].
 	(symbol includes: $>) ifTrue: [ 
 		^ MTComposedPath of:

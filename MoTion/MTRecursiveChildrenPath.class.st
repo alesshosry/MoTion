@@ -15,7 +15,7 @@ MTRecursiveChildrenPath >> internalResolveFrom: anObject seen: seenObjects [
 
 	| directObjects |
 	directObjects := OrderedCollection new.
-	anObject class allSlots do: [ :slot | 
+	(self slotsToVisit: anObject)  do: [ :slot | 
 		| o |
 		o := slot read: anObject.
 		o ifNotNil: [ 
@@ -33,4 +33,10 @@ MTRecursiveChildrenPath >> internalResolveFrom: anObject seen: seenObjects [
 MTRecursiveChildrenPath >> resolveFrom: anObject [
 
 	^ (self internalResolveFrom: anObject seen: IdentitySet new) asArray
+]
+
+{ #category : #resolving }
+MTRecursiveChildrenPath >> slotsToVisit: anObject [ 
+
+	^ anObject class allSlots
 ]
