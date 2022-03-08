@@ -21,9 +21,12 @@ MatcherObject class >> type: aClass withProperties: aPropertiesArray [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 MatcherObject >> initialize [
+
+	super initialize.
 	properties := OrderedCollection new.
+	subclassmatch := false
 ]
 
 { #category : #matching }

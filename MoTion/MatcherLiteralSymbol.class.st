@@ -4,22 +4,21 @@ Class {
 	#category : #'MoTion-matcher'
 }
 
-{ #category : #'private-running' }
+{ #category : #matching }
 MatcherLiteralSymbol >> match: aNewValue withContext: aContext [
-	 		
-	 
-	aNewValue isString 
-		ifTrue: [ self matchOnlySymbol: aNewValue withContext: aContext]
-		ifFalse: [
-				aNewValue isCollection & (aNewValue isNotNil) 
-					ifTrue: [self matchCollectionOfSymbols: aNewValue withContext: aContext] 
-					ifFalse: [ aContext isMatch: false ]
-			].
-	 	
+
+	aNewValue isString
+		ifTrue: [ self matchOnlySymbol: aNewValue withContext: aContext ]
+		ifFalse: [ 
+			aNewValue isCollection & aNewValue isNotNil
+				ifTrue: [ 
+				self matchCollectionOfSymbols: aNewValue withContext: aContext ]
+				ifFalse: [ aContext isMatch: false ] ].
+
 	^ { aContext }
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #matching }
 MatcherLiteralSymbol >> matchCollectionOfSymbols: aCollectionOfSymbols withContext: aContext [
 
 	aCollectionOfSymbols do: [ :each | 
@@ -28,7 +27,7 @@ MatcherLiteralSymbol >> matchCollectionOfSymbols: aCollectionOfSymbols withConte
 			aContext isMatch ifTrue: [ ^ self ] ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #matching }
 MatcherLiteralSymbol >> matchOnlySymbol: aSymbol withContext: aContext [
 	
 	| sizeFound |
