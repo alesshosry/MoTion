@@ -21,6 +21,19 @@ Matcher >> asMatcher [
 	^ self
 ]
 
+{ #category : #accessing }
+Matcher >> collectBinding: aString for: anObject [ 
+	
+	^ (self match: anObject) bindingsFor: aString
+]
+
+{ #category : #accessing }
+Matcher >> collectBindings: bindings for: anObject [
+
+	^ ((self match: anObject) matchingContexts collect: [ :context | 
+		   context bindings filterKeys: bindings ]) removeDuplicates
+]
+
 { #category : #initialization }
 Matcher >> initialize [ 
 	super initialize.
