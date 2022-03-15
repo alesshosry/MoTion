@@ -51,11 +51,17 @@ MatcherObject >> match: anObject withContext: aContext [
 		path := entry key.
 		submatcher := entry value.
 		newContexts := (newContexts flatCollect: [ :context | 
-			                (path resolveFrom: anObject) flatCollect: [ :obj | 
-				                | copy |
-				                copy := context copy.
-				                submatcher match: obj withContext: copy ] ]) 
-			               select: [ :context | context isMatch ] ].
+			                | copy |
+			                copy := context copy.
+			                submatcher isCollectionMatcher
+				                ifFalse: [ 
+					                (path resolveFrom: anObject) flatCollect: [ :obj | 
+						                submatcher match: obj withContext: copy ] ]
+				                ifTrue: [ 
+				                submatcher
+					                match: (path resolveFrom: anObject)
+					                withContext: copy ] ]) select: [ :context | 
+			               context isMatch ] ].
 	^ newContexts
 ]
 

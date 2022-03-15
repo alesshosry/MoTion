@@ -23,6 +23,11 @@ MotionPath >> name: aName [
 ]
 
 { #category : #resolving }
+MotionPath >> resolveCollectionFrom: anObject [
+	^ self resolveFrom: anObject
+]
+
+{ #category : #resolving }
 MotionPath >> resolveFrom: anObject [
 	self shouldBeImplemented 
 ]

@@ -13,9 +13,9 @@ Class {
 
 { #category : #accessing }
 MatchingContext >> atBindingKey: aKey put: aValue [
-	 
-	self bindings at: aKey put: aValue.
-	
+
+	self bindings at: aKey asSymbol put: aValue
+
 	"Since the MatchingContext can be used in different places (same function can have input and output the Matching Context), we leave the isMatch to be filled in the Matcher code, more specifically in the match and match:withCOntext methods."
 ]
 

@@ -15,5 +15,5 @@ MTDirectPath >> resolveFrom: anObject [
 
 	^ { ([ (anObject class slotNamed: name) read: anObject ]
 		   on: SlotNotFound
-		   do: [ anObject perform: name ]) }
+		   do: [ anObject perform: name ]) } flattened
 ]

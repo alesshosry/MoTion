@@ -46,6 +46,11 @@ Matcher >> isBlockMatcher [
 	^ false
 ]
 
+{ #category : #converting }
+Matcher >> isCollectionMatcher [ 
+	^ false
+]
+
 { #category : #matching }
 Matcher >> isMooseMatcher [
 

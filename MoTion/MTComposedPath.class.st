@@ -33,6 +33,24 @@ MTComposedPath >> initialize [
 ]
 
 { #category : #initialization }
+MTComposedPath >> resolveCollectionFrom: anObject [
+
+	| tmpObjects copy |
+	tmpObjects := { anObject } asOrderedCollection.
+	paths do: [ :each | 
+		copy := tmpObjects shallowCopy.
+		tmpObjects removeAll.
+
+		copy do: [ :intermediate | 
+			| result |
+			result := [ each resolveFrom: intermediate ]
+				          on: Exception
+				          do: [ #(  ) ].
+			tmpObjects addAll: result flattened ] ].
+	^ tmpObjects asArray
+]
+
+{ #category : #initialization }
 MTComposedPath >> resolveFrom: anObject [
 
 	| tmpObjects copy |
@@ -40,12 +58,12 @@ MTComposedPath >> resolveFrom: anObject [
 	paths do: [ :each | 
 		copy := tmpObjects shallowCopy.
 		tmpObjects removeAll.
-		
+
 		copy do: [ :intermediate | 
 			| result |
 			result := [ each resolveFrom: intermediate ]
 				          on: Exception
-				          do: [ #(  ) ] .
-			tmpObjects addAll: result flattened] ].
+				          do: [ #(  ) ].
+			tmpObjects addAll: result flattened ] ].
 	^ tmpObjects asArray
 ]
