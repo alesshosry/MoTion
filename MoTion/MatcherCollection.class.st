@@ -18,10 +18,20 @@ MatcherCollection >> isCollectionMatcher [
 ]
 
 { #category : #matching }
-MatcherCollection >> match: aNewValue withContext: aMatchingContext [
-	
-	self halt.
-	
+MatcherCollection >> match: aCollection withContext: aMatchingContext [
+
+	| result |
+	self flag: 'lazy algo, need to work with an automata instead'.
+	aCollection size = matcherSequence size ifFalse: [ 
+		aMatchingContext isMatch: false.
+		^ { aMatchingContext } ].
+	result := (matcherSequence collectWithIndex: [ :matcher :index | 
+		           | object |
+		           object := aCollection at: index.
+		           matcher match: object withContext: aMatchingContext ])
+		          flattened select: [ :context | context isMatch ].
+	result ifEmpty: [ aMatchingContext isMatch: false ].
+	^ { aMatchingContext }
 ]
 
 { #category : #matching }
