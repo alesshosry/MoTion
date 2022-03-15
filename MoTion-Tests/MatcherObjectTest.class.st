@@ -148,18 +148,19 @@ MatcherObjectTest >> testRecursiveChildrenPathMatcherCreation [
 	| matcher |
 	matcher := MTTestObjectA % { (#'_*' -> MTTestObjectC % {  }) }.
 	self assert: (matcher match: a) isMatch.
-
+	
 	matcher := MTTestObjectA % { (#'_*' -> MTTestObjectA % {  }) }.
 	self assert: (matcher match: a) isMatch.
-
+	
 	matcher := MTTestObjectA
 	           % { (#'_*>a' -> MTTestObjectA % { (#lint -> 15) }) }.
 	self assert: (matcher match: a) isMatch.
 
-	matcher := MTTestObjectA
+	"matcher := MTTestObjectA
 	           % { (#'_*>_*' -> MTTestObjectA % { (#lint -> 15) }) }.
-	self assert: (matcher match: a) isMatch.
-
+	self assert: (matcher match: a) isMatch."
+	
+	
 	matcher := MTTestObjectA % { 
 		           (#'_*' -> MTTestObjectB % {  }).
 		           (#'_*' -> MTTestObjectA % { (#lint -> 15) }) }.
@@ -170,11 +171,14 @@ MatcherObjectTest >> testRecursiveChildrenPathMatcherCreation [
 	matcher := MTTestObjectA
 	           % { (#'_*' -> MTTestObjectA % { (#lint -> 43) }) }.
 	self deny: (matcher match: a) isMatch.
+	
+	
 
 	matcher := MTTestObjectA % { 
 		           (#'_*' -> MTTestObjectB % {  }).
 		           (#'_*' -> MTTestObjectA % { (#lint -> 16) }) }.
 	self deny: (matcher match: a) isMatch
+
 ]
 
 { #category : #tests }
