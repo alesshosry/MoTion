@@ -1,4 +1,0 @@
-Metacello new
-    baseline: 'MoTion';
-    repository: 'github://AlessHo/MoTion:main';
-    load
