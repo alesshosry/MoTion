@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'tests - to be refined' }
-MatcherCollectionTests >> testMultiWieldcardsAndMultiItemsComplex [
+MatcherCollectionTests >> testMultiWildcardsAndMultiItemsComplex [
 
 	| matcher expression | 
 	expression := RBParser parseExpression: 'self ifTrue: [1] ifFalse: 2'.
@@ -22,7 +22,7 @@ MatcherCollectionTests >> testMultiWieldcardsAndMultiItemsComplex [
 ]
 
 { #category : #'tests - to be refined' }
-MatcherCollectionTests >> testSameWieldcards [
+MatcherCollectionTests >> testSameWildcards [
 
 	| matcher expression | 
 	expression := RBParser parseExpression: 'a ifTrue: 1 ifFalse: [2]. b ifTrue: 1 ifFalse: [4]. '.
@@ -149,7 +149,7 @@ MatcherCollectionTests >> testToCheckDedicatedArgumentsAndReceiverWithDirectPath
 ]
 
 { #category : #'tests - to be refined' }
-MatcherCollectionTests >> testWieldcardOnly [
+MatcherCollectionTests >> testWildcardOnly [
 
 	| matcher expression |
 	expression := RBParser parseExpression:
@@ -166,7 +166,7 @@ MatcherCollectionTests >> testWieldcardOnly [
 ]
 
 { #category : #'tests - to be refined' }
-MatcherCollectionTests >> testWieldcardSameAsItem [
+MatcherCollectionTests >> testWildcardSameAsItem [
 
 	| matcher expression |
 	expression := RBParser parseExpression:
@@ -182,7 +182,7 @@ MatcherCollectionTests >> testWieldcardSameAsItem [
 ]
 
 { #category : #'tests - to be refined' }
-MatcherCollectionTests >> testWieldcardWithMultiItemsAtTheBegining [
+MatcherCollectionTests >> testWildcardWithMultiItemsAtTheBegining [
 
 	| matcher expression |
 	expression := RBParser parseExpression: 'a asStringOn: aStream delimiter: delimString last: lastDelimString'.
@@ -197,7 +197,7 @@ MatcherCollectionTests >> testWieldcardWithMultiItemsAtTheBegining [
 ]
 
 { #category : #'tests - to be refined' }
-MatcherCollectionTests >> testWieldcardWithMultiItemsAtTheEnd [
+MatcherCollectionTests >> testWildcardWithMultiItemsAtTheEnd [
 
 	| matcher expression |
 	expression := RBParser parseExpression:
@@ -210,7 +210,7 @@ MatcherCollectionTests >> testWieldcardWithMultiItemsAtTheEnd [
 ]
 
 { #category : #'tests - to be refined' }
-MatcherCollectionTests >> testWieldcardWithOneItemAtTheBegining [
+MatcherCollectionTests >> testWildcardWithOneItemAtTheBegining [
 
 	| matcher expression |
 	expression := RBParser parseExpression: 'a ifTrue:[1] ifFalse:2'.
@@ -229,7 +229,7 @@ MatcherCollectionTests >> testWieldcardWithOneItemAtTheBegining [
 ]
 
 { #category : #'tests - to be refined' }
-MatcherCollectionTests >> testWieldcardWithOneItemAtTheEnd [
+MatcherCollectionTests >> testWildcardWithOneItemAtTheEnd [
 
 	| matcher expression |
 	expression := RBParser parseExpression: 'a ifTrue:1 ifFalse:[2]'.
