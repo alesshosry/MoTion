@@ -27,6 +27,11 @@ MatcherWildcard >> alias: aString [
 	 alias := aString .
 ]
 
+{ #category : #accessors }
+MatcherWildcard >> isWildcard [ 
+	^ true
+]
+
 { #category : #'private-running' }
 MatcherWildcard >> match: aNewValue withContext: aMatchingContext [
 

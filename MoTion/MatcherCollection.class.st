@@ -13,8 +13,24 @@ MatcherCollection class >> of: aMatcherSequence [
 ]
 
 { #category : #matching }
+MatcherCollection >> hasListWildcards [
+
+	^ self listWildcardPositions isNotEmpty
+]
+
+{ #category : #matching }
 MatcherCollection >> isCollectionMatcher [
 	^ true
+]
+
+{ #category : #matching }
+MatcherCollection >> listWildcardPositions [
+
+	| positions |
+	positions := OrderedCollection new.
+	matcherSequence doWithIndex: [ :e :i | 
+		e isListWildcard ifTrue: [ positions add: i ] ].
+	^ positions
 ]
 
 { #category : #matching }

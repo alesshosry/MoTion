@@ -5,6 +5,26 @@ Class {
 }
 
 { #category : #'tests - to be refined' }
+MatcherCollectionTests >> testListWildcardDetection [
+
+	| matcher |
+	matcher := { 1. 2. #'*l1' } asMatcher.
+
+	self assert: matcher hasListWildcards.
+	self assert: (matcher listWildcardPositions at: 1) equals: 3.
+
+	matcher := { 1. 2. 3 } asMatcher.
+	self assert: matcher hasListWildcards not.
+	self assert: matcher listWildcardPositions isEmpty.
+
+	matcher := { 1. #'*l1'. 3. #'*l2' } asMatcher.
+	self assert: matcher hasListWildcards.
+	self
+		assertCollection: matcher listWildcardPositions
+		hasSameElements: { 2. 4 }
+]
+
+{ #category : #'tests - to be refined' }
 MatcherCollectionTests >> testMultiWildcardsAndMultiItemsComplex [
 
 	| matcher expression | 

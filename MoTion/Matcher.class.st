@@ -51,9 +51,19 @@ Matcher >> isCollectionMatcher [
 	^ false
 ]
 
+{ #category : #converting }
+Matcher >> isListWildcard [
+	^ false
+]
+
 { #category : #matching }
 Matcher >> isMooseMatcher [
 
+	^ false
+]
+
+{ #category : #converting }
+Matcher >> isWildcard [
 	^ false
 ]
 
