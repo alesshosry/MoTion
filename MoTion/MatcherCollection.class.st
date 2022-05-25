@@ -44,7 +44,7 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 	result := (matcherSequence collectWithIndex: [ :matcher :index | 
 		           | object |
 		           object := aCollection at: index.
-		           matcher match: object withContext: aMatchingContext ])
+		           matcher match: object withContext: aMatchingContext  ])
 		          flattened select: [ :context | context isMatch ].
 	result ifEmpty: [ aMatchingContext isMatch: false ].
 	^ { aMatchingContext }
