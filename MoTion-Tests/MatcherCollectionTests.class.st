@@ -7,21 +7,24 @@ Class {
 { #category : #'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardDetection [
 
-	| matcher |
-	matcher := { 1. 2. #'*l1' } asMatcher.
+	| matcher result |
+	matcher := { #'*l1'. 30. #'*l2' } asMatcher.
+	
+	result := matcher match: #(10 20 30 30 40 50).
+	
+	self assert: result isMatch.
+	self assert: result matchingContexts size equals: 2
+]
 
-	self assert: matcher hasListWildcards.
-	self assert: (matcher listWildcardPositions at: 1) equals: 3.
+{ #category : #'tests - to be refined' }
+MatcherCollectionTests >> testListWithoutWildcards [
 
-	matcher := { 1. 2. 3 } asMatcher.
-	self assert: matcher hasListWildcards not.
-	self assert: matcher listWildcardPositions isEmpty.
-
-	matcher := { 1. #'*l1'. 3. #'*l2' } asMatcher.
-	self assert: matcher hasListWildcards.
-	self
-		assertCollection: matcher listWildcardPositions
-		hasSameElements: { 2. 4 }
+	| matcher result |
+	matcher := { 30. #'*l2' } asMatcher.
+	
+	result := matcher match: #(10 20 30 30 40 50).
+	
+	self assert: result isMatch not
 ]
 
 { #category : #'tests - to be refined' }
