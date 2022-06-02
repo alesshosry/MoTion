@@ -85,32 +85,147 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 	].
 	contexts := { aMatchingContext copy }.
 	[ hasNext ] whileTrue: [ | pattern |
+	
+			"checking state of forward and cursors"
+			"1- If forward and cursors reach the maximum then a match is detected: new binding (subjects combination) should be added to bindings in MatchingContext"
+			
+			forward ifTrue: [
+				(patternCursor >= patternSize) ifTrue: [ 
+					(subjectCursor >= subjectSize) ifTrue: [ 
+							" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
+							"match is true: here we have to add the combination list to bindings" 
+							" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
+							self halt.
+						].
+					"here we have to go forward and decrement patternCursor"
+					forward := false.
+					patternCursor := patternCursor - 1.
+					].
+				]
+			ifFalse:[
+				(patternCursor >= patternSize) ifTrue: [ 
+					"decrement both when going back and patternCursor reached the patternSize"
+					patternCursor := patternCursor - 1.
+					subjectCursor := subjectCursor - 1.
+				]				
+			].
+			
+			"2- If one of the cursors is negative --> this means that no more combinations are available anymore. hasNext will be set to false and the  looping finishes"
+			
+			(patternCursor < 0 or: (subjectCursor <0)) ifTrue: [ 
+				hasNext := false.
+			].
+		
+			"Get pattern and start checking its type: literal or listWildcard"
 			pattern := matcherSequence at: patternCursor.
 			pattern isListWildcard ifFalse: [ | newContexts |
-				newContexts := contexts flatCollect: [ :c | pattern match: (aCollection at: subjectCursor) withContext: c ].
-				(newContexts anySatisfy: #isMatch) ifTrue: [ contexts := newContexts. 
-																		  patternCursor := patternCursor + 1.
-																		  subjectCursor := subjectCursor + 1.] 
-															 ifFalse: [ patternCursor := patternCursor - 1 ].			
-			]
+
+				"1- Check if going forward & patternCursor didn't reach full size"
+				(forward and: [(subjectCursor < subjectSize)] ) ifTrue: [
+					newContexts := contexts flatCollect: [ :c | pattern match: (aCollection at: subjectCursor) withContext: c ].
+					"2- Try to match by gettiong values based on patternCursor and subjectCursor"
+					
+					(newContexts anySatisfy: #isMatch) ifTrue: [ 
+																				"3- Increment when there is a match"
+																				contexts := newContexts. 
+																		  		patternCursor := patternCursor + 1.
+																		  		subjectCursor := subjectCursor + 1.																				
+																				] 
+															 		ifFalse: [ 
+																			"4- decrement patternCurso if no match and set forward to false to force going back"																
+																			patternCursor := patternCursor - 1. 
+																			forward := false.
+																		].		
+				
+					] ifFalse: [  
+						
+						(subjectCursor  < subjectSize ) ifTrue:[
+						
+						
+						newContexts := contexts flatCollect: [ :c | pattern match: (aCollection at: subjectCursor) withContext: c ].
+					 
+					
+							(newContexts anySatisfy: #isMatch) ifTrue: [ 			
+										contexts := newContexts. 
+										patternCursor := patternCursor + 1.
+										subjectCursor := subjectCursor + 1.		
+										forward := true.																		
+							]
+					 
+							
+						] ifFalse:[
+							patternCursor := patternCursor - 1. 
+							subjectCursor := subjectCursor - 1.		
+							forward := false.
+						].
+					].
+												
+			] 
 			ifTrue: [ | start min max length subjects |
-				patternSize = patternCursor ifTrue: [ lvLenghts at: patternCursor put: (subjectSize - subjectCursor) ]
-													ifFalse: [ lvLenghts at: patternCursor put: (lvLenghts at: patternCursor) + 1 ].
+				
+				"Set values of start min max ... before start using them"
+				
+				forward ifTrue:[
+					"start = subjectCursor "
+					lvStarts at: patternCursor put: subjectCursor.
+					
+					"length of subjects to retrieve from original subjects list to match is:"
+					
+					(patternCursor = patternCursor) ifTrue: [  
+						"if patternCursor is on last element then length = subjectSize - subjectCursor"
+						lvLenghts at:patternCursor put: (subjectSize - subjectCursor).
+					]
+					ifFalse: [  
+						"if not last, then length is = min length;"
+						lvLenghts at:patternCursor put: (lvMinLengths at: patternCursor).						
+					].				
+				]
+				ifFalse: [ 
+					"if not forward, set forward to True and increment"
+					lvLenghts at:patternCursor put: (lvLenghts at:patternCursor).
+				].
+			
 				
 				length := lvLenghts at: patternCursor.
 				start := lvStarts at: patternCursor.
 				min := lvMinLengths at: patternCursor.
 				max := lvMaxLengths at: patternCursor.
-				subjects := aCollection copyFrom: start to: length.
-				contexts := contexts flatCollect: [ :c | pattern match: subjects withContext: c ].
 				
-				lvStarts at: patternCursor put: (start + 1).
-				self halt.
-				patternCursor := patternCursor + 1.
-				subjectCursor := start + length .
+				(length > max or: ((start + length) >= (subjectSize + delta))) ifTrue:[
+						"length failure --> this means we have to go back again."
+						subjectCursor := start.
+						forward := false.
+						lvLenghts at: patternCursor = 0.
+						
+						"decrement pattern Cursor"
+						patternCursor := patternCursor - 1.
+					]
+				ifFalse: [ 					
+					"here we try to get subjects based on start and length"
+					subjects := aCollection copyFrom: start to: length.
+					contexts := contexts flatCollect: [ :c | pattern match: subjects withContext: c ].
+				
+					
+					
+					(contexts anySatisfy: #isMatch) ifTrue: [ 
+																			"on match success: increment subject cursor"
+																			patternCursor := patternCursor + 1.
+																			subjectCursor := start + length .																		
+																	] 
+															 		ifFalse: [ 
+																			"on match failure: go back; reset length and decrement patternCursor."
+																			forward := false.
+																			lvLenghts at: patternCursor = 0.
+																			patternCursor := patternCursor - 1. 
+																		].		
+					
+					
+					
+					
+					" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
+				].				
 			].
-		
-	].
+		].
 
 	^ {  }
 	
