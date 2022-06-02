@@ -5,15 +5,38 @@ Class {
 }
 
 { #category : #'tests - to be refined' }
+MatcherCollectionTests >> testListWildcardDetection [
+
+	| matcher result |
+	matcher := { #'*l1'. 30. #'*l2' } asMatcher.
+	
+	result := matcher match: #(10 20 30 30 40 50).
+	
+	self assert: result isMatch.
+	self assert: result matchingContexts size equals: 2
+]
+
+{ #category : #'tests - to be refined' }
+MatcherCollectionTests >> testListWithoutWildcards [
+
+	| matcher result |
+	matcher := { 30. #'*l2' } asMatcher.
+	
+	result := matcher match: #(10 20 30 30 40 50).
+	
+	self assert: result isMatch not
+]
+
+{ #category : #'tests - to be refined' }
 MatcherCollectionTests >> testMultiWildcardsAndMultiItemsComplex [
 
 	| matcher expression | 
 	expression := RBParser parseExpression: 'self ifTrue: [1] ifFalse: 2'.
 	matcher := RBMessageNode % { 
 		           (#'receiver>name' -> #self).
-		           (#'selector>value' -> #'ifTrue:ifFalse').
+		           (#'selector>value' -> #'ifTrue:ifFalse:').
 		           (#arguments -> { 
-			            #'@something' })
+			            #'@something'. #'@somethingElse' })
 					}.
 
 	self assert: (matcher match: expression) isMatch. 
@@ -24,31 +47,26 @@ MatcherCollectionTests >> testMultiWildcardsAndMultiItemsComplex [
 { #category : #'tests - to be refined' }
 MatcherCollectionTests >> testSameWildcards [
 
-	| matcher expression | 
-	expression := RBParser parseExpression: 'a ifTrue: 1 ifFalse: [2]. b ifTrue: 1 ifFalse: [4]. '.
+	| matcher expression result |
+	expression := RBParser parseExpression:
+		              'a ifTrue: 1 ifFalse: [2]. b ifTrue: 1 ifFalse: [4]. '.
 
-	matcher :=  RBSequenceNode % { 	 				
-						RBMessageNode % { 
-		           		(#'receiver>name' -> #a).
-		           		(#'selector>value' -> #'ifTrue:ifFalse').
-		           		(#arguments -> { 
-								#'@something'.
-			            		(RBBlockNode % { (#'statements>value' -> 2) }). 
-								}
-							)
-						}.
-						RBMessageNode % { 
-		           		(#'receiver>name' -> #a).
-		           		(#'selector>value' -> #'ifTrue:ifFalse').
-		           		(#arguments -> { 
-								#'@something'.
-			            		(RBBlockNode % { (#'statements>value' -> 4) }). 
-								}
-							)
-						}.					
-					}.
-					
-	self assert: (matcher match: expression) isMatch.
+	matcher := RBSequenceNode % { (#statements -> { 
+		            (RBMessageNode % { 
+			             (#'receiver>name' -> #a).
+			             (#'selector>value' -> #ifTrue:ifFalse:).
+			             (#arguments -> { 
+				              #'@something'.
+				              (RBBlockNode % { (#'statements>value' -> 2) }) }) }).
+		            (RBMessageNode % { 
+			             (#'receiver>name' -> #b).
+			             (#'selector>value' -> #ifTrue:ifFalse:).
+			             (#arguments -> { 
+				              #'@something'.
+				              (RBBlockNode % { (#'statements>value' -> 4) }) }) }) }) }.
+
+	result := matcher match: expression.
+	self assert: result isMatch.
 	self
 		assertCollection:
 		(matcher collectBinding: #something for: expression)
@@ -185,15 +203,14 @@ MatcherCollectionTests >> testWildcardSameAsItem [
 MatcherCollectionTests >> testWildcardWithMultiItemsAtTheBegining [
 
 	| matcher expression |
-	expression := RBParser parseExpression: 'a asStringOn: aStream delimiter: delimString last: lastDelimString'.
-	matcher := RBMessageNode % { (#arguments -> { 		            
-		            (RBVariableNode 
-		             %
-		             { (#value -> 'aStream' ) }).
-		 				#'@something'
-			}) }.
+	expression := RBParser parseExpression:
+		              'a asStringOn: aStream delimiter: delimString last: lastDelimString'.
+	matcher := RBMessageNode % { (#arguments -> { 
+		            (RBVariableNode % { (#value -> 'aStream') }).
+		            #'@something'.
+		            #'@somethingElse' }) }.
 
-	self assert: (matcher match: expression) isMatch. 
+	self assert: (matcher match: expression) isMatch
 ]
 
 { #category : #'tests - to be refined' }
@@ -204,6 +221,7 @@ MatcherCollectionTests >> testWildcardWithMultiItemsAtTheEnd [
 		              'a asStringOn: aStream delimiter: delimString last: lastDelimString'.
 	matcher := RBMessageNode % { (#arguments -> { 
 						#'@something'.
+						#'@somethingElse'.
 		            (RBVariableNode % { (#value -> 'lastDelimString') }) }) }.
 
 	self assert: (matcher match: expression) isMatch
