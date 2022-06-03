@@ -85,13 +85,14 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 	].
 	contexts := { aMatchingContext copy }.
 	[ hasNext ] whileTrue: [ | pattern |
-	
+	 
+			self halt.
 			"checking state of forward and cursors"
 			"1- If forward and cursors reach the maximum then a match is detected: new binding (subjects combination) should be added to bindings in MatchingContext"
 			
 			forward ifTrue: [
-				(patternCursor >= patternSize) ifTrue: [ 
-					(subjectCursor >= subjectSize) ifTrue: [ 
+				(patternCursor > patternSize) ifTrue: [ 
+					(subjectCursor > subjectSize) ifTrue: [ 
 							" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
 							"match is true: here we have to add the combination list to bindings" 
 							" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
@@ -171,7 +172,7 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 					
 					"length of subjects to retrieve from original subjects list to match is:"
 					
-					(patternCursor = patternCursor) ifTrue: [  
+					(patternCursor = patternSize) ifTrue: [  
 						"if patternCursor is on last element then length = subjectSize - subjectCursor"
 						lvLenghts at:patternCursor put: (subjectSize - subjectCursor).
 					]
@@ -182,7 +183,8 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 				]
 				ifFalse: [ 
 					"if not forward, set forward to True and increment"
-					lvLenghts at:patternCursor put: (lvLenghts at:patternCursor).
+					lvLenghts at:patternCursor put: ((lvLenghts at:patternCursor) + 1).
+					forward := true.
 				].
 			
 				
@@ -190,23 +192,22 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 				start := lvStarts at: patternCursor.
 				min := lvMinLengths at: patternCursor.
 				max := lvMaxLengths at: patternCursor.
-				
-				(length > max or: ((start + length) >= (subjectSize + delta))) ifTrue:[
+				 
+				(length > max or: ((start - 1 + length ) >= (subjectSize + 1))) ifTrue:[
 						"length failure --> this means we have to go back again."
+						
 						subjectCursor := start.
 						forward := false.
-						lvLenghts at: patternCursor = 0.
+						lvLenghts at: patternCursor put: 0.
 						
 						"decrement pattern Cursor"
 						patternCursor := patternCursor - 1.
 					]
 				ifFalse: [ 					
 					"here we try to get subjects based on start and length"
-					subjects := aCollection copyFrom: start to: length.
+					subjects := aCollection copyFrom: start to: (start + length -1 ).
 					contexts := contexts flatCollect: [ :c | pattern match: subjects withContext: c ].
-				
-					
-					
+				 
 					(contexts anySatisfy: #isMatch) ifTrue: [ 
 																			"on match success: increment subject cursor"
 																			patternCursor := patternCursor + 1.
@@ -215,14 +216,10 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 															 		ifFalse: [ 
 																			"on match failure: go back; reset length and decrement patternCursor."
 																			forward := false.
-																			lvLenghts at: patternCursor = 0.
+																			lvLenghts at: patternCursor put: 0.
 																			patternCursor := patternCursor - 1. 
 																		].		
-					
-					
-					
-					
-					" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
+					 
 				].				
 			].
 		].
