@@ -19,6 +19,20 @@ MatcherCollection >> hasListWildcards [
 ]
 
 { #category : #matching }
+MatcherCollection >> initializeCursor: aMotionCursor withCollection: aCollection [
+
+	aMotionCursor subjectSize: aCollection size.
+	aMotionCursor patternSize: matcherSequence size.
+	aMotionCursor lvStarts: (Array new: aMotionCursor patternSize). 
+	aMotionCursor lvLengths: (Array new: aMotionCursor patternSize).
+	aMotionCursor lvMinLengths: (Array new: aMotionCursor patternSize).
+	aMotionCursor lvMaxLengths: (Array new: aMotionCursor patternSize).
+	aMotionCursor subjectCursor: 1.
+	aMotionCursor patternCursor: 1.
+	aMotionCursor numberOfNonListWildcards: aMotionCursor patternSize - self listWildcardPositions size.
+]
+
+{ #category : #matching }
 MatcherCollection >> isCollectionMatcher [
 	^ true
 ]
@@ -53,111 +67,87 @@ MatcherCollection >> match2: aCollection withContext: aMatchingContext [
 { #category : #matching }
 MatcherCollection >> match: aCollection withContext: aMatchingContext [
 
-	| subjectCursor patternCursor subjectSize patternSize lvStarts lvLenghts lvMinLengths lvMaxLengths delta numberOfNonListWildcard reducedPatternSize reducedSubjectSize hasNext forward contexts |
-	
-	hasNext := true.
-	forward := true.
-	
-	subjectSize := aCollection size.
-	patternSize := matcherSequence size.
-	lvStarts := Array new: patternSize.
-	lvLenghts := Array new: patternSize.
-	lvMinLengths := Array new: patternSize.
-	lvMaxLengths := Array new: patternSize.
-	
-	reducedPatternSize := patternSize.
-	reducedSubjectSize := subjectSize.
-	
-	subjectCursor := 1.
-	patternCursor := 1.
-	
-	delta := 1.
-	
-	numberOfNonListWildcard := patternSize - self listWildcardPositions size.
-	
-	1 to: patternSize do: [ :i  | 
-		(matcherSequence at: i)	isListWildcard ifTrue: [  
-			lvMinLengths at: i put: 0.
-			lvMaxLengths at: i put: (subjectSize - numberOfNonListWildcard).
-			lvStarts at: i put: 1.
-			lvLenghts at: i put: 0.
-		].	
-	].
-	contexts := { aMatchingContext copy }.
-	[ hasNext ] whileTrue: [ | pattern |
+	| contexts motionCursor |
 	 
-			self halt.
+	motionCursor := MotionCursor new. 
+	self initializeCursor: motionCursor withCollection: aCollection.
+	self setCursorLengths: motionCursor.
+	
+	contexts := { aMatchingContext copy }.
+	[ motionCursor hasNext ] whileTrue: [ | pattern |
+	  
 			"checking state of forward and cursors"
 			"1- If forward and cursors reach the maximum then a match is detected: new binding (subjects combination) should be added to bindings in MatchingContext"
 			
-			forward ifTrue: [
-				(patternCursor > patternSize) ifTrue: [ 
-					(subjectCursor > subjectSize) ifTrue: [ 
+			motionCursor forward ifTrue: [
+				(motionCursor patternCursor > motionCursor patternSize) ifTrue: [ 
+					(motionCursor subjectCursor > motionCursor subjectSize) ifTrue: [ 
 							" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
 							"match is true: here we have to add the combination list to bindings" 
 							" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
-							self halt.
+							 self halt. 
 						].
 					"here we have to go forward and decrement patternCursor"
-					forward := false.
-					patternCursor := patternCursor - 1.
+					motionCursor forward: false.
+					motionCursor patternCursor: motionCursor patternCursor - 1.
 					].
 				]
 			ifFalse:[
-				(patternCursor >= patternSize) ifTrue: [ 
+				(motionCursor patternCursor >= motionCursor patternSize) ifTrue: [ 
 					"decrement both when going back and patternCursor reached the patternSize"
-					patternCursor := patternCursor - 1.
-					subjectCursor := subjectCursor - 1.
-				]				
+					motionCursor patternCursor: motionCursor patternCursor - 1.
+					motionCursor subjectCursor: motionCursor subjectCursor - 1.
+				]					
 			].
 			
 			"2- If one of the cursors is negative --> this means that no more combinations are available anymore. hasNext will be set to false and the  looping finishes"
 			
-			(patternCursor < 0 or: (subjectCursor <0)) ifTrue: [ 
-				hasNext := false.
+			(motionCursor patternCursor < 0 or: (motionCursor subjectCursor <0)) ifTrue: [ 
+				motionCursor hasNext: false.
+			
 			].
 		
 			"Get pattern and start checking its type: literal or listWildcard"
-			pattern := matcherSequence at: patternCursor.
+			pattern := matcherSequence at: motionCursor patternCursor.
 			pattern isListWildcard ifFalse: [ | newContexts |
 
 				"1- Check if going forward & patternCursor didn't reach full size"
-				(forward and: [(subjectCursor < subjectSize)] ) ifTrue: [
-					newContexts := contexts flatCollect: [ :c | pattern match: (aCollection at: subjectCursor) withContext: c ].
+				(motionCursor forward and: [(motionCursor subjectCursor < motionCursor subjectSize)] ) ifTrue: [
+					newContexts := contexts flatCollect: [ :c | pattern match: (aCollection at: motionCursor subjectCursor) withContext: c ].
 					"2- Try to match by gettiong values based on patternCursor and subjectCursor"
 					
 					(newContexts anySatisfy: #isMatch) ifTrue: [ 
 																				"3- Increment when there is a match"
 																				contexts := newContexts. 
-																		  		patternCursor := patternCursor + 1.
-																		  		subjectCursor := subjectCursor + 1.																				
+																		  		motionCursor patternCursor: motionCursor patternCursor + 1.
+																		  		motionCursor subjectCursor: motionCursor subjectCursor + 1.																				
 																				] 
 															 		ifFalse: [ 
 																			"4- decrement patternCurso if no match and set forward to false to force going back"																
-																			patternCursor := patternCursor - 1. 
-																			forward := false.
+																			motionCursor patternCursor: motionCursor patternCursor - 1. 
+																			motionCursor forward: false.
 																		].		
 				
 					] ifFalse: [  
 						
-						(subjectCursor  < subjectSize ) ifTrue:[
+						(motionCursor subjectCursor  < motionCursor subjectSize ) ifTrue:[
 						
 						
-						newContexts := contexts flatCollect: [ :c | pattern match: (aCollection at: subjectCursor) withContext: c ].
+						newContexts := contexts flatCollect: [ :c | pattern match: (aCollection at: motionCursor subjectCursor) withContext: c ].
 					 
 					
 							(newContexts anySatisfy: #isMatch) ifTrue: [ 			
 										contexts := newContexts. 
-										patternCursor := patternCursor + 1.
-										subjectCursor := subjectCursor + 1.		
-										forward := true.																		
+										motionCursor patternCursor: motionCursor patternCursor + 1.
+										motionCursor subjectCursor: motionCursor subjectCursor + 1.		
+										motionCursor forward: true.																		
 							]
 					 
 							
 						] ifFalse:[
-							patternCursor := patternCursor - 1. 
-							subjectCursor := subjectCursor - 1.		
-							forward := false.
+							motionCursor patternCursor: motionCursor patternCursor - 1. 
+							motionCursor subjectCursor: motionCursor subjectCursor - 1.		
+							motionCursor forward: false.
 						].
 					].
 												
@@ -166,42 +156,42 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 				
 				"Set values of start min max ... before start using them"
 				
-				forward ifTrue:[
+				motionCursor forward ifTrue:[
 					"start = subjectCursor "
-					lvStarts at: patternCursor put: subjectCursor.
+					motionCursor lvStarts at: motionCursor patternCursor put: motionCursor subjectCursor.
 					
 					"length of subjects to retrieve from original subjects list to match is:"
 					
-					(patternCursor = patternSize) ifTrue: [  
+					(motionCursor patternCursor = motionCursor patternSize) ifTrue: [  
 						"if patternCursor is on last element then length = subjectSize - subjectCursor"
-						lvLenghts at:patternCursor put: (subjectSize - subjectCursor).
+						motionCursor lvLengths at:motionCursor patternCursor put: (motionCursor subjectSize - (motionCursor subjectCursor - 1)).
 					]
 					ifFalse: [  
 						"if not last, then length is = min length;"
-						lvLenghts at:patternCursor put: (lvMinLengths at: patternCursor).						
+						motionCursor lvLengths at:motionCursor patternCursor put: (motionCursor lvMinLengths at: motionCursor patternCursor).						
 					].				
 				]
 				ifFalse: [ 
 					"if not forward, set forward to True and increment"
-					lvLenghts at:patternCursor put: ((lvLenghts at:patternCursor) + 1).
-					forward := true.
+					motionCursor lvLengths at:motionCursor patternCursor put: ((motionCursor lvLengths at:motionCursor patternCursor) + 1).
+					motionCursor forward: true.
 				].
 			
 				
-				length := lvLenghts at: patternCursor.
-				start := lvStarts at: patternCursor.
-				min := lvMinLengths at: patternCursor.
-				max := lvMaxLengths at: patternCursor.
+				length := motionCursor lvLengths at: motionCursor patternCursor.
+				start := motionCursor lvStarts at: motionCursor patternCursor.
+				min := motionCursor lvMinLengths at: motionCursor patternCursor.
+				max := motionCursor lvMaxLengths at: motionCursor patternCursor.
 				 
-				(length > max or: ((start - 1 + length ) >= (subjectSize + 1))) ifTrue:[
+				(length > max or: ((start - 1 + length ) >= (motionCursor subjectSize + 1))) ifTrue:[
 						"length failure --> this means we have to go back again."
 						
-						subjectCursor := start.
-						forward := false.
-						lvLenghts at: patternCursor put: 0.
+						motionCursor subjectCursor: start.
+						motionCursor forward: false.
+						motionCursor lvLengths at: motionCursor patternCursor put: 0.
 						
 						"decrement pattern Cursor"
-						patternCursor := patternCursor - 1.
+						motionCursor patternCursor: motionCursor patternCursor - 1.
 					]
 				ifFalse: [ 					
 					"here we try to get subjects based on start and length"
@@ -210,14 +200,14 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 				 
 					(contexts anySatisfy: #isMatch) ifTrue: [ 
 																			"on match success: increment subject cursor"
-																			patternCursor := patternCursor + 1.
-																			subjectCursor := start + length .																		
+																			motionCursor patternCursor: motionCursor patternCursor + 1.
+																			motionCursor subjectCursor: start + length .																		
 																	] 
 															 		ifFalse: [ 
 																			"on match failure: go back; reset length and decrement patternCursor."
-																			forward := false.
-																			lvLenghts at: patternCursor put: 0.
-																			patternCursor := patternCursor - 1. 
+																			motionCursor forward: false.
+																			motionCursor lvLengths at: motionCursor patternCursor put: 0.
+																			motionCursor patternCursor: motionCursor patternCursor - 1. 
 																		].		
 					 
 				].				
@@ -249,4 +239,17 @@ MatcherCollection >> matchbak: aCollection withContext: aMatchingContext [
 MatcherCollection >> matcherSequence: aSequence [
 
 	matcherSequence := aSequence
+]
+
+{ #category : #initialization }
+MatcherCollection >> setCursorLengths: aMotionCursor [
+ 
+	1 to: aMotionCursor patternSize do: [ :i  | 
+		(matcherSequence at: i)	isListWildcard ifTrue: [  
+			aMotionCursor lvMinLengths at: i put: 0.
+			aMotionCursor lvMaxLengths at: i put: (aMotionCursor subjectSize - aMotionCursor numberOfNonListWildcards).
+			aMotionCursor lvStarts at: i put: 1.
+			aMotionCursor lvLengths at: i put: 0.
+		].	
+	].
 ]
