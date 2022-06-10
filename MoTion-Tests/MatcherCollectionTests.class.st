@@ -17,6 +17,18 @@ MatcherCollectionTests >> testListWildcardDetection [
 ]
 
 { #category : #'tests - to be refined' }
+MatcherCollectionTests >> testListWildcardsOnly [
+
+	| matcher result |
+	matcher := { #'*l1'. #'*l2' } asMatcher.
+	
+	result := matcher match: #(10 20 30 30 40 50).
+	
+	self assert: result isMatch.
+	self assert: result matchingContexts size equals: 2
+]
+
+{ #category : #'tests - to be refined' }
 MatcherCollectionTests >> testListWithoutWildcards [
 
 	| matcher result |
