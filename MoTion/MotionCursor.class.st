@@ -7,6 +7,7 @@ Class {
 		'patternCursor',
 		'patternSize',
 		'hasNext',
+		'combinationNotFound',
 		'forward',
 		'lvStarts',
 		'lvLengths',
@@ -16,6 +17,18 @@ Class {
 	],
 	#category : #'MoTion-paths'
 }
+
+{ #category : #accessing }
+MotionCursor >> combinationNotFound [
+
+	^ combinationNotFound
+]
+
+{ #category : #accessing }
+MotionCursor >> combinationNotFound: anObject [
+
+	combinationNotFound := anObject
+]
 
 { #category : #accessing }
 MotionCursor >> forward [
