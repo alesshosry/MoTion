@@ -13,6 +13,7 @@ Class {
 MatcherBlockTest >> testBlockCreation [
 
 	| matcher |
-	matcher := MatcherBlock of: [ :myVal |  myVal + 1 ].	 
-	self assert: matcher block  equals: [ :myVal |  myVal + 1 ]. 
+	b := [ :myVal |  myVal + 1 ].
+	matcher := MatcherBlock of: b.	 
+	self assert: matcher block  equals: b. 
 ]
