@@ -5,6 +5,17 @@ Class {
 }
 
 { #category : #'tests - to be refined' }
+MatcherCollectionTests >> testListPatternAtBeginning [
+
+	| matcher result |
+	matcher := { 30. #'*l2' } asMatcher.
+	
+	result := matcher match: #(10 20 30 30 40 50).
+	
+	self assert: result isMatch not
+]
+
+{ #category : #'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardDetection [
 
 	| matcher result |
@@ -17,6 +28,51 @@ MatcherCollectionTests >> testListWildcardDetection [
 ]
 
 { #category : #'tests - to be refined' }
+MatcherCollectionTests >> testListWildcardWithInnerMatcher [
+
+	| matcher result a1|
+	matcher := { 
+		#'*l1'. 
+		#'@x'. 
+		MTTestObjectA % { 
+			#lint -> #'@y' .
+			"#'_*' -> MTTestObjectA % { 
+				#lint -> #'@x'.
+			} as: #z."
+		}  
+	} asMatcher.
+	
+	a1 := MTTestObjectA new lint: 5; yourself.
+	a1 lst add: (MTTestObjectA new lint: 6; yourself).
+	a1 lst add: (MTTestObjectA new lint: 6; yourself).
+		
+	result := matcher match: {1. 6. a1}. 
+	self assert: result isMatch.
+	self assert: result matchingContexts size equals: 2
+
+]
+
+{ #category : #'tests - to be refined' }
+MatcherCollectionTests >> testListWildcardWithInnerMatcher2 [
+
+	| matcher result a1|
+	matcher := { 
+		#'*l1'.
+		#'@x'.
+		#'*l2'.
+	} asMatcher.
+	
+	a1 := MTTestObjectA new lint: 5; yourself.
+	a1 lst add: (MTTestObjectA new lint: 6; yourself).
+	a1 lst add: (MTTestObjectA new lint: 6; yourself).
+		
+	result := matcher match: #(1 6 7). 
+	self assert: result isMatch.
+	self assert: result matchingContexts size equals: 2
+
+]
+
+{ #category : #'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardsOnly [
 
 	| matcher result |
@@ -24,19 +80,8 @@ MatcherCollectionTests >> testListWildcardsOnly [
 	
 	result := matcher match: #(10 20 30 30 40 50).
 	
-	self assert: result isMatch.
-	self assert: result matchingContexts size equals: 2
-]
-
-{ #category : #'tests - to be refined' }
-MatcherCollectionTests >> testListWithoutWildcards [
-
-	| matcher result |
-	matcher := { 30. #'*l2' } asMatcher.
-	
-	result := matcher match: #(10 20 30 30 40 50).
-	
-	self assert: result isMatch not
+	self assert: result isMatch.  
+	self assert: result matchingContexts size equals: 7
 ]
 
 { #category : #'tests - to be refined' }
