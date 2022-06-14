@@ -12,6 +12,11 @@ MatcherListWildcard >> isListWildcard [
 { #category : #testing }
 MatcherListWildcard >> match: aNewValue withContext: aMatchingContext [
 
-	aMatchingContext isMatch: true.
+	| aResult | 
+	aResult := aMatchingContext bindings at: alias ifAbsentPut: [ 
+		           aMatchingContext isMatch: true.
+		           aNewValue ].
+	aMatchingContext isMatch: aResult = aNewValue.
+
 	^ { aMatchingContext }
 ]
