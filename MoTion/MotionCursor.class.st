@@ -13,10 +13,23 @@ Class {
 		'lvLengths',
 		'lvMinLengths',
 		'lvMaxLengths',
-		'numberOfNonListWildcards'
+		'numberOfNonListWildcards',
+		'aMatchingContextCombination'
 	],
 	#category : #'MoTion-paths'
 }
+
+{ #category : #accessing }
+MotionCursor >> aMatchingContextCombination [
+
+	^ aMatchingContextCombination
+]
+
+{ #category : #accessing }
+MotionCursor >> aMatchingContextCombination: anObject [
+
+	aMatchingContextCombination := anObject
+]
 
 { #category : #accessing }
 MotionCursor >> combinationNotFound [
