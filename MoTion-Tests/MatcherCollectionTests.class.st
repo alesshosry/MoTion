@@ -55,20 +55,31 @@ MatcherCollectionTests >> testListWildcardWithInnerMatcher [
 { #category : #'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardWithInnerMatcher2 [
 
-	| matcher result a1|
+	| matcher result |
 	matcher := { 
 		#'*l1'.
 		#'@x'.
-		#'*l2'.
 	} asMatcher.
-	
-	a1 := MTTestObjectA new lint: 5; yourself.
-	a1 lst add: (MTTestObjectA new lint: 6; yourself).
-	a1 lst add: (MTTestObjectA new lint: 6; yourself).
 		
 	result := matcher match: #(1 6 7). 
 	self assert: result isMatch.
-	self assert: result matchingContexts size equals: 2
+	self assert: result matchingContexts size equals: 1
+
+]
+
+{ #category : #'tests - to be refined' }
+MatcherCollectionTests >> testListWildcardWithInnerMatcher3 [
+
+	| matcher result |
+	matcher := { 
+		#'*l1'.
+		#'@x'.
+		4.
+	} asMatcher.
+		
+	result := matcher match: #(1 6 4). 
+	self assert: result isMatch.
+	self assert: result matchingContexts size equals: 1
 
 ]
 
