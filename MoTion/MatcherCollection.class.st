@@ -124,19 +124,25 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 		motionCursor combinationNotFound: true.
 		motionCursor aMatchingContextCombination: MatchingContext new.  
 		 
+		
+		(firstMatch not and: [ motionCursor patternCursor < motionCursor patternSize ] ) ifTrue: [
+			motionCursor clearContextsForCurrentPattern. 
+		].
+		
 		[ motionCursor combinationNotFound and: (motionCursor hasNext) ] whileTrue: [  
 			"here we are looping until there are no combinations found. 
 			results can contains false and true matchingContexts; true macthingContexts will be filtered when isMatch is called only." 	
 			(self matchNext: aCollection withCursor: motionCursor withContexts: motionCursor getContextForCurrentPattern originalContext: aMatchingContext).  
 		].
 	"here there should be a solution in the last cursor thingy"
-	(motionCursor hasNext) ifTrue: [  
+	(motionCursor combinationNotFound) ifFalse: [  
 		self halt.
 	].
 	
 	
 	].
 
+	self halt.
 	^ results asArray 
 	
 ]
@@ -489,14 +495,13 @@ contexts := matchContexts deepCopy .
 				(aMotionCursor patternCursor > aMotionCursor patternSize) ifTrue: [ 
 					(aMotionCursor subjectCursor > aMotionCursor subjectSize) ifTrue: [ 		 
 							aMotionCursor combinationNotFound: false. 
-							"!! here a full combination of matches is found."	  
+							"!! here a full combination of matches is found."	 
 							^ contexts.
 						].
 					"here we have cannot go forward anymore as patternCursor reached the max but without matching all subjects, which is why we decrement patternCursor"
 					aMotionCursor forward: false.
 					
 					aMotionCursor patternCursor: aMotionCursor patternCursor - 1.
-					"aMotionCursor clearContextsForCurrentPattern."
 					].
 				]
 			ifFalse:[
@@ -505,7 +510,6 @@ contexts := matchContexts deepCopy .
 					
 					aMotionCursor patternCursor: aMotionCursor patternCursor - 1.
 					aMotionCursor subjectCursor: aMotionCursor subjectCursor - 1.
-					"aMotionCursor clearContextsForCurrentPattern."
 				]					
 			]. 
 		
@@ -545,7 +549,6 @@ contexts := matchContexts deepCopy .
 										
 										aMotionCursor patternCursor: aMotionCursor patternCursor - 1. 
 										aMotionCursor forward: false.
-										"aMotionCursor clearContextsForCurrentPattern."
 									].		
 				
 					] ifFalse: [   
@@ -569,7 +572,6 @@ contexts := matchContexts deepCopy .
 								aMotionCursor patternCursor: aMotionCursor patternCursor - 1. 
 								aMotionCursor subjectCursor: aMotionCursor subjectCursor - 1.
 								aMotionCursor forward: false.
-								"aMotionCursor clearContextsForCurrentPattern."
 							].
 											  
 						] ifFalse:[ 
@@ -577,7 +579,6 @@ contexts := matchContexts deepCopy .
 							aMotionCursor patternCursor: aMotionCursor patternCursor - 1. 
 							aMotionCursor subjectCursor: aMotionCursor subjectCursor - 1.		
 							aMotionCursor forward: false.
-							"aMotionCursor clearContextsForCurrentPattern."
 						].
 					].
 												
@@ -621,7 +622,6 @@ contexts := matchContexts deepCopy .
 						
 						"decrement pattern Cursor"
 						aMotionCursor patternCursor: aMotionCursor patternCursor - 1.
-						"aMotionCursor clearContextsForCurrentPattern."
 					]
 				ifFalse: [ 					
 					"here we try to get subjects based on start and length"
@@ -641,8 +641,6 @@ contexts := matchContexts deepCopy .
 																			aMotionCursor forward: false.
 																			aMotionCursor lvLengths at: aMotionCursor patternCursor put: 0.
 																			aMotionCursor patternCursor: aMotionCursor patternCursor - 1. 
-																			
-																			"aMotionCursor clearContextsForCurrentPattern."
 																		].		
 					 
 				].				
