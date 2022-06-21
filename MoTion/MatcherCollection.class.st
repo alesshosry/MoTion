@@ -82,23 +82,6 @@ MatcherCollection >> listWildcardPositions [
 ]
 
 { #category : #matching }
-MatcherCollection >> match2: aCollection withContext: aMatchingContext [
-
-	| result |
-	self flag: 'lazy algo, need to work with an automata instead'.
-	aCollection size = matcherSequence size ifFalse: [ 
-		aMatchingContext isMatch: false.
-		^ { aMatchingContext } ].
-	result := (matcherSequence collectWithIndex: [ :matcher :index | 
-		           | object |
-		           object := aCollection at: index.
-		           matcher match: object withContext: aMatchingContext  ])
-		          flattened select: [ :context | context isMatch ].
-	result ifEmpty: [ aMatchingContext isMatch: false ].
-	^ { aMatchingContext }
-]
-
-{ #category : #matching }
 MatcherCollection >> match: aCollection withContext: aMatchingContext [
 
 	|  motionCursor  firstMatch results|
@@ -137,6 +120,7 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 	"here there should be a solution in the last cursor thingy"
 	(motionCursor combinationNotFound) ifFalse: [  
 		self halt.
+		results addAll: motionCursor getContextForCurrentPattern.
 	].
 	
 	
@@ -500,8 +484,8 @@ contexts := matchContexts deepCopy .
 						].
 					"here we have cannot go forward anymore as patternCursor reached the max but without matching all subjects, which is why we decrement patternCursor"
 					aMotionCursor forward: false.
-					
 					aMotionCursor patternCursor: aMotionCursor patternCursor - 1.
+					aMotionCursor clearContextsForCurrentPattern.
 					].
 				]
 			ifFalse:[
@@ -539,6 +523,7 @@ contexts := matchContexts deepCopy .
 										aMotionCursor setHasNextForCurrentPattern.
 										contexts := newContexts select: #isMatch. 
 										aMotionCursor addContextToPattern: contexts.
+										self halt.
 										aMotionCursor patternCursor: aMotionCursor patternCursor + 1.
 										aMotionCursor subjectCursor: aMotionCursor subjectCursor + 1.		
 																										
@@ -549,6 +534,7 @@ contexts := matchContexts deepCopy .
 										
 										aMotionCursor patternCursor: aMotionCursor patternCursor - 1. 
 										aMotionCursor forward: false.
+										aMotionCursor clearContextsForCurrentPattern.
 									].		
 				
 					] ifFalse: [   
@@ -561,6 +547,7 @@ contexts := matchContexts deepCopy .
 										aMotionCursor resetHasNextForCurrentPattern.
 										"increment everything"
 										aMotionCursor addContextToPattern: contexts.
+										self halt.
 										aMotionCursor patternCursor: aMotionCursor patternCursor + 1.
 										aMotionCursor subjectCursor: aMotionCursor subjectCursor + 1.		
 										aMotionCursor forward: true.																		
@@ -604,6 +591,7 @@ contexts := matchContexts deepCopy .
 					"if not forward, set forward to True and increment"
 					aMotionCursor lvLengths at:aMotionCursor patternCursor put: ((aMotionCursor lvLengths at:aMotionCursor patternCursor) + 1).
 					aMotionCursor forward: true.
+					aMotionCursor clearContextsForCurrentPattern.
 				].
 			 
 			
@@ -632,7 +620,7 @@ contexts := matchContexts deepCopy .
 																			"on match success: increment subject cursor and get bindings as we are in wildcard case" 
 																			contexts := contexts select: #isMatch.  
 																			aMotionCursor addContextToPattern: contexts.
-																			 
+																			self halt.
 																			aMotionCursor patternCursor: aMotionCursor patternCursor + 1.
 																			aMotionCursor subjectCursor: start + length.															
 																	] 
