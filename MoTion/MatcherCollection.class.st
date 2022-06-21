@@ -84,51 +84,42 @@ MatcherCollection >> listWildcardPositions [
 { #category : #matching }
 MatcherCollection >> match: aCollection withContext: aMatchingContext [
 
-	|  motionCursor  firstMatch results|
-	 
+	| motionCursor firstMatch results |
 	"results is a collection of matchingContexts"
-	results := OrderedCollection  new.
-	
+	results := OrderedCollection new.
+
 	"initilazing the motionCursor"
-	motionCursor := MotionCursor new. 	
-	self initializeCursor: motionCursor withCollection: aCollection andOriginalContext: aMatchingContext.
+	motionCursor := MotionCursor new.
+	self
+		initializeCursor: motionCursor
+		withCollection: aCollection
+		andOriginalContext: aMatchingContext.
 	self setCursorLengths: motionCursor.
-	
+
 	"firstMatch is used to fill hasNext for the first time as true, then while looping the value changes only when the last combination is found"
 	firstMatch := true.
-		
-	[ motionCursor hasNext ] whileTrue: [  	
-		"We enter this loop each time a combination is found to reset combination params in moTionCursor."
-	
+
+	[ motionCursor hasNext ] whileTrue: [ "We enter this loop each time a combination is found to reset combination params in moTionCursor."
 		motionCursor forward: firstMatch.
 		firstMatch := false.
-		
+
 		" restting combination params "
 		motionCursor combinationNotFound: true.
-		motionCursor aMatchingContextCombination: MatchingContext new.  
-		 
-		
-		(firstMatch not and: [ motionCursor patternCursor < motionCursor patternSize ] ) ifTrue: [
-			motionCursor clearContextsForCurrentPattern. 
-		].
-		
-		[ motionCursor combinationNotFound and: (motionCursor hasNext) ] whileTrue: [  
-			"here we are looping until there are no combinations found. 
-			results can contains false and true matchingContexts; true macthingContexts will be filtered when isMatch is called only." 	
-			(self matchNext: aCollection withCursor: motionCursor withContexts: motionCursor getContextForCurrentPattern originalContext: aMatchingContext).  
-		].
-	"here there should be a solution in the last cursor thingy"
-	(motionCursor combinationNotFound) ifFalse: [  
-		self halt.
-		results addAll: motionCursor getContextForCurrentPattern.
-	].
-	
-	
-	].
+		motionCursor aMatchingContextCombination: MatchingContext new.
 
-	self halt.
-	^ results asArray 
-	
+		[ motionCursor combinationNotFound and: motionCursor hasNext ] 
+			whileTrue: [ "here we are looping until there are no combinations found. 
+			results can contains false and true matchingContexts; true macthingContexts will be filtered when isMatch is called only."
+				self
+					matchNext: aCollection
+					withCursor: motionCursor
+					withContexts: motionCursor getContextForCurrentPattern
+					originalContext: aMatchingContext ].
+		"here there should be a solution in the last cursor thingy"
+		motionCursor combinationNotFound ifFalse: [ 
+			results addAll: motionCursor getContextForCurrentPattern ] ].
+
+	^ results asArray
 ]
 
 { #category : #matching }
@@ -470,7 +461,7 @@ self halt.
 MatcherCollection >> matchNext: aCollection withCursor: aMotionCursor withContexts: matchContexts originalContext: originalContext [
 | pattern contexts | 
 
-contexts := matchContexts deepCopy .  
+contexts := matchContexts collect: [ :each | each copy ] .  
 
 	"checking state of forward and cursors"
 			"1- If forward and cursors reach the maximum then a combination is built "
@@ -523,7 +514,6 @@ contexts := matchContexts deepCopy .
 										aMotionCursor setHasNextForCurrentPattern.
 										contexts := newContexts select: #isMatch. 
 										aMotionCursor addContextToPattern: contexts.
-										self halt.
 										aMotionCursor patternCursor: aMotionCursor patternCursor + 1.
 										aMotionCursor subjectCursor: aMotionCursor subjectCursor + 1.		
 																										
@@ -547,7 +537,6 @@ contexts := matchContexts deepCopy .
 										aMotionCursor resetHasNextForCurrentPattern.
 										"increment everything"
 										aMotionCursor addContextToPattern: contexts.
-										self halt.
 										aMotionCursor patternCursor: aMotionCursor patternCursor + 1.
 										aMotionCursor subjectCursor: aMotionCursor subjectCursor + 1.		
 										aMotionCursor forward: true.																		
@@ -559,6 +548,7 @@ contexts := matchContexts deepCopy .
 								aMotionCursor patternCursor: aMotionCursor patternCursor - 1. 
 								aMotionCursor subjectCursor: aMotionCursor subjectCursor - 1.
 								aMotionCursor forward: false.
+								aMotionCursor clearContextsForCurrentPattern.
 							].
 											  
 						] ifFalse:[ 
@@ -620,7 +610,6 @@ contexts := matchContexts deepCopy .
 																			"on match success: increment subject cursor and get bindings as we are in wildcard case" 
 																			contexts := contexts select: #isMatch.  
 																			aMotionCursor addContextToPattern: contexts.
-																			self halt.
 																			aMotionCursor patternCursor: aMotionCursor patternCursor + 1.
 																			aMotionCursor subjectCursor: start + length.															
 																	] 

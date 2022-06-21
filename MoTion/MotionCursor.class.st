@@ -41,6 +41,9 @@ MotionCursor >> addContextToPattern: manyContexts [
 
 { #category : #accessing }
 MotionCursor >> clearContextsForCurrentPattern [
+	| index |
+	index := self patternCursor.
+	index < 1 ifTrue: [ ^ self ].
 	(contexts at: self patternCursor) removeAll.
 ]
 

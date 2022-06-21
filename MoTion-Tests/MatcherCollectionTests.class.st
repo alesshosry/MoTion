@@ -36,9 +36,6 @@ MatcherCollectionTests >> testListWildcardWithInnerMatcher [
 		#'@x'. 
 		MTTestObjectA % { 
 			#lint -> #'@y' .
-			"#'_*' -> MTTestObjectA % { 
-				#lint -> #'@x'.
-			} as: #z."
 		}  
 	} asMatcher.
 	
@@ -48,7 +45,7 @@ MatcherCollectionTests >> testListWildcardWithInnerMatcher [
 		
 	result := matcher match: {1. 6. a1}. 
 	self assert: result isMatch.
-	self assert: result matchingContexts size equals: 2
+	self assert: result matchingContexts size equals: 1
 
 ]
 
