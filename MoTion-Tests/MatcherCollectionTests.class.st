@@ -212,6 +212,34 @@ MatcherCollectionTests >> testSameWildcards [
 ]
 
 { #category : #'tests - to be refined' }
+MatcherCollectionTests >> testSequenceMatchingRepetitions [
+
+	| matcher result list |
+	
+	list := #(10 10 20 20 30 40 50 50).
+	
+	matcher :=  { #'*l1'. #'@x'. #'@x'. #'*l2' } asMatcher.
+		
+	result := matcher match: list. 
+	self assert: result isMatch.
+	self assert: result matchingContexts size equals: 3.
+]
+
+{ #category : #'tests - to be refined' }
+MatcherCollectionTests >> testSequenceMatchingRepetitionsNonFollowing [
+
+	| matcher result list |
+	
+	list := #(10 20 10 20 30 30 40).
+	
+	matcher :=  { #'*l1'. #'@x'. #'*l2'. #'@x'. #'*l3' } asMatcher.
+		
+	result := matcher match: list. 
+	self assert: result isMatch.
+	self assert: result matchingContexts size equals: 3.
+]
+
+{ #category : #'tests - to be refined' }
 MatcherCollectionTests >> testSequenceMatchingWithListWildcard [
 
 	| matcher result method |
