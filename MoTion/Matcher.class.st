@@ -34,6 +34,11 @@ Matcher >> collectBindings: bindings for: anObject [
 		   context bindings filterKeys: bindings ]) removeDuplicates
 ]
 
+{ #category : #matching }
+Matcher >> debugMe [
+	^ MatcherDebug of: self
+]
+
 { #category : #initialization }
 Matcher >> initialize [ 
 	super initialize.

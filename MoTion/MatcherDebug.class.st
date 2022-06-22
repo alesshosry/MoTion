@@ -1,0 +1,25 @@
+Class {
+	#name : #MatcherDebug,
+	#superclass : #Matcher,
+	#instVars : [
+		'innerMatcher'
+	],
+	#category : #'MoTion-matcher'
+}
+
+{ #category : #'instance creation' }
+MatcherDebug class >> of: aMatcher [
+	^ self new wrap: aMatcher
+]
+
+{ #category : #matching }
+MatcherDebug >> match: anObject withContext: aMatchingContext [
+	self halt.
+	^ innerMatcher match: anObject withContext: aMatchingContext
+]
+
+{ #category : #matching }
+MatcherDebug >> wrap: aMatcher [
+
+	innerMatcher := aMatcher
+]
