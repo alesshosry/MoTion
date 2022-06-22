@@ -212,6 +212,50 @@ MatcherCollectionTests >> testSameWildcards [
 ]
 
 { #category : #'tests - to be refined' }
+MatcherCollectionTests >> testSequenceMatchingWithListWildcard [
+
+	| matcher result method |
+	
+	method := RBParser parseMethod: 'recmethod 
+		true ifTrue: [ false ifTrue: [ 1. 
+				                         2. 
+				                         self halt. 
+				                         self recmethod.
+				                         3. ] ]
+			  ifFalse: [ self halt. 
+				          self recmethod. 
+				          1. 
+				          2.
+				          self halt.
+							 self recmethod]'.
+	
+	matcher := (RBMethodNode % {
+		#selector -> #'@methodName'.
+		#'children*' -> (RBBlockNode % { 
+			#statements -> { #'*l1'.
+								 RBMessageNode % {
+									#'selector>value' -> #halt.
+									#'receiver>name' -> #self
+							 	} as: #HALT.
+								RBMessageNode % {
+									#'selector>value' -> #'@methodName'.
+									#'receiver>name' -> #self.
+								} as: #REC.
+								#'*l2'
+			} 
+		} ) 
+	}) asMatcher.
+		
+	result := matcher match: method. 
+	self assert: result isMatch.
+	self assert: (result bindingsFor: #REC) size equals: 1.
+	self assert: (result bindingsFor: #HALT) size equals: 1.
+	self assert: ((result bindingsFor: #REC) at: 1) receiver name equals: #self.
+	self assert: ((result bindingsFor: #REC) at: 1) selector value equals: #recmethod.
+
+]
+
+{ #category : #'tests - to be refined' }
 MatcherCollectionTests >> testShouldNotMatchMissingItem [
 
 	| matcher expression |
