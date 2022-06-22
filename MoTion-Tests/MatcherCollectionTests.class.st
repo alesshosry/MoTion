@@ -301,7 +301,7 @@ MatcherCollectionTests >> testToCheckDedicatedArgumentsAndReceiverWithDirectPath
 
 	matcher := RBMessageNode % { 
 		           (#'receiver>name' -> #self).
-		           (#'selector>value' -> #'ifTrue:ifFalse').
+		           (#'selector>value' -> #'ifTrue:ifFalse:').
 		           (#arguments -> { 
 			            (RBBlockNode % { (#'statements>value' -> 1) }).
 			            #'@something' }) }.

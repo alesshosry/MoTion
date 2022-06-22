@@ -7,7 +7,6 @@ Class {
 		'patternCursor',
 		'patternSize',
 		'hasNext',
-		'combinationNotFound',
 		'forward',
 		'lvStarts',
 		'lvLengths',
@@ -17,22 +16,11 @@ Class {
 		'aMatchingContextCombination',
 		'contexts',
 		'originalContext',
-		'patternHasNext'
+		'patternHasNext',
+		'listWildcardsPositions'
 	],
 	#category : #'MoTion-paths'
 }
-
-{ #category : #accessing }
-MotionCursor >> aMatchingContextCombination [
-
-	^ aMatchingContextCombination
-]
-
-{ #category : #accessing }
-MotionCursor >> aMatchingContextCombination: anObject [
-
-	aMatchingContextCombination := anObject
-]
 
 { #category : #accessing }
 MotionCursor >> addContextToPattern: manyContexts [
@@ -48,25 +36,26 @@ MotionCursor >> clearContextsForCurrentPattern [
 ]
 
 { #category : #accessing }
-MotionCursor >> combinationNotFound [
-
-	^ combinationNotFound
+MotionCursor >> contextForCurrentPattern [
+	^ self contextForPattern: (self patternCursor - 1)
 ]
 
 { #category : #accessing }
-MotionCursor >> combinationNotFound: anObject [
-
-	combinationNotFound := anObject
+MotionCursor >> contextForPattern: aNumber [
+	aNumber <=0 ifTrue: [ ^ { originalContext } ].
+	^ contexts at: aNumber
 ]
 
 { #category : #accessing }
-MotionCursor >> contexts [
-	^ contexts
+MotionCursor >> decrementPatternCursor [
+
+	patternCursor := patternCursor - 1
 ]
 
 { #category : #accessing }
-MotionCursor >> contexts: aCollection [ 
-	contexts := aCollection
+MotionCursor >> decrementSubjectCursor [
+
+	subjectCursor := subjectCursor - 1
 ]
 
 { #category : #accessing }
@@ -79,17 +68,6 @@ MotionCursor >> forward [
 MotionCursor >> forward: anObject [
 
 	forward := anObject
-]
-
-{ #category : #accessing }
-MotionCursor >> getContextForCurrentPattern [
-	^ self getContextForPattern: (self patternCursor - 1)
-]
-
-{ #category : #accessing }
-MotionCursor >> getContextForPattern: aNumber [
-	aNumber <=0 ifTrue: [ ^ { originalContext } ].
-	^ contexts at: aNumber
 ]
 
 { #category : #accessing }
@@ -110,15 +88,64 @@ MotionCursor >> hasNextForCurrentPattern [
 ]
 
 { #category : #accessing }
-MotionCursor >> lvLengths [
+MotionCursor >> incrementPatternCursor [
 
-	^ lvLengths
+	patternCursor := patternCursor + 1
 ]
 
 { #category : #accessing }
-MotionCursor >> lvLengths: anObject [
+MotionCursor >> incrementSubjectCursor [
 
-	lvLengths := anObject
+	subjectCursor := subjectCursor + 1
+]
+
+{ #category : #accessing }
+MotionCursor >> initCursorLengths [
+ 		
+	listWildcardsPositions do: [ :i |  
+		lvMinLengths at: i put: 0.
+		lvMaxLengths at: i put: (subjectSize - numberOfNonListWildcards).
+		lvStarts at: i put: 1.
+		lvLengths at: i put: 0.
+	]
+	"1 to: patternSize do: [ :i  | 
+		(matcherSequence at: i)	isListWildcard ifTrue: [  
+			aMotionCursor lvMinLengths at: i put: 0.
+			aMotionCursor lvMaxLengths at: i put: (aMotionCursor subjectSize - aMotionCursor numberOfNonListWildcards).
+			aMotionCursor lvStarts at: i put: 1.
+			aMotionCursor lvLengths at: i put: 0.
+		].	
+	]."
+]
+
+{ #category : #accessing }
+MotionCursor >> initializeForMatcher: matcher withCollection: aCollection andOriginalContext: origContext [
+
+	subjectSize := aCollection size.
+	patternSize := matcher matcherSequence size.
+	lvStarts := Array new: patternSize.
+	lvLengths := Array new: patternSize.
+	lvMinLengths := Array new: patternSize.
+	lvMaxLengths := Array new: patternSize.
+	subjectCursor := 1.
+	patternCursor := 1.
+	listWildcardsPositions := matcher listWildcardPositions.
+	numberOfNonListWildcards := patternSize - listWildcardsPositions size.
+	hasNext := true.
+	forward := true.
+	originalContext := origContext.
+
+	contexts := (1 to: patternSize) collect: [ :i | 
+		            OrderedCollection new ].
+	patternHasNext := (1 to: patternSize) collect: [ :i | true ].
+
+	self initCursorLengths
+]
+
+{ #category : #accessing }
+MotionCursor >> lvLengths [
+
+	^ lvLengths
 ]
 
 { #category : #accessing }
@@ -128,21 +155,9 @@ MotionCursor >> lvMaxLengths [
 ]
 
 { #category : #accessing }
-MotionCursor >> lvMaxLengths: anObject [
-
-	lvMaxLengths := anObject
-]
-
-{ #category : #accessing }
 MotionCursor >> lvMinLengths [
 
 	^ lvMinLengths
-]
-
-{ #category : #accessing }
-MotionCursor >> lvMinLengths: anObject [
-
-	lvMinLengths := anObject
 ]
 
 { #category : #accessing }
@@ -152,55 +167,9 @@ MotionCursor >> lvStarts [
 ]
 
 { #category : #accessing }
-MotionCursor >> lvStarts: anObject [
-
-	lvStarts := anObject
-]
-
-{ #category : #accessing }
-MotionCursor >> numberOfNonListWildcards [
-
-	^ numberOfNonListWildcards
-]
-
-{ #category : #accessing }
-MotionCursor >> numberOfNonListWildcards: anObject [
-
-	numberOfNonListWildcards := anObject
-]
-
-{ #category : #accessing }
-MotionCursor >> originalContext [
-	^ originalContext
-]
-
-{ #category : #accessing }
-MotionCursor >> originalContext: ctx [
-
-	originalContext := ctx
-]
-
-{ #category : #accessing }
 MotionCursor >> patternCursor [
 
 	^ patternCursor
-]
-
-{ #category : #accessing }
-MotionCursor >> patternCursor: anObject [
-
-	patternCursor := anObject
-]
-
-{ #category : #accessing }
-MotionCursor >> patternHasNext [
-
-	^ patternHasNext
-]
-
-{ #category : #accessing }
-MotionCursor >> patternHasNext: aCollection [
-	patternHasNext := aCollection
 ]
 
 { #category : #accessing }
@@ -210,15 +179,19 @@ MotionCursor >> patternSize [
 ]
 
 { #category : #accessing }
-MotionCursor >> patternSize: anObject [
-
-	patternSize := anObject
-]
-
-{ #category : #accessing }
 MotionCursor >> resetHasNextForCurrentPattern [
 
 	patternHasNext at: self patternCursor put: true
+]
+
+{ #category : #accessing }
+MotionCursor >> setBackward [
+	forward := false
+]
+
+{ #category : #accessing }
+MotionCursor >> setForward [
+	forward := true
 ]
 
 { #category : #accessing }
@@ -243,10 +216,4 @@ MotionCursor >> subjectCursor: anObject [
 MotionCursor >> subjectSize [
 
 	^ subjectSize
-]
-
-{ #category : #accessing }
-MotionCursor >> subjectSize: anObject [
-
-	subjectSize := anObject
 ]
