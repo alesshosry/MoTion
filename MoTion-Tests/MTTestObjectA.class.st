@@ -37,6 +37,11 @@ MTTestObjectA >> lfloat: anObject [
 ]
 
 { #category : #accessing }
+MTTestObjectA >> lint [
+	^ lint
+]
+
+{ #category : #accessing }
 MTTestObjectA >> lint: anObject [
 
 	lint := anObject

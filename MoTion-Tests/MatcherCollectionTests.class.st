@@ -80,7 +80,7 @@ MatcherCollectionTests >> testListWildcardWithInnerMatcher2 [
 { #category : #'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardWithInnerMatcher3 [
 
-	| matcher result a1|
+	| matcher result a1 bindings |
 	matcher := { 
 		#'*l1'. 
 		#'@x'. 
@@ -88,17 +88,23 @@ MatcherCollectionTests >> testListWildcardWithInnerMatcher3 [
 			#lint -> #'@y' .
 			#'_*' -> MTTestObjectA % { 
 				#lint -> #'@x'.
-			}.
+			} as: #z.
 		}  
 	} asMatcher.
 	
 	a1 := MTTestObjectA new lint: 5; yourself.
 	a1 lst add: (MTTestObjectA new lint: 6; yourself).
 	a1 lst add: (MTTestObjectA new lint: 6; yourself).
+	a1 lst add: (MTTestObjectA new lint: 3; yourself).
 		
 	result := matcher match: {1. 6. a1}. 
 	self assert: result isMatch.
-	self assert: result matchingContexts size equals: 2
+	self assert: result matchingContexts size equals: 2.
+	
+	bindings := result bindingsFor: #z.
+	self assert: bindings size equals: 2.
+	self assert: (bindings at: 1) ~= (bindings at: 2).
+	self assert: (bindings at: 1) lint equals: ((result bindingsFor: #x) at: 1).
 
 ]
 
