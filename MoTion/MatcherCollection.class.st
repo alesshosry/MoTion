@@ -56,10 +56,7 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 		withCollection: aCollection
 		andOriginalContext: aMatchingContext.
 
-	[ motionCursor hasNext ] whileTrue: [ 
-	
-		"We enter this loop each time a combination is found to reset combination params in moTionCursor."
-		"restting combination params "
+	[ motionCursor hasNext ] whileTrue: [ "We enter this loop each time a combination is found to reset combination params in moTionCursor.""restting combination params "
 		combinationFound := false.
 
 		[ combinationFound not and: motionCursor hasNext ] whileTrue: [ "here we are looping until there are no combinations found. 
@@ -73,8 +70,7 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 
 		combinationFound ifTrue: [ 
 			results addAll: motionCursor contextForCurrentPattern ].
-		motionCursor forward: false.
-	 ].
+		motionCursor forward: false ].
 	^ results asArray
 ]
 
@@ -82,7 +78,7 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 MatcherCollection >> matchNext: aCollection withCursor: aMotionCursor withContexts: matchContexts originalContext: originalContext [
 | pattern contexts | 
 
-contexts := matchContexts collect: [ :each | each copy ] .  
+contexts := matchContexts collect: [ :each | each copy ].
 
 	"checking state of forward and cursors"
 			"1- If forward and cursors reach the maximum then a combination is built "
@@ -125,6 +121,7 @@ contexts := matchContexts collect: [ :each | each copy ] .
 				(aMotionCursor forward and: [(aMotionCursor subjectCursor <= aMotionCursor subjectSize)] ) ifTrue: [ 
 					
 					aMotionCursor resetHasNextForCurrentPattern.
+					aMotionCursor clearContextsForCurrentPattern.
 					"Try to match by getting values based on patternCursor and subjectCursor"					
 					newContexts := contexts flatCollect: [ :c | pattern match: (aCollection at: aMotionCursor subjectCursor) withContext: c ].
 										
@@ -143,7 +140,6 @@ contexts := matchContexts collect: [ :each | each copy ] .
 										
 										aMotionCursor decrementPatternCursor.
 										aMotionCursor setBackward.
-										aMotionCursor clearContextsForCurrentPattern.
 									].		
 				
 					] ifFalse: [   
@@ -166,7 +162,6 @@ contexts := matchContexts collect: [ :each | each copy ] .
 								aMotionCursor decrementPatternCursor.
 								aMotionCursor decrementSubjectCursor.
 								aMotionCursor setBackward.
-								aMotionCursor clearContextsForCurrentPattern.
 							].
 											  
 						] ifFalse:[ 
@@ -218,6 +213,7 @@ contexts := matchContexts collect: [ :each | each copy ] .
 						
 						"decrement pattern Cursor"
 						aMotionCursor decrementPatternCursor.
+						aMotionCursor clearContextsForCurrentPattern .
 					]
 				ifFalse: [ 					
 					"here we try to get subjects based on start and length"
