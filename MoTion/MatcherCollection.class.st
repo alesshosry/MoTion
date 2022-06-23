@@ -75,7 +75,6 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 			results addAll: motionCursor contextForCurrentPattern ].
 		motionCursor forward: false.
 	 ].
-
 	^ results asArray
 ]
 

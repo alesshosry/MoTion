@@ -212,6 +212,28 @@ MatcherCollectionTests >> testSameWildcards [
 ]
 
 { #category : #'tests - to be refined' }
+MatcherCollectionTests >> testSequenceEquivalenceForListWildcards [
+
+	| matcher result method |
+	method := RBParser parseMethod: 'recmethod 
+		true ifTrue: [ false ifTrue: [ self foo. self bar.] ]
+			  ifFalse: [ self foo. self bar.].
+		[self foo. self bar].
+		[self foo. self bar. self baz].'.
+
+	matcher := (RBMethodNode % { (#'children*' -> { 
+		             #'*_'.
+		             (RBBlockNode % { (#statements -> { #'*l1' }) }) as: #first.
+		             #'*_'.
+		             (RBBlockNode % { (#statements -> { #'*l1' }) }) as: #second.
+		             #'*_' }) }) asMatcher.
+
+	result := matcher match: method.
+	self assert: result isMatch.
+	self assert: result matchingContexts size equals: 3.
+]
+
+{ #category : #'tests - to be refined' }
 MatcherCollectionTests >> testSequenceMatchingRepetitions [
 
 	| matcher result list |
@@ -383,6 +405,15 @@ MatcherCollectionTests >> testToCheckDedicatedArgumentsAndReceiverWithDirectPath
 		assertCollection:
 		(matcher collectBinding: #something for: expression)
 		hasSameElements: { (RBLiteralNode value: 2) }
+]
+
+{ #category : #'tests - to be refined' }
+MatcherCollectionTests >> testWildcardIsAnonymous [
+
+	| matcher |
+	matcher := #'*_' asMatcher.
+
+	self assert: matcher isAnonymous
 ]
 
 { #category : #'tests - to be refined' }

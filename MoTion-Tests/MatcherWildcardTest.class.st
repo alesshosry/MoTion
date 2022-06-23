@@ -58,6 +58,15 @@ MatcherWildcardTest >> testWildcardFirstMatch [
 ]
 
 { #category : #initialization }
+MatcherWildcardTest >> testWildcardIsAnonymous [
+
+	| matcher |
+	matcher := #'@_' asMatcher.
+
+	self assert: matcher isAnonymous
+]
+
+{ #category : #initialization }
 MatcherWildcardTest >> testWildcardMultipleMatch [
 
 	| matcher aContext |
