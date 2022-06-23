@@ -27,16 +27,14 @@ MTRecursiveChildrenPath >> internalResolveFrom: anObject seen: seenObjects [
 			                     each isNotNil and: [ 
 				                     (seenObjects includes: each) not ] ].
 		directObjects addAll: resultsCollection.
-		seenObjects addAll: resultsCollection
-		"o ifNotNil: [ 
-			(seenObjects includes: o) ifFalse: [ 
-				directObjects add: o.
-				seenObjects add: o ] ]" ].
+		seenObjects addAll: resultsCollection].
 
 	directObjects addAll: (directObjects flatCollect: [ :each | 
 			 self internalResolveFrom: each seen: seenObjects ]).
-	seenObjects add: anObject.
-	directObjects insert: anObject before: 1. 
+	(seenObjects includes: anObject) ifFalse: [  
+		seenObjects add: anObject.
+		directObjects insert: anObject before: 1. 
+	].
 
 	^ directObjects
 ]
