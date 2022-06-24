@@ -32,12 +32,6 @@ String >> asObjectPath [
 ]
 
 { #category : #'*MoTion' }
-String >> match: anObject [
-
-	^ self asMatcher match: anObject
-]
-
-{ #category : #'*MoTion' }
 String >> orMatches: aMatcher [
 
 	^ OrMatcher between: self asMatcher and: aMatcher asMatcher
