@@ -21,13 +21,14 @@ String >> asObjectPath [
 
 	| symbol |
 	symbol := self asSymbol.
+	(symbol includes: $>) ifTrue: [ 
+		^ MTComposedPath of:
+			  ((symbol splitOn: '>') collect: [ :each | each asObjectPath ]) ].
 	symbol = #_ ifTrue: [ ^ MTDirectChildrenPath new ].
 	symbol = #'_*' ifTrue: [ ^ MTRecursiveChildrenPath new ].
 	(symbol endsWith: '*') ifTrue: [ ^ MTRecursivePath of: (symbol withoutSuffix: '*' ) ] .
 	symbol = #@ ifTrue: [ ^MTIdentityPath new ].
-	(symbol includes: $>) ifTrue: [ 
-		^ MTComposedPath of:
-			  ((symbol splitOn: '>') collect: [ :each | each asObjectPath ]) ].
+	
 	^ MTDirectPath of: symbol
 ]
 
