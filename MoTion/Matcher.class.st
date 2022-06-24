@@ -34,6 +34,11 @@ Matcher >> collectBindings: bindings for: anObject [
 		   context bindings filterKeys: bindings ]) removeDuplicates
 ]
 
+{ #category : #matching }
+Matcher >> debugMe [
+	^ MatcherDebug of: self
+]
+
 { #category : #initialization }
 Matcher >> initialize [ 
 	super initialize.
@@ -92,4 +97,9 @@ Matcher >> matchingContexts [
 
 	"returns the list of matchingContexts only."
 	^ matchingContexts
+]
+
+{ #category : #initialization }
+Matcher >> orMatches: aMatcher [
+	^ OrMatcher between: self and: aMatcher 
 ]

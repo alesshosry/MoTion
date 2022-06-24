@@ -28,6 +28,11 @@ MatcherWildcard >> alias: aString [
 ]
 
 { #category : #accessors }
+MatcherWildcard >> isAnonymous [
+	^ alias asSymbol = #_ 
+]
+
+{ #category : #accessors }
 MatcherWildcard >> isWildcard [ 
 	^ true
 ]
@@ -36,6 +41,10 @@ MatcherWildcard >> isWildcard [
 MatcherWildcard >> match: aNewValue withContext: aMatchingContext [
 
 	| aResult |
+	self isAnonymous ifTrue: [ 
+		aMatchingContext isMatch: true.
+		^ { aMatchingContext } ].
+
 	aResult := aMatchingContext bindings at: alias ifAbsentPut: [ 
 		           aMatchingContext isMatch: true.
 		           aNewValue ].

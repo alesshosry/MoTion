@@ -113,3 +113,24 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInPackageDefinedWithComposedPa
 	
 
 ]
+
+{ #category : #tests }
+MatcherComplexTests >> testToDiscoverVariableIncrements [
+
+	| matcher method result |
+	method := RBParser parseMethod: 'foo
+	x := x + 1.
+	z ifTrue: [y := y + 1].
+	x := 1 + x'.
+
+	matcher := RBMethodNode % { (#'children*' -> RBAssignmentNode % { 
+		            (#variable -> #'@name').
+		            (#value -> (RBMessageNode % { 
+			              (#'selector>value' -> #+).
+			              (#'arguments>value' -> 1).
+			              (#receiver -> #'@name') }) as: #node) }) }.
+
+	result := matcher match: method.
+	self assert: result isMatch.
+	self assert: result matchingContexts size equals: 2
+]

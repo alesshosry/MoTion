@@ -13,18 +13,28 @@ MTRecursiveChildrenPath >> initialize [
 { #category : #resolving }
 MTRecursiveChildrenPath >> internalResolveFrom: anObject seen: seenObjects [
 
-	| directObjects |
-	directObjects := OrderedCollection new.
-	(self slotsToVisit: anObject)  do: [ :slot | 
+	| directObjects resultsCollection |
+	
+	directObjects := { } asOrderedCollection.
+	(self slotsToVisit: anObject) do: [ :slot | 
 		| o |
 		o := slot read: anObject.
-		o ifNotNil: [ 
-			(seenObjects includes: o) ifFalse: [ 
-				directObjects add: o.
-				seenObjects add: o ] ] ].
+		resultsCollection := (o isCollection and: [ 
+			                      o isString not and: o isSymbol not ])
+			                     ifFalse: [ { o } ]
+			                     ifTrue: [ o ].
+		resultsCollection := resultsCollection select: [ :each | 
+			                     each isNotNil and: [ 
+				                     (seenObjects includes: each) not ] ].
+		directObjects addAll: resultsCollection.
+		seenObjects addAll: resultsCollection].
 
 	directObjects addAll: (directObjects flatCollect: [ :each | 
 			 self internalResolveFrom: each seen: seenObjects ]).
+	(seenObjects includes: anObject) ifFalse: [  
+		seenObjects add: anObject.
+		directObjects insert: anObject before: 1. 
+	].
 
 	^ directObjects
 ]
