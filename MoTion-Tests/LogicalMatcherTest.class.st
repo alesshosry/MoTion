@@ -5,6 +5,27 @@ Class {
 }
 
 { #category : #tests }
+LogicalMatcherTest >> testOrMatcherForCollections [
+
+	| obj matcher |
+	matcher := { 
+		           #'@x'.
+		           (MTTestObjectA % { (#lint -> #'@x') }) } orMatches: { 
+			           #'@x'.
+			           (MTTestObjectB % { (#lint -> #'@x') }) }.
+
+	obj := { 
+		       5.
+		       (MTTestObjectA new lint: 5) }.
+	self assert: (matcher match: obj) isMatch.
+
+	obj := { 
+		       #foo.
+		       (MTTestObjectB new lint: #foo) }.
+	self assert: (matcher match: obj) isMatch
+]
+
+{ #category : #tests }
 LogicalMatcherTest >> testOrMatcherForComplexObjects [
 
 	| obj matcher |
@@ -22,6 +43,23 @@ LogicalMatcherTest >> testOrMatcherForComplexObjects [
 	obj := MTTestObjectA new.
 	obj lint: 43.
 	self assert: (matcher match: obj) isMatch not
+]
+
+{ #category : #tests }
+LogicalMatcherTest >> testOrMatcherForComplexObjectsInCollections [
+
+	| obj matcher |
+	matcher := { 
+		           #'@x'.
+		           (MTTestObjectA % { (#lint -> #'@x') } orMatches:
+			            MTTestObjectB % { (#lint -> #'@x') }) }.
+
+	obj := {5. MTTestObjectA new lint: 5}.	
+	self assert: (matcher match: obj) isMatch.
+
+	obj := {#foo. MTTestObjectB new lint: #foo}.
+	self assert: (matcher match: obj) isMatch.
+
 ]
 
 { #category : #tests }
