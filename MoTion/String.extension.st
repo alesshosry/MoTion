@@ -30,3 +30,9 @@ String >> asObjectPath [
 			  ((symbol splitOn: '>') collect: [ :each | each asObjectPath ]) ].
 	^ MTDirectPath of: symbol
 ]
+
+{ #category : #'*MoTion' }
+String >> orMatches: aMatcher [
+
+	^ OrMatcher between: self asMatcher and: aMatcher asMatcher
+]

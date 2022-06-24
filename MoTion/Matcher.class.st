@@ -98,3 +98,8 @@ Matcher >> matchingContexts [
 	"returns the list of matchingContexts only."
 	^ matchingContexts
 ]
+
+{ #category : #initialization }
+Matcher >> orMatches: aMatcher [
+	^ OrMatcher between: self and: aMatcher 
+]
