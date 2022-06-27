@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #tests }
+MatcherTests >> testMatcherNil [
+	
+	| matcher |
+	matcher := nil asMatcher.
+	 
+	self assert: (matcher match: nil) isMatch.
+	self deny: (matcher match: 42) isMatch 
+]
+
+{ #category : #tests }
 MatcherTests >> testMatcherNumber [
 	| myMatcher |
 	myMatcher := MatcherLiteralNumber  new.
