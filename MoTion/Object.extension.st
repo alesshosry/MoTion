@@ -4,3 +4,8 @@ Extension { #name : #Object }
 Object >> <=> aMatcherObject [
 	^ self -> aMatcherObject
 ]
+
+{ #category : #'*MoTion' }
+Object >> <~=> aMatcherObject [
+	^  self -> (MatcherNAC of: aMatcherObject)
+]

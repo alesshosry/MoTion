@@ -100,6 +100,12 @@ Matcher >> matchingContexts [
 ]
 
 { #category : #initialization }
+Matcher >> not [
+
+	^ MatcherNAC of: self
+]
+
+{ #category : #initialization }
 Matcher >> orMatches: aMatcher [
 	^ OrMatcher between: self and: aMatcher 
 ]
