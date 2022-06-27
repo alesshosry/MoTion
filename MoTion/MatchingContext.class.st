@@ -8,7 +8,7 @@ Class {
 		'bindings',
 		'isMatch'
 	],
-	#category : #'MoTion-matcher'
+	#category : #'MoTion-results'
 }
 
 { #category : #accessing }
