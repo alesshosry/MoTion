@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #tests }
+MatcherTests >> testMatcherBoolean [
+
+	| matcher |
+	matcher := true asMatcher.
+
+	self assert: (matcher match: true) isMatch.
+	self deny: (matcher match: false) isMatch
+]
+
+{ #category : #tests }
 MatcherTests >> testMatcherNil [
 	
 	| matcher |
