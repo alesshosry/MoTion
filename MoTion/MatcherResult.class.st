@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'matchingContexts'
 	],
-	#category : #'MoTion-matcher'
+	#category : #'MoTion-results'
 }
 
 { #category : #accessing }
