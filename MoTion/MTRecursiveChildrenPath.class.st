@@ -33,7 +33,7 @@ MTRecursiveChildrenPath >> internalResolveFrom: anObject seen: seenObjects [
 			 self internalResolveFrom: each seen: seenObjects ]).
 	(seenObjects includes: anObject) ifFalse: [  
 		seenObjects add: anObject.
-		directObjects insert: anObject before: 1. 
+		"directObjects insert: anObject before: 1". 
 	].
 
 	^ directObjects

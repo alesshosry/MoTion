@@ -16,6 +16,31 @@ MTRecursivePath class >> of: aSymbol [
 { #category : #resolving }
 MTRecursivePath >> internalResolveFrom: anObject seen: seenObjects [
 
+	| directObjects resultsCollection o |
+	directObjects := {  } asOrderedCollection.
+	o := (path resolveFrom: anObject) flattened.
+	resultsCollection := (o isCollection and: [ 
+		                      o isString not and: o isSymbol not ])
+		                     ifFalse: [ { o } ]
+		                     ifTrue: [ o ].
+	resultsCollection := resultsCollection select: [ :each | 
+		                     each isNotNil and: [ 
+			                     (seenObjects includes: each) not ] ].
+	directObjects addAll: resultsCollection.
+	seenObjects addAll: resultsCollection.
+
+	directObjects addAll: (directObjects flatCollect: [ :each | 
+			 self internalResolveFrom: each seen: seenObjects ]).
+	(seenObjects includes: anObject) ifFalse: [ 
+		seenObjects add: anObject.
+		"directObjects insert: anObject before: 1 "].
+
+	^ directObjects
+]
+
+{ #category : #resolving }
+MTRecursivePath >> internalResolveFromBak: anObject seen: seenObjects [
+
 	| directObjects o |
 	directObjects := OrderedCollection new.
 	o := (path resolveFrom: anObject) flattened.
