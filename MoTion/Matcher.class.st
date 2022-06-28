@@ -107,5 +107,6 @@ Matcher >> not [
 
 { #category : #initialization }
 Matcher >> orMatches: aMatcher [
-	^ OrMatcher between: self and: aMatcher 
+
+	^ OrMatcher between: self and: aMatcher asMatcher
 ]
