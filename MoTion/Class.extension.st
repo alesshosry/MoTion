@@ -23,3 +23,9 @@ Class >> %% aMatcherDescription [
 		  subclassmatch: true;
 		  yourself
 ]
+
+{ #category : #'*MoTion' }
+Class >> asMatcher [
+
+	^ Class %% { (#name <=> self name) }
+]

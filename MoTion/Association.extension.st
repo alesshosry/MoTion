@@ -17,3 +17,9 @@ Association >> as: aSymbol [
 
 	self value: (MatcherSave of: self value withAlias: aSymbol)
 ]
+
+{ #category : #'*MoTion' }
+Association >> orMatches: anObject [
+
+	self value: (self value asMatcher orMatches: anObject asMatcher)
+]
