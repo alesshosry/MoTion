@@ -1,9 +1,6 @@
 Class {
 	#name : #Matcher,
 	#superclass : #Object,
-	#instVars : [
-		'matchingContexts'
-	],
 	#category : #'MoTion-matcher'
 }
 
@@ -37,12 +34,6 @@ Matcher >> collectBindings: bindings for: anObject [
 { #category : #matching }
 Matcher >> debugMe [
 	^ MatcherDebug of: self
-]
-
-{ #category : #initialization }
-Matcher >> initialize [ 
-	super initialize.
-	matchingContexts := OrderedCollection new.
 ]
 
 { #category : #matching }
@@ -90,13 +81,6 @@ Matcher >> match: aNewValue withContext: aMatchingContext [
 	
 	self shouldBeImplemented 
 	
-]
-
-{ #category : #matching }
-Matcher >> matchingContexts [
-
-	"returns the list of matchingContexts only."
-	^ matchingContexts
 ]
 
 { #category : #initialization }

@@ -13,6 +13,11 @@ MatcherDebug class >> of: aMatcher [
 ]
 
 { #category : #matching }
+MatcherDebug >> isCollectionMatcher [ 
+	^ innerMatcher isCollectionMatcher 
+]
+
+{ #category : #matching }
 MatcherDebug >> match: anObject withContext: aMatchingContext [
 	self halt.
 	^ innerMatcher match: anObject withContext: aMatchingContext

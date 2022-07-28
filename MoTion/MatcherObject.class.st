@@ -62,8 +62,7 @@ MatcherObject >> match: anObject withContext: aContext [
 					                copy := context copy.
 					                submatcher
 						                match: (path resolveFrom: anObject)
-						                withContext: copy ] ]) select: [ :context | 
-			               context isMatch ] ].
+						                withContext: copy ] ]) select: #isMatch ].
 	^ newContexts
 ]
 

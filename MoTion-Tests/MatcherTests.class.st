@@ -70,7 +70,7 @@ MatcherTests >> testMatcherStringPartial [
 	
 	| myMatcher |
 	myMatcher := MatcherLiteralString new.
-	myMatcher value: 'Hello'.
+	myMatcher value: 'Hello.*'.
 	 
 	self assert: (myMatcher match: 'Hello World') isMatch.
 	self deny: (myMatcher match: 'Hi Mr.') isMatch 
