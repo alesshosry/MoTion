@@ -7,5 +7,5 @@ Object >> <=> aMatcherObject [
 
 { #category : #'*MoTion' }
 Object >> <~=> aMatcherObject [
-	^  self -> (MatcherNAC of: aMatcherObject)
+	^  self -> (MatcherNAC of: aMatcherObject asMatcher)
 ]

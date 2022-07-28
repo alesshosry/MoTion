@@ -86,7 +86,7 @@ contexts := matchContexts collect: [ :each | each copy ].
 			aMotionCursor forward ifTrue: [
 				(aMotionCursor patternCursor > aMotionCursor patternSize) ifTrue: [ 
 					(aMotionCursor subjectCursor > aMotionCursor subjectSize) ifTrue: [ 		 
-							"!! here a full combination of matches is found."	 
+							"!! here a full combination of matches is found."	
 							^ true.
 						].
 					"here we have cannot go forward anymore as patternCursor reached the max but without matching all subjects, which is why we decrement patternCursor"
@@ -174,7 +174,6 @@ contexts := matchContexts collect: [ :each | each copy ].
 												
 			] 
 			ifTrue: [ | start min max length subjects |
-				
 				"Set values of start min max ... before start using them"	
 				aMotionCursor forward ifTrue:[
 					"start = subjectCursor "
@@ -236,7 +235,6 @@ contexts := matchContexts collect: [ :each | each copy ].
 					 
 				].				
 			].
-		
 		^ false.
 
 ]
