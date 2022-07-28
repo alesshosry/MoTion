@@ -1,36 +1,8 @@
 Class {
 	#name : #MatcherBlock,
-	#superclass : #Matcher,
-	#instVars : [
-		'block'
-	],
+	#superclass : #MatcherBlockBased,
 	#category : #'MoTion-matcher'
 }
-
-{ #category : #'instance creation' }
-MatcherBlock class >> of: aBlock [
-
-	^ self new
-		  block: aBlock;
-		  yourself
-]
-
-{ #category : #accessing }
-MatcherBlock >> block [ 
-	^ block
-]
-
-{ #category : #accessing }
-MatcherBlock >> block: aBlock [
-
-	block := aBlock
-]
-
-{ #category : #accessing }
-MatcherBlock >> isBlockMatcher [
-
-	^ true
-]
 
 { #category : #accessing }
 MatcherBlock >> match: anObject withContext: aContext [
