@@ -26,6 +26,5 @@ Class >> %% aMatcherDescription [
 
 { #category : #'*MoTion' }
 Class >> asMatcher [
-
-	^ Class %% { (#name <=> self name) }
+	^ self
 ]

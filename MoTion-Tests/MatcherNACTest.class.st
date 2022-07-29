@@ -31,6 +31,24 @@ MatcherNACTest >> testNACCreationOnObjectMatcher [
 ]
 
 { #category : #tests }
+MatcherNACTest >> testNACOnDeepPattern [
+
+	| matcher a b |
+	matcher := MTTestObjectA
+	           % { (#lint <~=> MTTestObjectB %% { (#lint <=> 5) }) }.
+
+	a := MTTestObjectA new.
+	b := MTTestObjectB new.
+	a lint: b.
+	b lint: 10.
+
+	self assert: (matcher match: a) isMatch.
+
+	b lint: 5.
+	self deny: (matcher match: a) isMatch
+]
+
+{ #category : #tests }
 MatcherNACTest >> testNACOnType [
 
 	| notANumber |
