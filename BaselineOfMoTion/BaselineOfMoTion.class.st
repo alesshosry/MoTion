@@ -13,5 +13,6 @@ BaselineOfMoTion >> baseline: spec [
 			package: #MoTion;
 			package: #'MoTion-Tests' with: [ spec requires: #( 'MoTion' ) ].
 		spec for: #MooseX do: [ spec package: 'MoTion-Moose' ].
+		spec group: 'MoTionMoose' with: #( 'MoTion' 'MoTion-Tests' 'MoTion-Moose').
 		spec group: 'default' with: #( 'MoTion' 'MoTion-Tests' ) ]
 ]
