@@ -220,7 +220,11 @@ pattern := XMLNodeList % {
 pattern match: anXMLNodeList.
 ```
 
+## Finally
 
+Don't hesitate to ask. More examples can be found in tests package. 
+Also, don't hesitate to have a look at Iguala which is the same matcher implemented in Python:  https://github.com/aranega/iguala
+Finally, well, just enjoy it :) 
 
 
 
