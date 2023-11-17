@@ -139,4 +139,90 @@ results := pattern collectBindings: {#foo } for: ’text’ .
 This puts in results a collection of dictionaries (here there is only one) with the binding for the #foo symbol.
 The result is a collection because there could be several matchings (for example with a disjunction operator). The collection holds dictionaries because we could ask for several bindings in the first parameter of the method.
 
- 
+## Some cool examples
+
+1. Finding superInheritances for 'Remote' Inteface in Java model: 
+
+```Smalltalk
+pattern := FamixJavaModel % {
+ #'allTypes>entities' <=>
+  FamixJavaInterface % {
+   #'superInheritances>superclass>name'
+    <=> 'Remote' .
+   #'isStub' <~=> true.
+ } as: 'foundInterface'.
+}.
+
+pattern match: aFamixJavaModel.
+
+```
+
+2. Looking for methods where get.config(akey) is invoked
+
+```Smalltalk
+pattern := FASTJavaMethodEntity % {
+ #'children*' <=> FASTJavaMethodInvocation % {
+  #'receiver>name' <=> #'config'.
+  #name <=> #get.
+  #'arguments>primitiveValue' <=> aKey.
+ } as: #configInvocation
+}.
+
+pattern match: aFASTJavaMethodEntity.
+
+```
+
+3. Decomposing the same pattern for reusage of small patterns
+
+```Smalltalk
+childrenPath := #'children*'.
+receiverNamePath := #'receiver>name'.
+argsVal := #'arguments>primitiveValue'.
+
+subPattern := FASTJavaMethodInvocation % {
+ receiverNamePath <=> #'config'.
+ #name <=> #get.
+ argsVal <=> aKey.
+} as: #configInvocation.
+
+pattern := FASTJavaMethodEntity % {
+ childrenPath <=> subPattern.
+}.
+
+pattern match: aFASTJavaMethodEntity.
+
+```
+
+4. MoTion matching Pharo package
+
+```Smalltalk
+pattern := RPackage % {
+		#name <=> #MoTion.
+		#'definedClasses>methodDict' <=> CompiledMethod % { 
+			#'ast>allChildren' <=>  RBMessageNode % { 
+                #'selector>value' <=> #ifTrue:ifFalse:
+			} as: #Node
+		} as: #Method.
+	} as: #Package.
+
+pattern collectBindings: {#Node. #Method. #Package.} for: (#MoTion asPackage).
+```
+
+5. MoTion matching XML node list
+
+```Smalltalk
+pattern := XMLNodeList % {  
+			#'_' <=> XMLElement % {
+				#'name' <=> #'div' .  
+			} as: 'XMLElement'. 
+		}.
+
+pattern match: anXMLNodeList.
+```
+
+
+
+
+
+
+
