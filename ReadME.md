@@ -58,7 +58,7 @@ This pattern matches an instance of ClassA with an unnamed property matching the
 
 10. The “>” operators implements Path traversal by allowing to “chain” multiple properties in a pattern. Such paths help reducing complex patterns expression, by accessing a chain of objects and their properties:
 ```Smalltalk
-ClassA \% {
+ClassA % {
 #’property1>property2’ <=> aValue.
 }
 ```
@@ -106,3 +106,37 @@ ClassA % {
 }
 ```
 This pattern matches an instance of ClassA with a property someProperty matching the value 5 or the value 6.
+
+## How to use the matcher
+
+1. One gets a “matcher” by calling the asMatcher
+method. 
+“1 asMatcher” creates a matcher that only matches the value “1”.
+2. A matcher as a match: method that allows it to try to match the argument.
+```Smalltalk
+pattern := #’@foo’ asMatcher.
+results := pattern match: ’text’ .
+result isMatch.
+```
+This creates a matcher than matches anything (and associates it with the “foo” symbol) and runs it on the string ’text’. The last line will answer true as the match was successful.
+The result of match: is a MatchingResult. 
+As we just saw, it includes a boolean property isMatch indicating whether the match was successful or not. It also has a property, and matchingContexts which is a collection of MatchingContext objects. Each of these contexts
+includes again a boolean field isMatch and a dictionary of its bindings.
+To get the binding of foo in the the small example
+above, one would do:
+```Smalltalk
+results matchingContexts first bindings
+at: ’foo’.
+```
+This will return the string ’text’. Bindings can also be created with the as: method. 
+It is used to bind the result of a pattern that will be kept in the result’s bindings. 
+Finally to simplify getting the result of the bindings one is mostly interested in, there is a method collectBindings: that accepts a collection of (interesting) keys as parameter, and returns their values matched by a pattern.
+In case there is no match, the return is an empty collection.
+```Smalltalk
+pattern := #’@foo’ asMatcher.
+results := pattern collectBindings: {#foo } for: ’text’ .
+```
+This puts in results a collection of dictionaries (here there is only one) with the binding for the #foo symbol.
+The result is a collection because there could be several matchings (for example with a disjunction operator). The collection holds dictionaries because we could ask for several bindings in the first parameter of the method.
+
+ 
