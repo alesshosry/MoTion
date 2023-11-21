@@ -9,3 +9,8 @@ Object >> <=> aMatcherObject [
 Object >> <~=> aMatcherObject [
 	^  self -> (MatcherNAC of: aMatcherObject asMatcher)
 ]
+
+{ #category : #'*MoTion' }
+Object >> objectMatches: aMatcherObject [
+	^ self <=> aMatcherObject
+]

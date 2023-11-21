@@ -143,6 +143,16 @@ MatcherObjectTest >> testDirectPathMatcherCreation [
 ]
 
 { #category : #tests }
+MatcherObjectTest >> testObjectMatches [
+
+	| matcher |
+	matcher := MTTestObjectA % {
+		            #'b>c' objectMatches: MTTestObjectC % {  } 
+					}.
+	self assert: (matcher match: a) isMatch 
+]
+
+{ #category : #tests }
 MatcherObjectTest >> testRecursiveChildrenPathMatcherCreation [
 
 	| matcher |
