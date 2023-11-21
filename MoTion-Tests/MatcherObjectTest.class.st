@@ -162,6 +162,53 @@ MatcherObjectTest >> testObjectMatches [
 ]
 
 { #category : #tests }
+MatcherObjectTest >> testPolymorphicSpaceShip [
+
+	| pattern aa|
+		
+	aa := MTTestObjectA new.
+	aa lstring: 'Hello World !'. 
+	
+	c llist: OrderedCollection new.
+	c llist add: 1.
+	c llist add: aa.	
+		
+	pattern := MTTestObjectA % {
+		#b <=> MTTestObjectB % { 
+			#c <=> MTTestObjectC % { 
+				#'llist' <=> {1. #'*l1'}
+			}.
+		}.
+	}.
+	
+	self assert: (pattern match: a) isMatch.
+	
+	pattern := MTTestObjectA % {
+		#b <=> MTTestObjectB % { 
+			#c <=> MTTestObjectC % { 
+				#'llist' <=> 1
+			}.
+		}.
+	}.
+	
+	self assert: (pattern match: a) isMatch.
+	
+	pattern := MTTestObjectA % {
+		#b <=> MTTestObjectB % { 
+			#c <=> MTTestObjectC % { 
+				#'llist' <=> MTTestObjectA % {
+					#lstring <=> 'Hello World !'.
+				}.
+			}.
+		}.
+	}.
+	
+	self assert: (pattern match: a) isMatch.
+
+	
+]
+
+{ #category : #tests }
 MatcherObjectTest >> testRecursiveChildrenPathMatcherCreation [
 
 	| matcher |
