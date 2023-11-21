@@ -18,10 +18,12 @@ MTComposedPathTests >> setUp [
 	b := MTTestObjectB new.
 	c := MTTestObjectC new.
 
+
 	a b: b.
 	a c: c.
 	b c: c.
-	c a: a
+	c a: a.
+	
 ]
 
 { #category : #tests }
@@ -97,4 +99,26 @@ MTComposedPathTests >> testComplexPathOfDirectPathCreation [
 	path := #'b>c>a' asObjectPath.
 
 	self assert: (path resolveFrom: a) equals: { a }
+]
+
+{ #category : #tests }
+MTComposedPathTests >> testPolymorphicComposedPath [
+
+	| path aa|
+		
+	c llist: OrderedCollection new.
+	aa := MTTestObjectA new.
+	aa lstring: 'Hello World !'. 
+		
+	c lint: 1.
+	path := #'b>c>lint' asObjectPath.
+	self assert: (path resolveFrom: a) equals: {1}.
+		
+	c llist add: 1.
+	c llist add: aa.
+	path := #'b>c>llist' asObjectPath.
+	self assert: (path resolveFrom: a) equals: {1. aa }.
+	
+	path := #'b>c>llist>lstring' asObjectPath.
+	self assert: (path resolveFrom: a) equals: {'Hello World !'}.
 ]

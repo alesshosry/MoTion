@@ -5,7 +5,8 @@ Class {
 		'a',
 		'lint',
 		'lstring',
-		'lfloat'
+		'lfloat',
+		'llist'
 	],
 	#category : #'MoTion-Tests-class-data-tests'
 }
@@ -25,6 +26,18 @@ MTTestObjectC >> lfloat: anObject [
 MTTestObjectC >> lint: anObject [
 
 	lint := anObject
+]
+
+{ #category : #accessing }
+MTTestObjectC >> llist [
+
+	^ llist
+]
+
+{ #category : #accessing }
+MTTestObjectC >> llist: anObject [ 
+
+	llist := anObject
 ]
 
 { #category : #accessing }
