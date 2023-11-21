@@ -150,6 +150,19 @@ MatcherCollectionTests >> testListWildcardsOnly [
 ]
 
 { #category : #tests }
+MatcherCollectionTests >> testListWildcardsinList [
+
+	| pattern result bindingKeys|
+	pattern := { #'@x'. #'*_'. #'@x'. #'*_' }.
+
+	result := pattern match: #( 1 2 3 1 2 ).
+	self assert: result isMatch.
+	
+	bindingKeys := result matchingContexts flatCollect: [ :each | each bindings keys ].
+	self assert: bindingKeys equals:  {#x} asOrderedCollection  .
+]
+
+{ #category : #tests }
 MatcherCollectionTests >> testLiteralNodeInCollection [
 
 	| matcher expression |
@@ -405,6 +418,22 @@ MatcherCollectionTests >> testToCheckDedicatedArgumentsAndReceiverWithDirectPath
 		assertCollection:
 		(matcher collectBinding: #something for: expression)
 		hasSameElements: { (RBLiteralNode value: 2) }
+]
+
+{ #category : #tests }
+MatcherCollectionTests >> testVariableWildcardsinList [
+
+	| pattern result bindingKeys|
+	pattern := { #'@x'. #'@_'. #'@x'. #'@_' }.
+
+	result := pattern match: #( 1 2 1 ). 
+	self deny: result isMatch.
+	
+	result := pattern match: #( 1 2 1 2 ). 
+	self assert: result isMatch.
+	
+	bindingKeys := result matchingContexts flatCollect: [ :each | each bindings keys ].
+	self assert: bindingKeys equals:  {#x} asOrderedCollection  .
 ]
 
 { #category : #'tests - to be refined' }
