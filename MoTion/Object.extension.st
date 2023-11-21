@@ -11,6 +11,11 @@ Object >> <~=> aMatcherObject [
 ]
 
 { #category : #'*MoTion' }
+Object >> objectDoesNotMatch: aMatcherObject [
+	^  self <~=> aMatcherObject 
+]
+
+{ #category : #'*MoTion' }
 Object >> objectMatches: aMatcherObject [
 	^ self <=> aMatcherObject
 ]
