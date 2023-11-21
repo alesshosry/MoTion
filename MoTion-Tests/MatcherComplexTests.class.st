@@ -12,10 +12,10 @@ MatcherComplexTests >> testCollectSavedMatchers [
 	| matcher collectedBindingsForPackage collectedBindingsForMethod collectedBindingsForNode|
 	
 	 matcher := RPackage % {
-		#name -> #MoTion.
-		#'definedClasses>methodDict' -> CompiledMethod % { 
-			#'ast>allChildren' ->  RBMessageNode % { 
-					#'selector>value' -> #ifTrue:ifFalse:
+		#name <=> #MoTion.
+		#'definedClasses>methodDict' <=> CompiledMethod % { 
+			#'ast>allChildren' <=>  RBMessageNode % { 
+					#'selector>value' <=> #ifTrue:ifFalse:
 			} as: #Node
 		} as: #Method.
 	} as: #Package.
@@ -40,8 +40,8 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInMethod [
 	| matcher|
 	
 	matcher := RBMethodNode % { 
-		#'children*' -> RBMessageNode % { 
-			#'selector>value' -> #ifTrue:ifFalse:
+		#'children*' <=> RBMessageNode % { 
+			#'selector>value' <=> #ifTrue:ifFalse:
 		}
 	}.
 
@@ -59,9 +59,9 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInMethodAST [
 	"Here we are trying to check if selector '#ifTrue:ifFalse:' exists in AST childrens of MTDirectChildrenPath in any method"
 	
 	matcher := Class %% { 
-		#'methodDict>ast' -> RBMethodNode % { 
-			#'children*' -> RBMessageNode % { 
-				#'selector>value' -> #ifTrue:ifFalse:
+		#'methodDict>ast' <=> RBMethodNode % { 
+			#'children*' <=> RBMessageNode % { 
+				#'selector>value' <=> #ifTrue:ifFalse:
 			}
 		}
 	}.
@@ -80,10 +80,10 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInPackage [
 	| matcher|
 	
 	matcher := RPackage % {
-		#'definedClasses>@' -> Class %% { 
-			#'methodDictionary>ast' -> RBMethodNode % { 
-				#'children*' -> RBMessageNode % { 
-					#'selector>value' -> #ifTrue:ifFalse:
+		#'definedClasses>@' <=> Class %% { 
+			#'methodDictionary>ast' <=> RBMethodNode % { 
+				#'children*' <=> RBMessageNode % { 
+					#'selector>value' <=> #ifTrue:ifFalse:
 				}
 			} as: #Method
 		}
@@ -103,8 +103,8 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInPackageDefinedWithComposedPa
 	| matcher|
 	
 	matcher := RPackage % {
-	#'definedClasses>methodDict>ast>allChildren' -> RBMessageNode % { 
-			#'selector>value' -> #ifTrue:ifFalse:
+	#'definedClasses>methodDict>ast>allChildren' <=> RBMessageNode % { 
+			#'selector>value' <=> #ifTrue:ifFalse:
 		}
 	}.
 
@@ -123,12 +123,12 @@ MatcherComplexTests >> testToDiscoverVariableIncrements [
 	z ifTrue: [y := y + 1].
 	x := 1 + x'.
 
-	matcher := RBMethodNode % { (#'children*' -> RBAssignmentNode % { 
-		            (#variable -> #'@name').
-		            (#value -> (RBMessageNode % { 
-			              (#'selector>value' -> #+).
-			              (#'arguments>value' -> 1).
-			              (#receiver -> #'@name') }) as: #node) }) }.
+	matcher := RBMethodNode % { (#'children*' <=> RBAssignmentNode % { 
+		            (#variable <=> #'@name').
+		            (#value <=> (RBMessageNode % { 
+			              (#'selector>value' <=> #+).
+			              (#'arguments>value' <=> 1).
+			              (#receiver <=> #'@name') }) as: #node) }) }.
 
 	result := matcher match: method.
 	self assert: result isMatch.

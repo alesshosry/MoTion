@@ -10,9 +10,9 @@ LogicalMatcherTest >> testOrMatcherForCollections [
 	| obj matcher |
 	matcher := { 
 		           #'@x'.
-		           (MTTestObjectA % { (#lint -> #'@x') }) } orMatches: { 
+		           (MTTestObjectA % { (#lint <=> #'@x') }) } orMatches: { 
 			           #'@x'.
-			           (MTTestObjectB % { (#lint -> #'@x') }) }.
+			           (MTTestObjectB % { (#lint <=> #'@x') }) }.
 
 	obj := { 
 		       5.
@@ -29,8 +29,8 @@ LogicalMatcherTest >> testOrMatcherForCollections [
 LogicalMatcherTest >> testOrMatcherForComplexObjects [
 
 	| obj matcher |
-	matcher := MTTestObjectA % { (#lint -> 5) } orMatches:
-		           MTTestObjectB % { (#lint -> #foo) }.
+	matcher := MTTestObjectA % { (#lint <=> 5) } orMatches:
+		           MTTestObjectB % { (#lint <=> #foo) }.
 
 	obj := MTTestObjectA new.
 	obj lint: 5.
@@ -51,8 +51,8 @@ LogicalMatcherTest >> testOrMatcherForComplexObjectsInCollections [
 	| obj matcher |
 	matcher := { 
 		           #'@x'.
-		           (MTTestObjectA % { (#lint -> #'@x') } orMatches:
-			            MTTestObjectB % { (#lint -> #'@x') }) }.
+		           (MTTestObjectA % { (#lint <=> #'@x') } orMatches:
+			            MTTestObjectB % { (#lint <=> #'@x') }) }.
 
 	obj := {5. MTTestObjectA new lint: 5}.	
 	self assert: (matcher match: obj) isMatch.
@@ -66,7 +66,7 @@ LogicalMatcherTest >> testOrMatcherForComplexObjectsInCollections [
 LogicalMatcherTest >> testOrMatcherForInteger [
 
 	| obj matcher |
-	matcher := MTTestObjectA % { (#lint -> (5 orMatches: 42)) }.
+	matcher := MTTestObjectA % { (#lint <=> (5 orMatches: 42)) }.
 
 	obj := MTTestObjectA new.
 	obj lint: 5.
@@ -85,7 +85,7 @@ LogicalMatcherTest >> testOrMatcherForInteger [
 LogicalMatcherTest >> testOrMatcherForMixedType [
 
 	| obj matcher |
-	matcher := MTTestObjectA % { (#lint -> (5 orMatches: #foo)) }.
+	matcher := MTTestObjectA % { (#lint <=> (5 orMatches: #foo)) }.
 
 	obj := MTTestObjectA new.
 	obj lint: 5.
