@@ -28,3 +28,15 @@ Class >> %% aMatcherDescription [
 Class >> asMatcher [
 	^ self
 ]
+
+{ #category : #'*MoTion' }
+Class >> isInstanceWithProperties: aMatcherDescription [
+
+	^ self % aMatcherDescription
+]
+
+{ #category : #'*MoTion' }
+Class >> isKindOfWithProperties: aMatcherDescription [
+
+	^ self %% aMatcherDescription
+]

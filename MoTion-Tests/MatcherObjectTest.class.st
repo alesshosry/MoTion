@@ -203,3 +203,21 @@ MatcherObjectTest >> testSimpleComposedPathMatcherCreation [
 		           (#'b>c>lint' -> 16) }.
 	self deny: (matcher match: a) isMatch
 ]
+
+{ #category : #tests }
+MatcherObjectTest >> testSimpleIsInstanceWithProperties [
+
+	| matcher |
+	matcher := MTTestObjectA isInstanceWithProperties:
+		           { (#'b>c' -> MTTestObjectC isInstanceWithProperties: {  }) }.
+	self assert: (matcher match: a) isMatch 
+]
+
+{ #category : #tests }
+MatcherObjectTest >> testSimpleIsKindOfWithProperties [
+
+	| matcher |
+	matcher := Object isKindOfWithProperties:
+		           { (#'b>c' <=> MTTestObjectC isKindOfWithProperties: {  }) }.
+	self assert: (matcher match: a) isMatch
+]

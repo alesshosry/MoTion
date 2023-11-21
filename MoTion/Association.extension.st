@@ -19,6 +19,18 @@ Association >> as: aSymbol [
 ]
 
 { #category : #'*MoTion' }
+Association >> isInstanceWithProperties: matcherProperties [
+
+	self % matcherProperties
+]
+
+{ #category : #'*MoTion' }
+Association >> isKindOfWithProperties: matcherProperties [
+
+	self %% matcherProperties
+]
+
+{ #category : #'*MoTion' }
 Association >> orMatches: anObject [
 
 	self value: (self value asMatcher orMatches: anObject asMatcher)
