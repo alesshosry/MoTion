@@ -149,7 +149,16 @@ MatcherObjectTest >> testObjectMatches [
 	matcher := MTTestObjectA % {
 		            #'b>c' objectMatches: MTTestObjectC % {  } 
 					}.
+	self assert: (matcher match: a) isMatch.
+	
+	matcher := MTTestObjectA % {
+		            #'b>c' objectMatches: MTTestObjectC % { 
+							#a objectMatches: MTTestObjectA % { }
+						} 
+					}.
 	self assert: (matcher match: a) isMatch 
+	
+
 ]
 
 { #category : #tests }
