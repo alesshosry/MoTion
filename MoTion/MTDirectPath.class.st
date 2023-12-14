@@ -13,7 +13,19 @@ MTDirectPath class >> of: anObjectPathString [
 { #category : #resolving }
 MTDirectPath >> resolveFrom: anObject [
 
-	^ { ([ (anObject class slotNamed: name) read: anObject ]
+	"^ { ([ (anObject class slotNamed: name) read: anObject ]
 		   on: SlotNotFound
-		   do: [ anObject perform: name ]) } flattened
+		   do: [ anObject perform: name ]) } flattened"
+		
+	|res|
+	
+	res := [
+				[ (anObject class slotNamed: name) read: anObject ]
+		   			on: SlotNotFound
+		   			do: [ anObject perform: name ]
+			] on: Exception 
+			  do: [ #() ] .
+		
+	^ { res } flattened
+
 ]
