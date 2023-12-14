@@ -47,6 +47,6 @@ MatcherLiteralString >> matchOnlyString: aString withContext: aContext [
 { #category : #matching }
 MatcherLiteralString >> regexMatch: aNewValue withContext: aContext [
 
-	aContext isMatch: (aNewValue matchesRegex: value).
+	aContext isMatch: (aNewValue matchesRegexIgnoringCase: value).
 	^ { aContext }
 ]
