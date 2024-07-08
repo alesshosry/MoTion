@@ -8,11 +8,12 @@ Class {
 BaselineOfMoTion >> baseline: spec [
 
 	<baseline>
-	spec for: #common do: [ 
+	spec for: #common do: [
 		spec
 			package: #MoTion;
-			package: #'MoTion-Tests' with: [ spec requires: #( 'MoTion' ) ].
-		spec for: #MooseX do: [ spec package: 'MoTion-Moose' ].
-		spec group: 'MoTionMoose' with: #( 'MoTion' 'MoTion-Tests' 'MoTion-Moose').
-		spec group: 'default' with: #( 'MoTion' 'MoTion-Tests' ) ]
+			package: #'MoTion-Tests' with: [ spec requires: #( 'MoTion' ) ];
+			package: #'MoTion-Moose' with: [ spec requires: #( 'MoTion' ) ].
+
+		spec group: 'default' with: #( 'MoTion' 'MoTion-Tests' ).
+		spec group: 'MoTionMoose' with: #( 'default' 'MoTion-Moose' ) ]
 ]
