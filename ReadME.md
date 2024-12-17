@@ -10,7 +10,7 @@ To install MoTion, go to the Playground (`Ctrl+OW`) in your Pharo image and exec
 ```Smalltalk
 Metacello new
     baseline: 'MoTion';
-    repository: 'github://AlessHosry/MoTion:main';
+    repository: 'github://moosetechnology/MoTion:main';
     load.
 ```
 
