@@ -1,10 +1,12 @@
 Class {
-	#name : #LogicalMatcherTest,
-	#superclass : #MatcherTests,
-	#category : #'MoTion-Tests-matchers'
+	#name : 'LogicalMatcherTest',
+	#superclass : 'MatcherTests',
+	#category : 'MoTion-Tests-matchers',
+	#package : 'MoTion-Tests',
+	#tag : 'matchers'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 LogicalMatcherTest >> testOrMatcherForCollections [
 
 	| obj matcher |
@@ -25,7 +27,7 @@ LogicalMatcherTest >> testOrMatcherForCollections [
 	self assert: (matcher match: obj) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 LogicalMatcherTest >> testOrMatcherForComplexObjects [
 
 	| obj matcher |
@@ -45,7 +47,7 @@ LogicalMatcherTest >> testOrMatcherForComplexObjects [
 	self assert: (matcher match: obj) isMatch not
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 LogicalMatcherTest >> testOrMatcherForComplexObjectsInCollections [
 
 	| obj matcher |
@@ -62,7 +64,7 @@ LogicalMatcherTest >> testOrMatcherForComplexObjectsInCollections [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 LogicalMatcherTest >> testOrMatcherForInteger [
 
 	| obj matcher |
@@ -81,7 +83,7 @@ LogicalMatcherTest >> testOrMatcherForInteger [
 	self assert: (matcher match: obj) isMatch not
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 LogicalMatcherTest >> testOrMatcherForMixedType [
 
 	| obj matcher |

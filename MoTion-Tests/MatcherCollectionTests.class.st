@@ -1,10 +1,12 @@
 Class {
-	#name : #MatcherCollectionTests,
-	#superclass : #MatcherTests,
-	#category : #'MoTion-Tests-matchers'
+	#name : 'MatcherCollectionTests',
+	#superclass : 'MatcherTests',
+	#category : 'MoTion-Tests-matchers',
+	#package : 'MoTion-Tests',
+	#tag : 'matchers'
 }
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testCollectionWithSimpleObject [
 
 	| matcher expression |
@@ -17,7 +19,7 @@ MatcherCollectionTests >> testCollectionWithSimpleObject [
 	self assert: (matcher match: expression children) isMatch
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testListPatternAtBeginning [
 
 	| matcher result |
@@ -28,7 +30,7 @@ MatcherCollectionTests >> testListPatternAtBeginning [
 	self assert: result isMatch not
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardDetection [
 
 	| matcher result |
@@ -40,7 +42,7 @@ MatcherCollectionTests >> testListWildcardDetection [
 	self assert: result matchingContexts size equals: 2
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardWithInnerMatcher [
 
 	| matcher result a1|
@@ -62,7 +64,7 @@ MatcherCollectionTests >> testListWildcardWithInnerMatcher [
 
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardWithInnerMatcher2 [
 
 	| matcher result |
@@ -77,7 +79,7 @@ MatcherCollectionTests >> testListWildcardWithInnerMatcher2 [
 
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardWithInnerMatcher3 [
 
 	| matcher result a1 bindings |
@@ -108,7 +110,7 @@ MatcherCollectionTests >> testListWildcardWithInnerMatcher3 [
 
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardWithInnerMatcher4 [
 
 	| matcher result |
@@ -122,7 +124,7 @@ MatcherCollectionTests >> testListWildcardWithInnerMatcher4 [
 
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardWithInnerMatcher5 [
 
 	| matcher result |
@@ -137,7 +139,7 @@ MatcherCollectionTests >> testListWildcardWithInnerMatcher5 [
 
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testListWildcardsOnly [
 
 	| matcher result |
@@ -149,7 +151,7 @@ MatcherCollectionTests >> testListWildcardsOnly [
 	self assert: result matchingContexts size equals: 7
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherCollectionTests >> testListWildcardsinList [
 
 	| pattern result bindingKeys|
@@ -162,7 +164,7 @@ MatcherCollectionTests >> testListWildcardsinList [
 	self assert: bindingKeys equals:  {#x} asOrderedCollection  .
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherCollectionTests >> testLiteralNodeInCollection [
 
 	| matcher expression |
@@ -177,7 +179,7 @@ MatcherCollectionTests >> testLiteralNodeInCollection [
 
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testMultiWildcardsAndMultiItemsComplex [
 
 	| matcher expression result | 
@@ -195,7 +197,7 @@ MatcherCollectionTests >> testMultiWildcardsAndMultiItemsComplex [
 		
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testSameWildcards [
 
 	| matcher expression result |
@@ -224,7 +226,7 @@ MatcherCollectionTests >> testSameWildcards [
 		hasSameElements: { (RBLiteralNode value: 1) }
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testSequenceEquivalenceForListWildcards [
 
 	| matcher result method |
@@ -246,7 +248,7 @@ MatcherCollectionTests >> testSequenceEquivalenceForListWildcards [
 	self assert: result matchingContexts size equals: 3.
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testSequenceMatchingRepetitions [
 
 	| matcher result list |
@@ -260,7 +262,7 @@ MatcherCollectionTests >> testSequenceMatchingRepetitions [
 	self assert: result matchingContexts size equals: 3.
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testSequenceMatchingRepetitionsNonFollowing [
 
 	| matcher result list |
@@ -274,7 +276,7 @@ MatcherCollectionTests >> testSequenceMatchingRepetitionsNonFollowing [
 	self assert: result matchingContexts size equals: 3.
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testSequenceMatchingWithListWildcard [
 
 	| matcher result method |
@@ -318,7 +320,7 @@ MatcherCollectionTests >> testSequenceMatchingWithListWildcard [
 
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testShouldNotMatchMissingItem [
 
 	| matcher expression |
@@ -333,7 +335,7 @@ MatcherCollectionTests >> testShouldNotMatchMissingItem [
 	self assert: (matcher match: expression) isMatch not 
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testShouldNotMatchMissingWieldcard [
 
 	| matcher expression |
@@ -348,7 +350,7 @@ MatcherCollectionTests >> testShouldNotMatchMissingWieldcard [
 	self assert: (matcher match: expression) isMatch not
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testSimpleIntegerCollection [
 
 	| matcher |
@@ -357,7 +359,7 @@ MatcherCollectionTests >> testSimpleIntegerCollection [
 	self assert: (matcher match: #( 1 2 3 4 5 )) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherCollectionTests >> testToCheckDedicatedArgumentsAndReceiver [
 
 	| matcher expression |
@@ -383,7 +385,7 @@ MatcherCollectionTests >> testToCheckDedicatedArgumentsAndReceiver [
 	"Here we are checking if @something could match with 2"
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherCollectionTests >> testToCheckDedicatedArgumentsAndReceiverAreNotMatching [
 
 	| matcher expression |
@@ -399,7 +401,7 @@ MatcherCollectionTests >> testToCheckDedicatedArgumentsAndReceiverAreNotMatching
 	self assert: (matcher match: expression) isMatch not
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherCollectionTests >> testToCheckDedicatedArgumentsAndReceiverWithDirectPath [
 
 	| matcher expression |
@@ -420,7 +422,7 @@ MatcherCollectionTests >> testToCheckDedicatedArgumentsAndReceiverWithDirectPath
 		hasSameElements: { (RBLiteralNode value: 2) }
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherCollectionTests >> testVariableWildcardsinList [
 
 	| pattern result bindingKeys|
@@ -436,7 +438,7 @@ MatcherCollectionTests >> testVariableWildcardsinList [
 	self assert: bindingKeys equals:  {#x} asOrderedCollection  .
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testWildcardIsAnonymous [
 
 	| matcher |
@@ -445,7 +447,7 @@ MatcherCollectionTests >> testWildcardIsAnonymous [
 	self assert: matcher isAnonymous
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testWildcardOnly [
 
 	| matcher expression |
@@ -462,7 +464,7 @@ MatcherCollectionTests >> testWildcardOnly [
 		hasSameElements: { (RBVariableNode value: 'a') }"
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testWildcardSameAsItem [
 
 	| matcher expression |
@@ -478,7 +480,7 @@ MatcherCollectionTests >> testWildcardSameAsItem [
 	self assert: (matcher match: expression) isMatch
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testWildcardWithMultiItemsAtTheBegining [
 
 	| matcher expression |
@@ -492,7 +494,7 @@ MatcherCollectionTests >> testWildcardWithMultiItemsAtTheBegining [
 	self assert: (matcher match: expression) isMatch
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testWildcardWithMultiItemsAtTheEnd [
 
 	| matcher expression |
@@ -506,7 +508,7 @@ MatcherCollectionTests >> testWildcardWithMultiItemsAtTheEnd [
 	self assert: (matcher match: expression) isMatch
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testWildcardWithOneItemAtTheBegining [
 
 	| matcher expression |
@@ -525,7 +527,7 @@ MatcherCollectionTests >> testWildcardWithOneItemAtTheBegining [
 		hasSameElements: { (RBLiteralNode value: 2) }
 ]
 
-{ #category : #'tests - to be refined' }
+{ #category : 'tests - to be refined' }
 MatcherCollectionTests >> testWildcardWithOneItemAtTheEnd [
 
 	| matcher expression |

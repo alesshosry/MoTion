@@ -1,15 +1,17 @@
 Class {
-	#name : #MatcherObjectTest,
-	#superclass : #MatcherTests,
+	#name : 'MatcherObjectTest',
+	#superclass : 'MatcherTests',
 	#instVars : [
 		'a',
 		'b',
 		'c'
 	],
-	#category : #'MoTion-Tests-matchers'
+	#category : 'MoTion-Tests-matchers',
+	#package : 'MoTion-Tests',
+	#tag : 'matchers'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 MatcherObjectTest >> setUp [
 
 	super setUp.
@@ -32,7 +34,7 @@ MatcherObjectTest >> setUp [
 	c lstring: 'foobar'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherObjectTest >> testDirectChildrenPathMatcherCreation [
 
 	| matcher |
@@ -69,7 +71,7 @@ MatcherObjectTest >> testDirectChildrenPathMatcherCreation [
 	self deny: (matcher match: a) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherObjectTest >> testDirectPathLiterals [
 
 	| matcher |
@@ -113,7 +115,7 @@ MatcherObjectTest >> testDirectPathLiterals [
 	self deny: (matcher match: b) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherObjectTest >> testDirectPathMatcherCreation [
 
 	| matcher |
@@ -142,7 +144,7 @@ MatcherObjectTest >> testDirectPathMatcherCreation [
 	self deny: (matcher match: b) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherObjectTest >> testObjectMatches [
 
 	| matcher |
@@ -161,7 +163,7 @@ MatcherObjectTest >> testObjectMatches [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherObjectTest >> testPolymorphicSpaceShip [
 
 	| pattern aa|
@@ -208,7 +210,7 @@ MatcherObjectTest >> testPolymorphicSpaceShip [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherObjectTest >> testRecursiveChildrenPathMatcherCreation [
 
 	| matcher |
@@ -247,7 +249,7 @@ MatcherObjectTest >> testRecursiveChildrenPathMatcherCreation [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherObjectTest >> testSimpleComposedPathMatcherCreation [
 
 	| matcher |
@@ -270,7 +272,7 @@ MatcherObjectTest >> testSimpleComposedPathMatcherCreation [
 	self deny: (matcher match: a) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherObjectTest >> testSimpleIsInstanceWithProperties [
 
 	| matcher |
@@ -279,7 +281,7 @@ MatcherObjectTest >> testSimpleIsInstanceWithProperties [
 	self assert: (matcher match: a) isMatch 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherObjectTest >> testSimpleIsKindOfWithProperties [
 
 	| matcher |

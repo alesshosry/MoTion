@@ -1,10 +1,12 @@
 Class {
-	#name : #MatcherTests,
-	#superclass : #TestCase,
-	#category : #'MoTion-Tests-matchers'
+	#name : 'MatcherTests',
+	#superclass : 'TestCase',
+	#category : 'MoTion-Tests-matchers',
+	#package : 'MoTion-Tests',
+	#tag : 'matchers'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherTests >> testMatcherBoolean [
 
 	| matcher |
@@ -14,7 +16,7 @@ MatcherTests >> testMatcherBoolean [
 	self deny: (matcher match: false) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherTests >> testMatcherNil [
 	
 	| matcher |
@@ -24,7 +26,7 @@ MatcherTests >> testMatcherNil [
 	self deny: (matcher match: 42) isMatch 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherTests >> testMatcherNumber [
 	| myMatcher |
 	myMatcher := MatcherLiteralNumber  new.
@@ -34,7 +36,7 @@ MatcherTests >> testMatcherNumber [
 	self deny: (myMatcher match: 900) isMatch 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherTests >> testMatcherNumberCollection [
 	| myMatcher |
 	myMatcher := MatcherLiteralNumber of: 100.
@@ -43,7 +45,7 @@ MatcherTests >> testMatcherNumberCollection [
 	self deny: (myMatcher match: 900) isMatch 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherTests >> testMatcherStringCollection [
 	
 	| myMatcher |
@@ -54,7 +56,7 @@ MatcherTests >> testMatcherStringCollection [
 	self deny: (myMatcher match: 'Hi Mr. hello') isMatch 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherTests >> testMatcherStringFull [
 	
 	| myMatcher |
@@ -65,7 +67,7 @@ MatcherTests >> testMatcherStringFull [
 	self deny: (myMatcher match: 'Hi') isMatch 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherTests >> testMatcherStringPartial [
 	
 	| myMatcher |
@@ -76,7 +78,7 @@ MatcherTests >> testMatcherStringPartial [
 	self deny: (myMatcher match: 'Hi Mr.') isMatch 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherTests >> testMatcherSymbolCollection [
 	
 	| myMatcher |
@@ -87,7 +89,7 @@ MatcherTests >> testMatcherSymbolCollection [
 	self deny: (myMatcher match: 'Hi Mr. hello') isMatch 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherTests >> testMatcherSymbolFull [
 	
 	| myMatcher |
@@ -98,7 +100,7 @@ MatcherTests >> testMatcherSymbolFull [
 	self deny: (myMatcher match: #'c d') isMatch 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherTests >> testMatcherSymbolPartial [
 	
 	| myMatcher |

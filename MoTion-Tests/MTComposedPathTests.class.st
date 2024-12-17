@@ -1,15 +1,17 @@
 Class {
-	#name : #MTComposedPathTests,
-	#superclass : #MotionPathTests,
+	#name : 'MTComposedPathTests',
+	#superclass : 'MotionPathTests',
 	#instVars : [
 		'a',
 		'b',
 		'c'
 	],
-	#category : #'MoTion-Tests-paths'
+	#category : 'MoTion-Tests-paths',
+	#package : 'MoTion-Tests',
+	#tag : 'paths'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 MTComposedPathTests >> setUp [
 
 	super setUp.
@@ -26,7 +28,7 @@ MTComposedPathTests >> setUp [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTComposedPathTests >> testComplexPathOfDifferentPaths [
 
 	| path |
@@ -58,7 +60,7 @@ MTComposedPathTests >> testComplexPathOfDifferentPaths [
 	self assertCollection: (path resolveFrom: a) equals: { a }
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTComposedPathTests >> testComplexPathOfDifferentPathsCreation [
 
 	| path |
@@ -80,7 +82,7 @@ MTComposedPathTests >> testComplexPathOfDifferentPathsCreation [
 	self assertCollection: (path resolveFrom: a) equals: { a }
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTComposedPathTests >> testComplexPathOfDirectPath [
 
 	| path |
@@ -92,7 +94,7 @@ MTComposedPathTests >> testComplexPathOfDirectPath [
 	self assert: (path resolveFrom: a) equals: { a }
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTComposedPathTests >> testComplexPathOfDirectPathCreation [
 
 	| path |
@@ -101,7 +103,7 @@ MTComposedPathTests >> testComplexPathOfDirectPathCreation [
 	self assert: (path resolveFrom: a) equals: { a }
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTComposedPathTests >> testPolymorphicComposedPath [
 
 	| path aa|

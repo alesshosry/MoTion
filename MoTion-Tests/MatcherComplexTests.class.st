@@ -1,10 +1,12 @@
 Class {
-	#name : #MatcherComplexTests,
-	#superclass : #MatcherTests,
-	#category : #'MoTion-Tests-matchers'
+	#name : 'MatcherComplexTests',
+	#superclass : 'MatcherTests',
+	#category : 'MoTion-Tests-matchers',
+	#package : 'MoTion-Tests',
+	#tag : 'matchers'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherComplexTests >> testCollectSavedMatchers [
 
 	"Here we are collecting saved Matchers from defined matcher to retrieve selectors #ifTrue:ifFalse from package MoTion"
@@ -33,7 +35,7 @@ MatcherComplexTests >> testCollectSavedMatchers [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherComplexTests >> testToCheckIfSelectorExistsInMethod [
 
 	"Here we are trying to check if selector '#ifTrue:ifFalse:' exists in AST childrens of MTDirectChildrenPath method resolveFrom:"
@@ -51,7 +53,7 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInMethod [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherComplexTests >> testToCheckIfSelectorExistsInMethodAST [
 
 	| matcher|
@@ -72,7 +74,7 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInMethodAST [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherComplexTests >> testToCheckIfSelectorExistsInPackage [
 
 	"Here we are trying to check if selector '#ifTrue:ifFalse:' exists in AST childrens of all methods of all classes in package MoTion"
@@ -95,7 +97,7 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInPackage [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherComplexTests >> testToCheckIfSelectorExistsInPackageDefinedWithComposedPath [
 
 	"Here we are trying to check if selector '#ifTrue:ifFalse:' exists in AST childrens of all methods of all classes in package MoTion, by using ComposedPath while defining the matcher"
@@ -114,7 +116,7 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInPackageDefinedWithComposedPa
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherComplexTests >> testToDiscoverVariableIncrements [
 
 	| matcher method result |

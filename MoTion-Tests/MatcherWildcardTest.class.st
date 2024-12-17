@@ -1,15 +1,17 @@
 Class {
-	#name : #MatcherWildcardTest,
-	#superclass : #MatcherTests,
+	#name : 'MatcherWildcardTest',
+	#superclass : 'MatcherTests',
 	#instVars : [
 		'a',
 		'b',
 		'c'
 	],
-	#category : #'MoTion-Tests-matchers'
+	#category : 'MoTion-Tests-matchers',
+	#package : 'MoTion-Tests',
+	#tag : 'matchers'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MatcherWildcardTest >> setUp [
 
 	super setUp.
@@ -32,7 +34,7 @@ MatcherWildcardTest >> setUp [
 	c lstring: 'foobar'.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MatcherWildcardTest >> testWildcardCreation [
 
 	| matcher |
@@ -42,7 +44,7 @@ MatcherWildcardTest >> testWildcardCreation [
 	self assert: matcher alias  equals: #foo. 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MatcherWildcardTest >> testWildcardFirstMatch [
 
 	| matcher result aContext |
@@ -57,7 +59,7 @@ MatcherWildcardTest >> testWildcardFirstMatch [
 	self assert: (aContext bindings at:#foo) equals: 123.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MatcherWildcardTest >> testWildcardIsAnonymous [
 
 	| matcher |
@@ -66,7 +68,7 @@ MatcherWildcardTest >> testWildcardIsAnonymous [
 	self assert: matcher isAnonymous
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MatcherWildcardTest >> testWildcardMultipleMatch [
 
 	| matcher aContext |
@@ -86,7 +88,7 @@ MatcherWildcardTest >> testWildcardMultipleMatch [
 	self assert: (aContext bindings at: #foo) equals: 123
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MatcherWildcardTest >> testWildcardMultipleMatchCreation [
 
 	| matcher aContext |

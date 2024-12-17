@@ -1,6 +1,6 @@
 Class {
-	#name : #MTTestObjectA,
-	#superclass : #Object,
+	#name : 'MTTestObjectA',
+	#superclass : 'Object',
 	#instVars : [
 		'b',
 		'c',
@@ -9,51 +9,53 @@ Class {
 		'lfloat',
 		'lst'
 	],
-	#category : #'MoTion-Tests-class-data-tests'
+	#category : 'MoTion-Tests-class-data-tests',
+	#package : 'MoTion-Tests',
+	#tag : 'class-data-tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectA >> b: aB [
 	b := aB
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectA >> c: aC [
 
 	c := aC
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectA >> initialize [ 
 
 	super initialize.
 	lst := OrderedCollection new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectA >> lfloat: anObject [
 
 	lfloat := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectA >> lint [
 	^ lint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectA >> lint: anObject [
 
 	lint := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectA >> lst [
 
 	^ lst
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectA >> lstring: anObject [
 
 	lstring := anObject

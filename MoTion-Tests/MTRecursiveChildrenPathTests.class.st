@@ -1,15 +1,17 @@
 Class {
-	#name : #MTRecursiveChildrenPathTests,
-	#superclass : #MotionPathTests,
+	#name : 'MTRecursiveChildrenPathTests',
+	#superclass : 'MotionPathTests',
 	#instVars : [
 		'a',
 		'b',
 		'c'
 	],
-	#category : #'MoTion-Tests-paths'
+	#category : 'MoTion-Tests-paths',
+	#package : 'MoTion-Tests',
+	#tag : 'paths'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 MTRecursiveChildrenPathTests >> setUp [
 
 	super setUp.
@@ -24,7 +26,7 @@ MTRecursiveChildrenPathTests >> setUp [
 	c a: a
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 MTRecursiveChildrenPathTests >> testRecursivePath [
 
 	| path |
@@ -36,7 +38,7 @@ MTRecursiveChildrenPathTests >> testRecursivePath [
 			c }
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 MTRecursiveChildrenPathTests >> testRecursivePathCreation [
 
 	| path |

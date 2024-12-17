@@ -1,15 +1,17 @@
 Class {
-	#name : #CaseMatcher,
-	#superclass : #MatcherTests,
+	#name : 'CaseMatcher',
+	#superclass : 'MatcherTests',
 	#instVars : [
 		'a',
 		'b',
 		'c'
 	],
-	#category : #'MoTion-Tests-matchers'
+	#category : 'MoTion-Tests-matchers',
+	#package : 'MoTion-Tests',
+	#tag : 'matchers'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 CaseMatcher >> setUp [ 
 
 	super setUp.
@@ -32,7 +34,7 @@ CaseMatcher >> setUp [
 	c lstring: 'foobar'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CaseMatcher >> testCaseDoComplexObject [
 
 	| aa pattern1 pattern2 pattern3 results |
@@ -84,7 +86,7 @@ CaseMatcher >> testCaseDoComplexObject [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CaseMatcher >> testCaseDoExtractBindingsFromList [
 
 	| objectToMatch p1 p2 result bindings|
@@ -107,7 +109,7 @@ CaseMatcher >> testCaseDoExtractBindingsFromList [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CaseMatcher >> testCaseDoListMatching [
 
 	| objectToMatch p1 p2 result |
@@ -125,7 +127,7 @@ CaseMatcher >> testCaseDoListMatching [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 CaseMatcher >> testCaseDoLiteralObject [
 
 	

@@ -1,40 +1,42 @@
 Class {
-	#name : #MTTestObjectB,
-	#superclass : #Object,
+	#name : 'MTTestObjectB',
+	#superclass : 'Object',
 	#instVars : [
 		'c',
 		'lint',
 		'lstring',
 		'lfloat'
 	],
-	#category : #'MoTion-Tests-class-data-tests'
+	#category : 'MoTion-Tests-class-data-tests',
+	#package : 'MoTion-Tests',
+	#tag : 'class-data-tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectB >> c: aC [
 
 	c := aC
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectB >> lfloat: anObject [
 
 	lfloat := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectB >> lint [
 
 	^ lint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectB >> lint: anObject [
 
 	lint := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MTTestObjectB >> lstring: anObject [
 
 	lstring := anObject

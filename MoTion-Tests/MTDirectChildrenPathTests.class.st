@@ -1,15 +1,17 @@
 Class {
-	#name : #MTDirectChildrenPathTests,
-	#superclass : #MotionPathTests,
+	#name : 'MTDirectChildrenPathTests',
+	#superclass : 'MotionPathTests',
 	#instVars : [
 		'a',
 		'b',
 		'c'
 	],
-	#category : #'MoTion-Tests-paths'
+	#category : 'MoTion-Tests-paths',
+	#package : 'MoTion-Tests',
+	#tag : 'paths'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTDirectChildrenPathTests >> setUp [
 
 	super setUp.
@@ -24,7 +26,7 @@ MTDirectChildrenPathTests >> setUp [
 	c a: a
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTDirectChildrenPathTests >> testDirectChildrenDirectPathEquivalence [
 
 	"Tests that the result yield by a DirectChildren and a DirectPath are the same when there is only one instance variable in the start object"
@@ -38,7 +40,7 @@ MTDirectChildrenPathTests >> testDirectChildrenDirectPathEquivalence [
 		equals: (directPath resolveFrom: directPath)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTDirectChildrenPathTests >> testDirectChildrenDirectPathEquivalenceCreation [
 
 	"Tests that the result yield by a DirectChildren and a DirectPath are the same when there is only one instance variable in the start object"
@@ -51,7 +53,7 @@ MTDirectChildrenPathTests >> testDirectChildrenDirectPathEquivalenceCreation [
 		equals: (#name asObjectPath resolveFrom: directPath)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTDirectChildrenPathTests >> testDirectChildrenPathCreation [
 	
 	| path |
@@ -62,7 +64,7 @@ MTDirectChildrenPathTests >> testDirectChildrenPathCreation [
 	self assert: (path resolveFrom: c) equals: { a. }.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTDirectChildrenPathTests >> testMultipleChildrenPath [
 	
 	| path |

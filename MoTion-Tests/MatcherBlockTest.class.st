@@ -1,15 +1,17 @@
 Class {
-	#name : #MatcherBlockTest,
-	#superclass : #MatcherTests,
+	#name : 'MatcherBlockTest',
+	#superclass : 'MatcherTests',
 	#instVars : [
 		'a',
 		'b',
 		'c'
 	],
-	#category : #'MoTion-Tests-matchers'
+	#category : 'MoTion-Tests-matchers',
+	#package : 'MoTion-Tests',
+	#tag : 'matchers'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherBlockTest >> testBlockConditionalOnCollection [
 
 	| matcher i1 |
@@ -26,7 +28,7 @@ MatcherBlockTest >> testBlockConditionalOnCollection [
 	self deny: (matcher match: i1) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherBlockTest >> testBlockConditionalOnEach [
 
 	| matcher  i1 i2 |
@@ -45,7 +47,7 @@ MatcherBlockTest >> testBlockConditionalOnEach [
 	self deny: (matcher match: i1) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherBlockTest >> testBlockCreation [
 
 	| matcher |

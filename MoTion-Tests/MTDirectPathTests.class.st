@@ -1,10 +1,12 @@
 Class {
-	#name : #MTDirectPathTests,
-	#superclass : #MotionPathTests,
-	#category : #'MoTion-Tests-paths'
+	#name : 'MTDirectPathTests',
+	#superclass : 'MotionPathTests',
+	#category : 'MoTion-Tests-paths',
+	#package : 'MoTion-Tests',
+	#tag : 'paths'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTDirectPathTests >> testDirectPathCreation [
 
 	| path |
@@ -13,7 +15,7 @@ MTDirectPathTests >> testDirectPathCreation [
 	self assert: (path resolveFrom: path) equals: { #name }
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTDirectPathTests >> testDirectPathMessage [
 
 	"This test checks if the navigation of path that is an accessor is supported"
@@ -25,7 +27,7 @@ MTDirectPathTests >> testDirectPathMessage [
 	self assert: (path resolveFrom: o) equals: { Object }.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MTDirectPathTests >> testDirectPathSlot [
 
 	"This test checks if the navigation of a simple slot"

@@ -1,10 +1,12 @@
 Class {
-	#name : #MatcherNACTest,
-	#superclass : #MatcherTests,
-	#category : #'MoTion-Tests-matchers'
+	#name : 'MatcherNACTest',
+	#superclass : 'MatcherTests',
+	#category : 'MoTion-Tests-matchers',
+	#package : 'MoTion-Tests',
+	#tag : 'matchers'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherNACTest >> testNACCreation [
 
 	| not1 |
@@ -15,7 +17,7 @@ MatcherNACTest >> testNACCreation [
 	self deny: (not1 match: 1) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherNACTest >> testNACCreationOnObjectMatcher [
 
 	| matcher a |
@@ -30,7 +32,7 @@ MatcherNACTest >> testNACCreationOnObjectMatcher [
 	self deny: (matcher match: a) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherNACTest >> testNACMessageObjectDoesNotMatch [
 
 	| matcher a |
@@ -45,10 +47,11 @@ MatcherNACTest >> testNACMessageObjectDoesNotMatch [
 	self deny: (matcher match: a) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherNACTest >> testNACOnDeepPattern [
 
 	| matcher a b |
+	"Negation matcher is not working propertly yet. Failure of this test is to be expected"
 	matcher := MTTestObjectA
 	           % { (#lint <~=> MTTestObjectB %% { (#lint <=> 5) }) }.
 
@@ -63,7 +66,7 @@ MatcherNACTest >> testNACOnDeepPattern [
 	self deny: (matcher match: a) isMatch
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MatcherNACTest >> testNACOnType [
 
 	| notANumber |
