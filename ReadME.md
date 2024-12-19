@@ -4,6 +4,8 @@ MoTion is a new object pattern matcher in Pharo. A pattern matcher works on a fi
 MoTion can deal with Pharo objects independently of the model containing the data. 
 MoTion combines both features for graph pattern matching and object matching, and by that it enables expressing patterns declaratively and applying matches over complex object structures.
 
+[![Latest Moose](https://github.com/moosetechnology/MoTion/actions/workflows/tests.yml/badge.svg)](https://github.com/moosetechnology/MoTion/actions/workflows/tests.yml)
+
 ## Installation
 To install MoTion, go to the Playground (`Ctrl+OW`) in your Pharo image and execute the following Metacello script (select it and press Do-it button or `Ctrl+D`):
 
