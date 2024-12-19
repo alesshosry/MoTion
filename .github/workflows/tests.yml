@@ -1,6 +1,6 @@
 # This workflows runs your tests as specified in your .smalltalk.ston configuration file.
 
-name: Run tests
+name: Latest Moose
 
 on:
 # Only one trigger is necessary, keep only the ones you need. Default branch is set by default, change it according to your needs.
