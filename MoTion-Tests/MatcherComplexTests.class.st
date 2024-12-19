@@ -13,7 +13,7 @@ MatcherComplexTests >> testCollectSavedMatchers [
 
 	| matcher collectedBindingsForPackage collectedBindingsForMethod collectedBindingsForNode|
 	
-	 matcher := RPackage % {
+	 matcher := Package % {
 		#name <=> #MoTion.
 		#'definedClasses>methodDict' <=> CompiledMethod % { 
 			#'ast>allChildren' <=>  RBMessageNode % { 
@@ -81,7 +81,7 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInPackage [
 
 	| matcher|
 	
-	matcher := RPackage % {
+	matcher := Package % {
 		#'definedClasses>@' <=> Class %% { 
 			#'methodDictionary>ast' <=> RBMethodNode % { 
 				#'children*' <=> RBMessageNode % { 
@@ -104,7 +104,7 @@ MatcherComplexTests >> testToCheckIfSelectorExistsInPackageDefinedWithComposedPa
 
 	| matcher|
 	
-	matcher := RPackage % {
+	matcher := Package % {
 	#'definedClasses>methodDict>ast>allChildren' <=> RBMessageNode % { 
 			#'selector>value' <=> #ifTrue:ifFalse:
 		}

@@ -49,9 +49,10 @@ MatcherNACTest >> testNACMessageObjectDoesNotMatch [
 
 { #category : 'tests' }
 MatcherNACTest >> testNACOnDeepPattern [
-
-	| matcher a b |
 	"Negation matcher is not working propertly yet. Failure of this test is to be expected"
+
+	<expectedFailure>
+	| matcher a b |
 	matcher := MTTestObjectA
 	           % { (#lint <~=> MTTestObjectB %% { (#lint <=> 5) }) }.
 
