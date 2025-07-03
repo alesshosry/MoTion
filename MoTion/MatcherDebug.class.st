@@ -20,8 +20,7 @@ MatcherDebug >> isCollectionMatcher [
 ]
 
 { #category : 'matching' }
-MatcherDebug >> match: anObject withContext: aMatchingContext [
-	self halt.
+MatcherDebug >> match: anObject withContext: aMatchingContext [ 
 	^ innerMatcher match: anObject withContext: aMatchingContext
 ]
 
