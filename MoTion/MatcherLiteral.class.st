@@ -1,5 +1,5 @@
 "
-""Matcher Literal has multiple subclasses such as Number, String and Symbol and is resposible of matching only literals. The matcher literal has a common instance 'value' that is used in all literal matchers.""
+This class represents Pharo literals used as patterns. For example `‘A sample text here’ asMatcher` and `1 asMatcher`. Literal patterns match exactly their literal value. This is useful for specifying the value that a property of an object must have.
 "
 Class {
 	#name : 'MatcherLiteral',
