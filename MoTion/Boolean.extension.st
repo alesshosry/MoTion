@@ -1,6 +1,6 @@
-Extension { #name : #Boolean }
+Extension { #name : 'Boolean' }
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 Boolean >> asMatcher [
 
 	^ MatcherLiteralBoolean of: self

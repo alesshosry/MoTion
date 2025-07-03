@@ -1,13 +1,15 @@
 Class {
-	#name : #MTComposedPath,
-	#superclass : #MotionPath,
+	#name : 'MTComposedPath',
+	#superclass : 'MotionPath',
 	#instVars : [
 		'paths'
 	],
-	#category : #'MoTion-paths'
+	#category : 'MoTion-paths',
+	#package : 'MoTion',
+	#tag : 'paths'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MTComposedPath class >> of: aCollectionOfPaths [
 
 	^ self new
@@ -15,24 +17,24 @@ MTComposedPath class >> of: aCollectionOfPaths [
 		  yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MTComposedPath >> add: aMotionPath [
 
 	paths add: aMotionPath
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MTComposedPath >> addAll: anCollectionOfPaths [
 	paths addAll: anCollectionOfPaths 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MTComposedPath >> initialize [
 
 	paths := OrderedCollection new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MTComposedPath >> resolveCollectionFrom: anObject [
 
 	| tmpObjects copy |
@@ -50,7 +52,7 @@ MTComposedPath >> resolveCollectionFrom: anObject [
 	^ tmpObjects asArray
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MTComposedPath >> resolveFrom: anObject [
 
 	| tmpObjects copy |

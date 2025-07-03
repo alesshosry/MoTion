@@ -1,10 +1,12 @@
 Class {
-	#name : #PharoBlockMatcherCompiler,
-	#superclass : #RBProgramNodeVisitor,
-	#category : #'MoTion-visitors'
+	#name : 'PharoBlockMatcherCompiler',
+	#superclass : 'RBProgramNodeVisitor',
+	#category : 'MoTion-visitors',
+	#package : 'MoTion',
+	#tag : 'visitors'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 PharoBlockMatcherCompiler >> visitAssignmentNode: assignmentNode [
 
 	| variableMatcher valueMatcher |
@@ -16,7 +18,7 @@ PharoBlockMatcherCompiler >> visitAssignmentNode: assignmentNode [
 		  (#value <=> valueMatcher) }
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 PharoBlockMatcherCompiler >> visitLiteralNode: aLiteralNode [
 
 	^ aLiteralNode class % { 
@@ -24,7 +26,7 @@ PharoBlockMatcherCompiler >> visitLiteralNode: aLiteralNode [
 	}
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 PharoBlockMatcherCompiler >> visitMessageNode: messageNode [
 
 	| receiverMatcher arguments argumentsMatcher |
@@ -40,7 +42,7 @@ PharoBlockMatcherCompiler >> visitMessageNode: messageNode [
 		  (#arguments <=> argumentsMatcher) }
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 PharoBlockMatcherCompiler >> visitVariableNode: variableNode [
 
 	(variableNode name beginsWith: #_) ifTrue: [ 

@@ -1,15 +1,17 @@
 Class {
-	#name : #MatcherListWildcard,
-	#superclass : #MatcherWildcard,
-	#category : #'MoTion-matcher'
+	#name : 'MatcherListWildcard',
+	#superclass : 'MatcherWildcard',
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 MatcherListWildcard >> isListWildcard [ 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MatcherListWildcard >> match: aNewValue withContext: aMatchingContext [
 
 	| aResult |

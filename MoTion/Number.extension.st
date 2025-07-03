@@ -1,12 +1,12 @@
-Extension { #name : #Number }
+Extension { #name : 'Number' }
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 Number >> asMatcher [
 
 	^ MatcherLiteralNumber of: self
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 Number >> orMatches: aMatcher [
 
 	^ OrMatcher between: self asMatcher and: aMatcher asMatcher

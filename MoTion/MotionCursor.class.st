@@ -1,6 +1,6 @@
 Class {
-	#name : #MotionCursor,
-	#superclass : #Object,
+	#name : 'MotionCursor',
+	#superclass : 'Object',
 	#instVars : [
 		'subjectCursor',
 		'subjectSize',
@@ -19,15 +19,17 @@ Class {
 		'patternHasNext',
 		'listWildcardsPositions'
 	],
-	#category : #'MoTion-paths'
+	#category : 'MoTion-paths',
+	#package : 'MoTion',
+	#tag : 'paths'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> addContextToPattern: manyContexts [
 	(contexts at: self patternCursor) addAll: manyContexts.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> clearContextsForCurrentPattern [
 	| index |
 	index := self patternCursor.
@@ -35,7 +37,7 @@ MotionCursor >> clearContextsForCurrentPattern [
 	(contexts at: index) removeAll.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> clearContextsForPreviousPattern [
 	| index |
 	index := self patternCursor.
@@ -43,71 +45,71 @@ MotionCursor >> clearContextsForPreviousPattern [
 	(contexts at: index - 1) removeAll.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> contextForCurrentPattern [
 	^ self contextForPattern: (self patternCursor - 1)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> contextForPattern: aNumber [
 	aNumber <=0 ifTrue: [ ^ { originalContext } ].
 	^ contexts at: aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> decrementPatternCursor [
 
 	patternCursor := patternCursor - 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> decrementSubjectCursor [
 
 	subjectCursor := subjectCursor - 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> forward [
 
 	^ forward
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> forward: anObject [
 
 	forward := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> hasNext [
 
 	^ hasNext
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> hasNext: anObject [
 
 	hasNext := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> hasNextForCurrentPattern [
 	^ patternHasNext at: self patternCursor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> incrementPatternCursor [
 
 	patternCursor := patternCursor + 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> incrementSubjectCursor [
 
 	subjectCursor := subjectCursor + 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> initCursorLengths [
  		
 	listWildcardsPositions do: [ :i |  
@@ -126,7 +128,7 @@ MotionCursor >> initCursorLengths [
 	]."
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> initializeForMatcher: matcher withCollection: aCollection andOriginalContext: origContext [
 
 	subjectSize := aCollection size.
@@ -150,77 +152,77 @@ MotionCursor >> initializeForMatcher: matcher withCollection: aCollection andOri
 	self initCursorLengths
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> lvLengths [
 
 	^ lvLengths
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> lvMaxLengths [
 
 	^ lvMaxLengths
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> lvMinLengths [
 
 	^ lvMinLengths
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> lvStarts [
 
 	^ lvStarts
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> patternCursor [
 
 	^ patternCursor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> patternSize [
 
 	^ patternSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> resetHasNextForCurrentPattern [
 
 	patternHasNext at: self patternCursor put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> setBackward [
 	forward := false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> setForward [
 	forward := true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> setHasNextForCurrentPattern [
 
 	patternHasNext at: self patternCursor put: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> subjectCursor [
 
 	^ subjectCursor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> subjectCursor: anObject [
 
 	subjectCursor := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MotionCursor >> subjectSize [
 
 	^ subjectSize

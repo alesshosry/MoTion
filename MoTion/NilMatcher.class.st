@@ -1,10 +1,12 @@
 Class {
-	#name : #NilMatcher,
-	#superclass : #Matcher,
-	#category : #'MoTion-matcher'
+	#name : 'NilMatcher',
+	#superclass : 'Matcher',
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #matching }
+{ #category : 'matching' }
 NilMatcher >> match: aValue withContext: aMatchingContext [
 
 	aMatchingContext isMatch: aValue isNil.

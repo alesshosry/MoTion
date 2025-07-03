@@ -1,10 +1,12 @@
 Class {
-	#name : #MatcherLiteralBoolean,
-	#superclass : #MatcherLiteral,
-	#category : #'MoTion-matcher'
+	#name : 'MatcherLiteralBoolean',
+	#superclass : 'MatcherLiteral',
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherLiteralBoolean >> match: aValue withContext: aContext [
 
 	aContext isMatch: aValue = value.

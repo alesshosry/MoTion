@@ -1,12 +1,12 @@
-Extension { #name : #String }
+Extension { #name : 'String' }
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 String >> asMatcher [
 
 	^ MatcherLiteralString of: self
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 String >> asMooseObjectPath [
 
 	| symbol |
@@ -16,7 +16,7 @@ String >> asMooseObjectPath [
 	^ self asObjectPath
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 String >> asObjectPath [
 
 	| symbol |
@@ -32,7 +32,7 @@ String >> asObjectPath [
 	^ MTDirectPath of: symbol
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 String >> orMatches: aMatcher [
 
 	^ OrMatcher between: self asMatcher and: aMatcher asMatcher

@@ -1,24 +1,26 @@
 Class {
-	#name : #MatcherCollection,
-	#superclass : #Matcher,
+	#name : 'MatcherCollection',
+	#superclass : 'Matcher',
 	#instVars : [
 		'matcherSequence'
 	],
-	#category : #'MoTion-matcher'
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MatcherCollection class >> of: aMatcherSequence [
 	^ self new matcherSequence: aMatcherSequence; yourself
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherCollection >> hasListWildcards [
 
 	^ self listWildcardPositions isNotEmpty
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherCollection >> initializeCursor: aMotionCursor withCollection: aCollection andOriginalContext: originalContext [
 
 	aMotionCursor
@@ -27,12 +29,12 @@ MatcherCollection >> initializeCursor: aMotionCursor withCollection: aCollection
 		andOriginalContext: originalContext
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherCollection >> isCollectionMatcher [
 	^ true
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherCollection >> listWildcardPositions [
 
 	| positions |
@@ -42,7 +44,7 @@ MatcherCollection >> listWildcardPositions [
 	^ positions
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherCollection >> match: aCollection withContext: aMatchingContext [
 
 	| motionCursor results combinationFound |
@@ -74,7 +76,7 @@ MatcherCollection >> match: aCollection withContext: aMatchingContext [
 	^ results asArray
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherCollection >> matchNext: aCollection withCursor: aMotionCursor withContexts: matchContexts originalContext: originalContext [
 | pattern contexts | 
 
@@ -239,18 +241,18 @@ contexts := matchContexts collect: [ :each | each copy ].
 
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherCollection >> matcherSequence [
 	^ matcherSequence 
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherCollection >> matcherSequence: aSequence [
 
 	matcherSequence := aSequence
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherCollection >> numberOfListWildcards [
 
 	^ self listWildcardPositions size

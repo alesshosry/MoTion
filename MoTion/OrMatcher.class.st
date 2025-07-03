@@ -1,10 +1,12 @@
 Class {
-	#name : #OrMatcher,
-	#superclass : #LogicalMatcher,
-	#category : #'MoTion-matcher'
+	#name : 'OrMatcher',
+	#superclass : 'LogicalMatcher',
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #matching }
+{ #category : 'matching' }
 OrMatcher >> match: aValue withContext: aMatchingContext [
 
 	| results |

@@ -2,15 +2,17 @@
 ""Matcher Literal has multiple subclasses such as Number, String and Symbol and is resposible of matching only literals. The matcher literal has a common instance 'value' that is used in all literal matchers.""
 "
 Class {
-	#name : #MatcherLiteral,
-	#superclass : #Matcher,
+	#name : 'MatcherLiteral',
+	#superclass : 'Matcher',
 	#instVars : [
 		'value'
 	],
-	#category : #'MoTion-matcher'
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MatcherLiteral class >> of: aValue [
 
 	^ self new
@@ -18,13 +20,13 @@ MatcherLiteral class >> of: aValue [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherLiteral >> value [
 
 	^ value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherLiteral >> value: aValue [
 
 	value := aValue 

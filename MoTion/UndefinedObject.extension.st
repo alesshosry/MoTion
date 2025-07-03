@@ -1,6 +1,6 @@
-Extension { #name : #UndefinedObject }
+Extension { #name : 'UndefinedObject' }
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 UndefinedObject >> asMatcher [
 	^ NilMatcher new.
 ]

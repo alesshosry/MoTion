@@ -1,14 +1,16 @@
 Class {
-	#name : #MatcherSave,
-	#superclass : #Matcher,
+	#name : 'MatcherSave',
+	#superclass : 'Matcher',
 	#instVars : [
 		'alias',
 		'matcher'
 	],
-	#category : #'MoTion-matcher'
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MatcherSave class >> of: aMatcher withAlias: aSymbol [
 
 	^ self new
@@ -17,20 +19,20 @@ MatcherSave class >> of: aMatcher withAlias: aSymbol [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherSave >> alias: aSymbol [
 
 	alias := aSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherSave >> match: anObject withContext: aContext [
 
 	aContext atBindingKey: alias put: anObject.
 	^ matcher match: anObject withContext: aContext
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherSave >> matcher: aMatcher [
 
 	matcher := aMatcher

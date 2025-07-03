@@ -1,15 +1,17 @@
 Class {
-	#name : #MatcherObject,
-	#superclass : #Matcher,
+	#name : 'MatcherObject',
+	#superclass : 'Matcher',
 	#instVars : [
 		'type',
 		'properties',
 		'subclassmatch'
 	],
-	#category : #'MoTion-matcher'
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MatcherObject class >> type: aClass withProperties: aPropertiesArray [
 
 	| properties |
@@ -21,7 +23,7 @@ MatcherObject class >> type: aClass withProperties: aPropertiesArray [
 		  yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MatcherObject >> initialize [
 
 	super initialize.
@@ -29,7 +31,7 @@ MatcherObject >> initialize [
 	subclassmatch := false
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherObject >> match: anObject withContext: aContext [
 
 	| newContexts sametype |
@@ -66,19 +68,19 @@ MatcherObject >> match: anObject withContext: aContext [
 	^ newContexts
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherObject >> properties: aCollectionOfProperties [
 
 	properties := aCollectionOfProperties
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherObject >> subclassmatch: aBoolean [
 
 	subclassmatch := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherObject >> type: aClass [
 
 	type := aClass

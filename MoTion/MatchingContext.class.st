@@ -2,16 +2,18 @@
 ""matchingContext handles the contexts of each match; the matched contexts are all filled as Dictionaries in bindings""
 "
 Class {
-	#name : #MatchingContext,
-	#superclass : #Object,
+	#name : 'MatchingContext',
+	#superclass : 'Object',
 	#instVars : [
 		'bindings',
 		'isMatch'
 	],
-	#category : #'MoTion-results'
+	#category : 'MoTion-results',
+	#package : 'MoTion',
+	#tag : 'results'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatchingContext >> atBindingKey: aKey put: aValue [
 
 	self bindings at: aKey asSymbol put: aValue
@@ -19,13 +21,13 @@ MatchingContext >> atBindingKey: aKey put: aValue [
 	"Since the MatchingContext can be used in different places (same function can have input and output the Matching Context), we leave the isMatch to be filled in the Matcher code, more specifically in the match and match:withCOntext methods."
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatchingContext >> bindings [
 
 	^ bindings
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatchingContext >> copy [
 
 	| instance |
@@ -35,20 +37,20 @@ MatchingContext >> copy [
 	^ instance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MatchingContext >> initialize [ 
 	super initialize.
 	bindings := Dictionary new.
 	isMatch := false.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatchingContext >> isMatch [
 
 	^ isMatch
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatchingContext >> isMatch: aBoolean [
 
 	isMatch := aBoolean

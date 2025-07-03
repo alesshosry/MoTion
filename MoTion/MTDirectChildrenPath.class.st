@@ -1,10 +1,12 @@
 Class {
-	#name : #MTDirectChildrenPath,
-	#superclass : #MotionPath,
-	#category : #'MoTion-paths'
+	#name : 'MTDirectChildrenPath',
+	#superclass : 'MotionPath',
+	#category : 'MoTion-paths',
+	#package : 'MoTion',
+	#tag : 'paths'
 }
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 MTDirectChildrenPath >> resolveFrom: anObject [
 
 	^ (anObject class allSlots flatCollectAsSet: [ :slot | 

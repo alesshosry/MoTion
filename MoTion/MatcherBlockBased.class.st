@@ -1,13 +1,15 @@
 Class {
-	#name : #MatcherBlockBased,
-	#superclass : #Matcher,
+	#name : 'MatcherBlockBased',
+	#superclass : 'Matcher',
 	#instVars : [
 		'block'
 	],
-	#category : #'MoTion-matcher'
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MatcherBlockBased class >> of: aBlock [
 
 	^ self new
@@ -15,18 +17,18 @@ MatcherBlockBased class >> of: aBlock [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherBlockBased >> block [ 
 	^ block
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherBlockBased >> block: aBlock [
 
 	block := aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherBlockBased >> isBlockMatcher [
 
 	^ true

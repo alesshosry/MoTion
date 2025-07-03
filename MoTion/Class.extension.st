@@ -1,6 +1,6 @@
-Extension { #name : #Class }
+Extension { #name : 'Class' }
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 Class >> % aMatcherDescription [
 
 	((self allSuperclasses collect: #name) includes: #MooseObject) 
@@ -9,7 +9,7 @@ Class >> % aMatcherDescription [
 	^ MatcherObject type: self withProperties: aMatcherDescription
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 Class >> %% aMatcherDescription [
 
 	((self allSuperclasses collect: #name) includes: #MooseObject) 
@@ -24,18 +24,18 @@ Class >> %% aMatcherDescription [
 		  yourself
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 Class >> asMatcher [
 	^ self
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 Class >> isInstanceWithProperties: aMatcherDescription [
 
 	^ self % aMatcherDescription
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 Class >> isKindOfWithProperties: aMatcherDescription [
 
 	^ self %% aMatcherDescription

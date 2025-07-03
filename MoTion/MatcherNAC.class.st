@@ -1,36 +1,38 @@
 Class {
-	#name : #MatcherNAC,
-	#superclass : #Matcher,
+	#name : 'MatcherNAC',
+	#superclass : 'Matcher',
 	#instVars : [
 		'innerMatcher'
 	],
-	#category : #'MoTion-matcher'
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MatcherNAC class >> of: aMatcher [
 
 	^ self new innerMatcher: aMatcher
 ]
 
-{ #category : #accessors }
+{ #category : 'accessors' }
 MatcherNAC >> % aMatcher [
 	innerMatcher := innerMatcher % aMatcher.
 	^ self 
 ]
 
-{ #category : #accessors }
+{ #category : 'accessors' }
 MatcherNAC >> %% aMatcher [
 	innerMatcher := innerMatcher %% aMatcher.
 	^ self 
 ]
 
-{ #category : #accessors }
+{ #category : 'accessors' }
 MatcherNAC >> innerMatcher: aMatcher [
 	innerMatcher := aMatcher
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherNAC >> match: aValue withContext: aContext [
 
 	| contexts |

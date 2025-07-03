@@ -1,16 +1,18 @@
 Class {
-	#name : #MTRecursiveChildrenPath,
-	#superclass : #MotionPath,
-	#category : #'MoTion-paths'
+	#name : 'MTRecursiveChildrenPath',
+	#superclass : 'MotionPath',
+	#category : 'MoTion-paths',
+	#package : 'MoTion',
+	#tag : 'paths'
 }
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 MTRecursiveChildrenPath >> initialize [
 	name := #'_*'.
 	 
 ]
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 MTRecursiveChildrenPath >> internalResolveFrom: anObject seen: seenObjects [
 
 	| directObjects resultsCollection |
@@ -39,13 +41,13 @@ MTRecursiveChildrenPath >> internalResolveFrom: anObject seen: seenObjects [
 	^ directObjects
 ]
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 MTRecursiveChildrenPath >> resolveFrom: anObject [
 
 	^ (self internalResolveFrom: anObject seen: IdentitySet new) asArray
 ]
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 MTRecursiveChildrenPath >> slotsToVisit: anObject [ 
 
 	^ anObject class allSlots

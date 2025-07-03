@@ -1,10 +1,12 @@
 Class {
-	#name : #MatcherLiteralSymbol,
-	#superclass : #MatcherLiteral,
-	#category : #'MoTion-matcher'
+	#name : 'MatcherLiteralSymbol',
+	#superclass : 'MatcherLiteral',
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherLiteralSymbol >> match: aNewValue withContext: aContext [
 
 	aNewValue isString
@@ -18,7 +20,7 @@ MatcherLiteralSymbol >> match: aNewValue withContext: aContext [
 	^ { aContext }
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherLiteralSymbol >> matchCollectionOfSymbols: aCollectionOfSymbols withContext: aContext [
 
 	aCollectionOfSymbols do: [ :each | 
@@ -27,7 +29,7 @@ MatcherLiteralSymbol >> matchCollectionOfSymbols: aCollectionOfSymbols withConte
 			aContext isMatch ifTrue: [ ^ self ] ] ]
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 MatcherLiteralSymbol >> matchOnlySymbol: aSymbol withContext: aContext [
 	
 	| sizeFound |

@@ -1,14 +1,16 @@
 Class {
-	#name : #LogicalMatcher,
-	#superclass : #Matcher,
+	#name : 'LogicalMatcher',
+	#superclass : 'Matcher',
 	#instVars : [
 		'left',
 		'right'
 	],
-	#category : #'MoTion-matcher'
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LogicalMatcher class >> between: leftMatcher and: rightMatcher [
 
 	^ self new
@@ -17,23 +19,23 @@ LogicalMatcher class >> between: leftMatcher and: rightMatcher [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LogicalMatcher >> left [
 	^ left
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LogicalMatcher >> left: aMatcher [
  	left := aMatcher
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LogicalMatcher >> right [
 	^ right
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LogicalMatcher >> right: aMatcher [
 
 	right := aMatcher

@@ -1,28 +1,28 @@
-Extension { #name : #BlockClosure }
+Extension { #name : 'BlockClosure' }
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 BlockClosure >> asMatcher [
 
 	^ MatcherBlock of: self
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 BlockClosure >> compileToMatcher [
 
 	^ (self compiledBlock ast statements at: 1) acceptVisitor: PharoBlockMatcherCompiler new
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 BlockClosure >> onCollection [
 	^ MatcherConditional onList: self
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 BlockClosure >> onEach [
 	^ MatcherConditional of: self
 ]
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 BlockClosure >> orMatches: aMatcher [
 
 	^ OrMatcher between: self asMatcher and: aMatcher asMatcher

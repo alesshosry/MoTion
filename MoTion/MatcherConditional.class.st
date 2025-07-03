@@ -1,13 +1,15 @@
 Class {
-	#name : #MatcherConditional,
-	#superclass : #MatcherBlockBased,
+	#name : 'MatcherConditional',
+	#superclass : 'MatcherBlockBased',
 	#instVars : [
 		'matchlist'
 	],
-	#category : #'MoTion-matcher'
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MatcherConditional class >> of: aBlock onList: aBoolean [
 
 	^ self new
@@ -16,7 +18,7 @@ MatcherConditional class >> of: aBlock onList: aBoolean [
 		  yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MatcherConditional class >> onList: aBlock [
 
 	^ self new
@@ -25,24 +27,24 @@ MatcherConditional class >> onList: aBlock [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MatcherConditional >> initialize [
 	super initialize.
 	
 	matchlist := false.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MatcherConditional >> isBlockMatcher [
 	^ block arguments size > 1
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MatcherConditional >> isCollectionMatcher [
 	^ matchlist 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MatcherConditional >> match: anObject withContext: aContext [
 
 	| args |
@@ -54,7 +56,7 @@ MatcherConditional >> match: anObject withContext: aContext [
 	^ { aContext }
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MatcherConditional >> matchlist: aBoolean [
 	matchlist := aBoolean
 ]

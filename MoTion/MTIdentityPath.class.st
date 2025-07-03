@@ -1,15 +1,17 @@
 Class {
-	#name : #MTIdentityPath,
-	#superclass : #MotionPath,
-	#category : #'MoTion-paths'
+	#name : 'MTIdentityPath',
+	#superclass : 'MotionPath',
+	#category : 'MoTion-paths',
+	#package : 'MoTion',
+	#tag : 'paths'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MTIdentityPath >> initialize [
 	name := #@.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MTIdentityPath >> resolveFrom: anObject [
 	^ { anObject } asArray 
 ]

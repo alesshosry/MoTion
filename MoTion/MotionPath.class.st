@@ -1,33 +1,35 @@
 Class {
-	#name : #MotionPath,
-	#superclass : #Object,
+	#name : 'MotionPath',
+	#superclass : 'Object',
 	#instVars : [
 		'name'
 	],
-	#category : #'MoTion-paths'
+	#category : 'MoTion-paths',
+	#package : 'MoTion',
+	#tag : 'paths'
 }
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 MotionPath >> asObjectPath [ 
 	^ self
 ]
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 MotionPath >> isMooseObjectPath [
 	^ false
 ]
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 MotionPath >> name: aName [
 	name := aName
 ]
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 MotionPath >> resolveCollectionFrom: anObject [
 	^ self resolveFrom: anObject
 ]
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 MotionPath >> resolveFrom: anObject [
 	self shouldBeImplemented 
 ]

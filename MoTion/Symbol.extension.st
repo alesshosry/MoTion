@@ -1,6 +1,6 @@
-Extension { #name : #Symbol }
+Extension { #name : 'Symbol' }
 
-{ #category : #'*MoTion' }
+{ #category : '*MoTion' }
 Symbol >> asMatcher [
 	
 	(self beginsWith: '@') ifTrue: [ 

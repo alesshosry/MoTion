@@ -1,10 +1,12 @@
 Class {
-	#name : #MatcherBlock,
-	#superclass : #MatcherBlockBased,
-	#category : #'MoTion-matcher'
+	#name : 'MatcherBlock',
+	#superclass : 'MatcherBlockBased',
+	#category : 'MoTion-matcher',
+	#package : 'MoTion',
+	#tag : 'matcher'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MatcherBlock >> match: anObject withContext: aContext [
 
 	| result args |
