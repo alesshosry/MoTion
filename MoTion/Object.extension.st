@@ -11,6 +11,9 @@ Object >> <=> aMatcherObject [
 
 { #category : '*MoTion' }
 Object >> <~=> aMatcherObject [
+	
+	"the tilde version is a negation of the spaceship, it specifies that the Property should not match the Value; It is the only way to specify a negation in MoTion."
+	
 	^  self -> (MatcherNAC of: aMatcherObject asMatcher)
 ]
 
