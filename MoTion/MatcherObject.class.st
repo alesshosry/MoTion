@@ -5,11 +5,22 @@ These two operators can express sub-patterns and the properties of the matched o
 The following pattern matches an object of class `ClassA`, with a property `property1` having the value `aValue1`, and `property2` having `aValue2`:
 ```
 ClassA % {
-   #’property1’ <=> aValue1.
-   #’property2’ <=> aValue2.
+   #'property1' <=> aValue1.
+   #'property2' <=> aValue2.
 }
 ```
 The sub-patterns could also be more complex (Nested pattern). This mechanism contributes to the seamless addition of various properties, in a declarative way.
+
+The percentage, combined with the SpaceShip operator, also allows to express Nested pattern where a first object is matched, then a second object in one of the properties of the first is matched. One may express a sub-pattern on this second object. For example, the following pattern matches an instance of `ClassA` with `aValue1` in its `property1`, and an instance of `ClassB` in its `property2`. This second object must have `aValue3` in its `property3`.
+
+```
+ClassA % {
+	#'property1' <=> aValue1.
+	#'property2' <=> ClassB %% {
+		#'property3' <=> aValue3.
+	}
+}
+```
 
 "
 Class {
