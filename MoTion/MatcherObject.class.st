@@ -1,3 +1,17 @@
+"
+To define an object pattern, one specifies its type using the Pharo class followed by the percentage or double percentage operator like in: `ClassA % {}``. ‘%’ matches direct instances of the class, whereas ‘%%’ matches instances of the class or any of its subclasses.
+
+These two operators can express sub-patterns and the properties of the matched object inside the curly braces. Object properties are instance variable accessors. The curly braces act as a conjunction of sub-patterns specifying the values that properties should match. It can be seen as a Logical matcher.
+The following pattern matches an object of class `ClassA`, with a property `property1` having the value `aValue1`, and `property2` having `aValue2`:
+```
+ClassA % {
+   #’property1’ <=> aValue1.
+   #’property2’ <=> aValue2.
+}
+```
+The sub-patterns could also be more complex (Nested pattern). This mechanism contributes to the seamless addition of various properties, in a declarative way.
+
+"
 Class {
 	#name : 'MatcherObject',
 	#superclass : 'Matcher',
