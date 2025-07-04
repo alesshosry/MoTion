@@ -1,3 +1,24 @@
+"
+It is possible to match List matching and declaring how the list should look like using {}. Note that this is not the same operator as %{} which is used to encapsulate properties and their values. This operator allows to express that given elements in a list should match specific patterns: `{#'@x'. #'@x'}`
+This pattern matches a list containing exactly two elements that are the same (use of a named variable).
+
+The repetition operator ('*') may also be used in a list to indicate an unspecified number of elements:
+`{#'@x'. #'*_'. #'@x'}`. This pattern, matches a list with first and last elements equal and of unspecified length (obviously at least 2). Note that '*_' is used in list matching whereas '_*' is a repeated wildcard used in Recursive traversal.
+
+To express that one element is part of a collection, MoTion offers a shortcut. To check if the value 5 is part of a collection (contained in the property someProperty of an instance of ClassA) one can use the pattern:
+```
+ClassA % {
+	#someProperty <=> {#'*_'. 5. #'*_'}
+}
+```
+But, thanks to the already presented polymorphism, of the spaceship operator, the same can be expressed with a shortcut:
+```
+ClassA % {
+	#someProperty<=> 5
+}
+```
+This, however, could also match an instance of ClassA with a property someProperty containing exactly the value 5 (with no collection).
+"
 Class {
 	#name : 'MatcherCollection',
 	#superclass : 'Matcher',
