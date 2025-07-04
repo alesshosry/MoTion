@@ -1,3 +1,6 @@
+"
+Bindings can be created with the `as:` method. It is used to bind the result of a pattern that we call MatcherSave that will be kept in the result’s bindings. It is used to store the result a sub-pattern in a MatcherSave to be retrieved after a match using `#collectBindings:for:` or `#collectBinding:for:`.
+"
 Class {
 	#name : 'MatcherSave',
 	#superclass : 'Matcher',
