@@ -1,3 +1,12 @@
+"
+The Recursave traversal operator may also be combined with a wildcard (‘‘_’’).
+```
+ClassA % {
+	#'property1>_*>propN' <=> aValue.
+}
+```
+This pattern will match first an instance of 'ClassA', then the object in its property `property1` then a chain of objects with unknown properties ending with an object having a property `propN` with value `aValue`.
+"
 Class {
 	#name : 'MTRecursiveChildrenPath',
 	#superclass : 'MotionPath',
