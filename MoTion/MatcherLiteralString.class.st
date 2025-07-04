@@ -1,3 +1,12 @@
+"
+This is a String literal matcher.
+Also note that you can express reguar expression inside this and match it also; For example:
+```
+ClassA % { 
+  #property <=> 'get\s+.*'.
+}
+```
+"
 Class {
 	#name : 'MatcherLiteralString',
 	#superclass : 'MatcherLiteral',
