@@ -1,3 +1,12 @@
+"
+Composed path enables path traversal using the '>' operator between properties. This allows to chain multiple properties in a pattern. Such paths help reducing complex pattern’s expression, by accessing a chain of objects and their properties:
+The following pattern first matches an instance of 'ClassA', then it takes the object in its `property1` and the value in `property2` of this second object. This value should match `aValue`.
+```
+ClassA % {
+	#'property1>property2' <=> aValue.
+}
+```
+"
 Class {
 	#name : 'MTComposedPath',
 	#superclass : 'MotionPath',
