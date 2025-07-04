@@ -7,6 +7,16 @@ Comments will be set in each class to know how to define MoTion patterns using i
 But meanwhile you can have a look at this [paper](https://www.sciencedirect.com/science/article/pii/S2590118424000339) which explains all about MoTion.
 For quick look and info you can also have a look at the readme file of the [repository](https://github.com/moosetechnology/MoTion).
 
+Below is an example of a MoTion pattern:
+```
+FamixJavaModel % {
+	#'allTypes >entities' <=> FamixJavaInterface % {
+		#'superInheritances >superclass >name' <=> 'Remote' .
+		#'isStub' <~=> true .
+	} as: 'foundInterface'.
+}
+```
+
 
 
 "
