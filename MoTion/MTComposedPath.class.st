@@ -6,6 +6,16 @@ ClassA % {
 	#'property1>property2' <=> aValue.
 }
 ```
+
+This notation allows expressing in a concise way a path in a graph of objects. The same result could be obtained with the pattern:
+```
+ClassA % {
+	#'property1' <=> Object %% {
+		#'property2' <=> aValue
+	}
+}
+```
+Note that the '>' operator is also polymorphic. Similarly to '<=>', if one of the objects in the path is a collection, the operator will look for an element of this collection that allows to continue the search, that is to say that has a property matching the remaining part of the pattern.
 "
 Class {
 	#name : 'MTComposedPath',
