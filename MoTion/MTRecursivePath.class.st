@@ -1,3 +1,12 @@
+"
+MoTion allows to perform Recursive traversal through a '*' operator combined with the Path traversal operator '>'. In a chain of objects, one may know the initial property and the final one, but not know how long the chain of objects is.
+```
+ClassA % {
+	#'property1>repeatedProp*' <=> aValue.
+}
+```
+This pattern will match first an instance of `ClassA`, then the object in its property `property1` then it will match a chain of objects all having a property `repeatedProp` and one of them containing the value `aValue`. The match ends with this last object.
+"
 Class {
 	#name : 'MTRecursivePath',
 	#superclass : 'MotionPath',
