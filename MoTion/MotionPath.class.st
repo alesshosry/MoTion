@@ -1,3 +1,7 @@
+"
+Paths are used in properties; You have different types of paths expressed in subclasses.
+The purpose of their creation is to express a way to access properties and sub properties.
+"
 Class {
 	#name : 'MotionPath',
 	#superclass : 'Object',
