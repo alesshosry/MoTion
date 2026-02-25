@@ -225,6 +225,7 @@ pattern match: anXMLNodeList.
 ## Finally
 
 Don't hesitate to ask. More examples can be found in tests package. 
+Also if you are not familiar with MoTion, using it for the first time, no worries; here are some pages with exampples: https://github.com/alesshosry/MoTionPatternsBook. You can check them OR provide the files to AI agents so they can create the patterns for you ;) 
 Also, don't hesitate to have a look at Iguala which is the same matcher implemented in Python:  https://github.com/aranega/iguala
 Finally, well, just enjoy it :) 
 
