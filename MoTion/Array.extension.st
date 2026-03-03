@@ -1,6 +1,13 @@
 Extension { #name : 'Array' }
 
 { #category : '*MoTion' }
+Array >> ! aMatcher [
+	^ MatcherUnorderedCollection of: (self collect: #asMatcher).
+
+	
+]
+
+{ #category : '*MoTion' }
 Array >> asMatcher [
 	^ MatcherCollection of: (self collect: #asMatcher).
 ]
