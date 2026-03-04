@@ -14,6 +14,11 @@ MatcherUnorderedCollection class >> of: aMatcherSequence [
 	^ self new matcherSequence: aMatcherSequence; yourself
 ]
 
+{ #category : 'converting' }
+MatcherUnorderedCollection >> isCollectionMatcher [
+	^ true
+]
+
 { #category : 'matching' }
 MatcherUnorderedCollection >> match: aCollection withContext: aMatchingContext [
 
