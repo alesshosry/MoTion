@@ -7,18 +7,70 @@ Class {
 }
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testLiteralsLessInPatterninUC [
+MatcherUnorderedCollectionTest >> testListWildcardAndWildcard [
 	
-	"This test is not working yet; I need to add support for wildcards, listWildCards ..."
-	
-	"| pattern result | 
-	pattern := { 2.} orderIgnored.
-	result := pattern match: #( 1 2 'a'). 
-	self deny: result isMatch"
+	| pattern result | 
+	pattern := { #'@anItem'. #'*aList'. } orderIgnored.
+	result := pattern match: #( 1. 2. 3 ). 
+	self assert: result isMatch
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testLiteralsNumbersinUC [
+MatcherUnorderedCollectionTest >> testListWildcardAndWildcardAndLiteral [
+	
+	| pattern result | 
+	pattern := { 3. #'@anItem'. #'*aList'} orderIgnored.
+	result := pattern match: #( 1. 2. 3 ). 
+	self assert: result isMatch
+]
+
+{ #category : 'tests' }
+MatcherUnorderedCollectionTest >> testListWildcardEmpty [
+	
+	| pattern result | 
+	pattern := { #'*listEmpty'. } orderIgnored.
+	result := pattern match: #(  ). 
+	self assert: result isMatch
+]
+
+{ #category : 'tests' }
+MatcherUnorderedCollectionTest >> testListWildcardMultipleNotEmpty [
+	
+	| pattern result | 
+	pattern := { #'*list1'. #'*list2'. } orderIgnored.
+	result := pattern match: #( 1. 2. ). 
+	self assert: result isMatch
+]
+
+{ #category : 'tests' }
+MatcherUnorderedCollectionTest >> testListWildcardNotEmpty [
+	
+	| pattern result | 
+	pattern := { #'*list'. } orderIgnored.
+	result := pattern match: #( 1. 2. ). 
+	self assert: result isMatch
+]
+
+{ #category : 'tests' }
+MatcherUnorderedCollectionTest >> testLiterals [
+
+	| pattern result |
+	pattern := { 2. 1. 'a'} orderIgnored.
+	result := pattern match: #( 1 2 'a').
+	self assert: result isMatch
+]
+
+{ #category : 'tests' }
+MatcherUnorderedCollectionTest >> testLiteralsLess [
+	
+	| pattern result | 
+	pattern := { 2.} orderIgnored.
+	result := pattern match: #( 1 2 'a'). 
+	self deny: result isMatch
+]
+
+{ #category : 'tests' }
+MatcherUnorderedCollectionTest >> testLiteralsNumbers [
 
 	| pattern result |
 	pattern := { 2. 1. } orderIgnored.
@@ -27,7 +79,7 @@ MatcherUnorderedCollectionTest >> testLiteralsNumbersinUC [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testLiteralsStringinUC [
+MatcherUnorderedCollectionTest >> testLiteralsString [
 
 	| pattern result |
 	pattern := { 'Hello'. 'World' } orderIgnored.
@@ -36,7 +88,7 @@ MatcherUnorderedCollectionTest >> testLiteralsStringinUC [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testLiteralsWithObjectInUC [
+MatcherUnorderedCollectionTest >> testLiteralsWithObject [
 
 	| pattern a1 result|
 	
@@ -57,10 +109,29 @@ MatcherUnorderedCollectionTest >> testLiteralsWithObjectInUC [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testLiteralsinUC [
+MatcherUnorderedCollectionTest >> testWildcardSingle [
+	
+	| pattern result | 
+	pattern := { #'@anItem'.} orderIgnored.
+	result := pattern match: #( 1 ). 
+	self assert: result isMatch
+]
 
-	| pattern result |
-	pattern := { 2. 1. 'a'} orderIgnored.
-	result := pattern match: #( 1 2 'a').
+{ #category : 'tests' }
+MatcherUnorderedCollectionTest >> testWildcardSingle2 [
+	
+	| pattern result | 
+	pattern := { #'@anItem'.} orderIgnored.
+	result := pattern match: #( 1. 2 ). 
+	self assert: result isMatch
+]
+
+{ #category : 'tests' }
+MatcherUnorderedCollectionTest >> testWildcardsPattern [
+	
+	"not working yet, but should be"
+	| pattern result | 
+	pattern := { #'@item1'. #'@item2'.} orderIgnored.
+	result := pattern match: #( 1. 2 ). 
 	self assert: result isMatch
 ]
