@@ -20,33 +20,32 @@ MatcherUnorderedCollection >> isCollectionMatcher [
 ]
 
 { #category : 'matching' }
-MatcherUnorderedCollection >> match: aCollection withContext: aMatchingContext [
+MatcherUnorderedCollection >> match: aCollection withContext: aMatchingContext [ 
+	
+	"The concept of this algo is to give all possible iterations of the subjects and try to match each time using list matcher which takes order into consideration."
+	
+	"pay attention; case when collection is empty is not handled yet !"
+	
+	"this is a very basic method; dangereous when having lage models and with many childrens. logic to be changed: will implement it in match:WithContext2:"
+	
+	| results patternChildren subjectIterations|
 
-	| patternChildren patternSize literals wildcards listWildCards results |
-	results := OrderedCollection new.
-	patternChildren := matcherSequence copy.
-	patternSize := patternChildren size.
-
-	"start looping over elements"
-	"get all literal"
-	literals := patternChildren select: [ :each |
-		            each isKindOf: MatcherLiteral ].
-
-	results := self match: aCollection withContext: aMatchingContext forLiterals: literals.
-
-	"get all wildcard"
-	wildcards := patternChildren select: [ :each |
-		             each class = MatcherWildcard ].
-
-	"get all list wildcard"
-	listWildCards := patternChildren select: [ :each |
-		                 each class = MatcherListWildcard ].
-
-	"Objects"
-	"to be done"
-
-	"fill the matching contexts"
-	^ results asArray
+	results := OrderedCollection new.	
+	subjectIterations := 	OrderedCollection new.	
+	patternChildren := MatcherCollection new. 
+	patternChildren matcherSequence: matcherSequence copy.
+	
+	"get all subjects iterations possible"
+	aCollection permutationsDo: [ :each | 
+		subjectIterations add:each copy.
+	].
+	 
+	subjectIterations do: [ :each | 
+		results add: (patternChildren match: each withContext: aMatchingContext).
+		]. 
+	
+	
+ 	^ results flattened asArray 
 ]
 
 { #category : 'matching' }
