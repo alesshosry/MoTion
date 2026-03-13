@@ -11,7 +11,7 @@ MatcherUnorderedCollectionTest >> testListWildcardAndWildcard [
 	
 	| pattern result | 
 	pattern := { #'@anItem'. #'*aList'. } orderIgnored.
-	result := pattern match: #( 1. 2. 3 ). 
+	result := pattern match: #( 1 2 3 ). 
 	self assert: result isMatch
 ]
 
@@ -28,8 +28,8 @@ MatcherUnorderedCollectionTest >> testListWildcardAndWildcardAndLiteral [
 MatcherUnorderedCollectionTest >> testListWildcardEmpty [
 	
 	| pattern result | 
-	pattern := { #'*listEmpty'. } orderIgnored.
-	result := pattern match: #(  ). 
+	pattern := { #'*listEmpty'} orderIgnored .
+	result := pattern match: #( ). 
 	self assert: result isMatch
 ]
 
@@ -105,7 +105,7 @@ MatcherUnorderedCollectionTest >> testLiteralsWithObject [
 	
 	a1 lst add: 3.
 	result := pattern match: a1.
-	self assert: result isMatch.
+	self deny: result isMatch.
 ]
 
 { #category : 'tests' }
@@ -123,7 +123,7 @@ MatcherUnorderedCollectionTest >> testWildcardSingle2 [
 	| pattern result | 
 	pattern := { #'@anItem'.} orderIgnored.
 	result := pattern match: #( 1. 2 ). 
-	self assert: result isMatch
+	self deny: result isMatch
 ]
 
 { #category : 'tests' }
@@ -132,6 +132,6 @@ MatcherUnorderedCollectionTest >> testWildcardsPattern [
 	"not working yet, but should be"
 	| pattern result | 
 	pattern := { #'@item1'. #'@item2'.} orderIgnored.
-	result := pattern match: #( 1. 2 ). 
+	result := pattern match: #( 1 2 ). 
 	self assert: result isMatch
 ]
