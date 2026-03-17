@@ -1,5 +1,5 @@
 Class {
-	#name : 'MatcherUnorderedCollection',
+	#name : 'MatcherSet',
 	#superclass : 'Matcher',
 	#instVars : [
 		'matcherSequence'
@@ -10,17 +10,17 @@ Class {
 }
 
 { #category : 'instance creation' }
-MatcherUnorderedCollection class >> of: aMatcherSequence [
+MatcherSet class >> of: aMatcherSequence [
 	^ self new matcherSequence: aMatcherSequence; yourself
 ]
 
 { #category : 'converting' }
-MatcherUnorderedCollection >> isCollectionMatcher [
+MatcherSet >> isCollectionMatcher [
 	^ true
 ]
 
 { #category : 'matching' }
-MatcherUnorderedCollection >> match: aCollection withContext: aMatchingContext [ 
+MatcherSet >> match: aCollection withContext: aMatchingContext [ 
 	
 	"The concept of this algo is to give all possible iterations of the subjects and try to match each time using list matcher which takes order into consideration."
 	
@@ -48,33 +48,14 @@ MatcherUnorderedCollection >> match: aCollection withContext: aMatchingContext [
  	^ results flattened asArray 
 ]
 
-{ #category : 'matching' }
-MatcherUnorderedCollection >> match: aCollection withContext: aMatchingContext forLiterals: literals [
-
-	| results collectedLiteralsValues hasNext |
-	
-	results := OrderedCollection new.
-
-	collectedLiteralsValues := literals collect: [ :each | each value ].
-	hasNext := aCollection includesAll: collectedLiteralsValues.
-	"not clean at all; but this is momentarely"
-	hasNext ifTrue: [
-		| aContext |
-		aContext := aMatchingContext copy.
-		aContext isMatch: true.
-		results add: aContext ].
-
-	^ results asArray
-]
-
 { #category : 'accessing' }
-MatcherUnorderedCollection >> matcherSequence [
+MatcherSet >> matcherSequence [
 
 	^ matcherSequence
 ]
 
 { #category : 'accessing' }
-MatcherUnorderedCollection >> matcherSequence: anObject [
+MatcherSet >> matcherSequence: anObject [
 
 	matcherSequence := anObject
 ]

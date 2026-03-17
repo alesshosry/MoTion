@@ -20,5 +20,5 @@ Array >> orMatches: aMatcher [
 { #category : '*MoTion' }
 Array >> orderIgnored [
 
-	^  MatcherUnorderedCollection  of: (self collect: #asMatcher).
+	^  MatcherSet  of: (self collect: #asMatcher).
 ]
