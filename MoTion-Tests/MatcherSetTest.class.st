@@ -1,5 +1,5 @@
 Class {
-	#name : 'MatcherUnorderedCollectionTest',
+	#name : 'MatcherSetTest',
 	#superclass : 'MatcherTests',
 	#category : 'MoTion-Tests-matchers',
 	#package : 'MoTion-Tests',
@@ -7,7 +7,7 @@ Class {
 }
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testListWildcardAndWildcard [
+MatcherSetTest >> testListWildcardAndWildcard [
 	
 	| pattern result | 
 	pattern := { #'@anItem'. #'*aList'. } orderIgnored.
@@ -16,7 +16,7 @@ MatcherUnorderedCollectionTest >> testListWildcardAndWildcard [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testListWildcardAndWildcardAndLiteral [
+MatcherSetTest >> testListWildcardAndWildcardAndLiteral [
 	
 	| pattern result | 
 	pattern := { 3. #'@anItem'. #'*aList'} orderIgnored.
@@ -25,16 +25,16 @@ MatcherUnorderedCollectionTest >> testListWildcardAndWildcardAndLiteral [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testListWildcardEmpty [
+MatcherSetTest >> testListWildcardEmpty [
 	
 	| pattern result | 
 	pattern := { #'*listEmpty'} orderIgnored .
-	result := pattern match: #( ). 
+	result := pattern match: { }. 
 	self assert: result isMatch
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testListWildcardMultipleNotEmpty [
+MatcherSetTest >> testListWildcardMultipleNotEmpty [
 	
 	| pattern result | 
 	pattern := { #'*list1'. #'*list2'. } orderIgnored.
@@ -43,7 +43,7 @@ MatcherUnorderedCollectionTest >> testListWildcardMultipleNotEmpty [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testListWildcardNotEmpty [
+MatcherSetTest >> testListWildcardNotEmpty [
 	
 	| pattern result | 
 	pattern := { #'*list'. } orderIgnored.
@@ -52,7 +52,7 @@ MatcherUnorderedCollectionTest >> testListWildcardNotEmpty [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testLiterals [
+MatcherSetTest >> testLiterals [
 
 	| pattern result |
 	pattern := { 2. 1. 'a'} orderIgnored.
@@ -61,7 +61,7 @@ MatcherUnorderedCollectionTest >> testLiterals [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testLiteralsLess [
+MatcherSetTest >> testLiteralsLess [
 	
 	| pattern result | 
 	pattern := { 2.} orderIgnored.
@@ -70,7 +70,7 @@ MatcherUnorderedCollectionTest >> testLiteralsLess [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testLiteralsNumbers [
+MatcherSetTest >> testLiteralsNumbers [
 
 	| pattern result |
 	pattern := { 2. 1. } orderIgnored.
@@ -79,7 +79,7 @@ MatcherUnorderedCollectionTest >> testLiteralsNumbers [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testLiteralsString [
+MatcherSetTest >> testLiteralsString [
 
 	| pattern result |
 	pattern := { 'Hello'. 'World' } orderIgnored.
@@ -88,7 +88,7 @@ MatcherUnorderedCollectionTest >> testLiteralsString [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testLiteralsWithObject [
+MatcherSetTest >> testLiteralsWithObject [
 
 	| pattern a1 result|
 	
@@ -109,7 +109,48 @@ MatcherUnorderedCollectionTest >> testLiteralsWithObject [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testWildcardSingle [
+MatcherSetTest >> testObjectInSet [
+	
+	| pattern result | 
+	
+	pattern := { 1. 'str'.  MTTestObjectA % {} } orderIgnored .
+	result := pattern match: { MTTestObjectA new. 'str'. 1.}. 
+	self assert: result isMatch
+]
+
+{ #category : 'tests' }
+MatcherSetTest >> testSetInObject [
+	
+	| pattern pattern2 result objA objB| 
+	
+	pattern := MTTestObjectA % { 
+		#lst <=> { MTTestObjectB % {}. #'*others'} orderIgnored
+	}.
+	
+	pattern2 := MTTestObjectA % { 
+		#lst <=> { #'*others'.  MTTestObjectB % {}. } orderIgnored
+	}.
+	
+	objB := MTTestObjectB new.
+	objB lstring: 'A string added'.
+	
+	objA := MTTestObjectA new . 
+	objA lst add: 'Hello'.
+	objA lst add: 1.
+	objA lst add: objB.
+	
+	result := pattern match: objA . 
+	self assert: result isMatch.
+	
+	result := pattern2 match: objA . 
+	self assert: result isMatch.
+	 
+	
+	
+]
+
+{ #category : 'tests' }
+MatcherSetTest >> testWildcardSingle [
 	
 	| pattern result | 
 	pattern := { #'@anItem'.} orderIgnored.
@@ -118,7 +159,7 @@ MatcherUnorderedCollectionTest >> testWildcardSingle [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testWildcardSingle2 [
+MatcherSetTest >> testWildcardSingle2 [
 	
 	| pattern result | 
 	pattern := { #'@anItem'.} orderIgnored.
@@ -127,7 +168,7 @@ MatcherUnorderedCollectionTest >> testWildcardSingle2 [
 ]
 
 { #category : 'tests' }
-MatcherUnorderedCollectionTest >> testWildcardsPattern [
+MatcherSetTest >> testWildcardsPattern [
 	
 	"not working yet, but should be"
 	| pattern result | 
