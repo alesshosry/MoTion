@@ -100,8 +100,29 @@ ClassA % {
 }
 ```
 Note that this could also match an instance of ClassA with a property someProperty that matches exactly the value 5 (with no collection).
+15. Set matcher is also included. It does the same thing as list matcher but without taking into consideration the order of the elements. For example:
+```Smalltalk
+"A pattern can be expressed this way using set matcher:"
+pattern := { 2. 1. 'a'} orderIgnored.
+result := pattern match: #( 1 2 'a').
+```
+In the above example, result will return a match, because even if order is not respected, the same elements can be found in the array that is matched with the defined pattern.
+The below example also works for a set matcher inside an object matcher:
+```Smalltalk
+pattern := MTTestObjectA % {
+			    #lst <=> { 1. 2. #’*others’} orderIgnored 
+		    }.
+a1 := MTTestObjectA new.
+a1 lst add: 2.
+a1 lst add: 1. 
+a1 lst add: 3.
+a1 lst add: 4.
+	
+result := pattern match: a1.
+```
+Result will return a match.
 
-15. Finally there is another operator for Logical matcher:  orMatches:. It allows to express a disjunction of two patterns (one or the other match). (Remember that “\% {}” implements a conjunction of patterns within the curly braces.)
+16. Finally there is another operator for Logical matcher:  orMatches:. It allows to express a disjunction of two patterns (one or the other match). (Remember that “\% {}” implements a conjunction of patterns within the curly braces.)
 ```Smalltalk
 ClassA % {
 #someProperty <=> (5 orMatches: 6)
