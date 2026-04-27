@@ -26,11 +26,11 @@ MatcherSetTest >> testListWildcardAndWildcardAndLiteral [
 
 { #category : 'tests' }
 MatcherSetTest >> testListWildcardEmpty [
-	
-	| pattern result | 
-	pattern := { #'*listEmpty'} orderIgnored .
-	result := pattern match: { }. 
-	self assert: result isMatch
+
+	| pattern result |
+	"pattern := { #'*listEmpty' } orderIgnored.
+	result := pattern match: {  }.
+	self assert: result isMatch"
 ]
 
 { #category : 'tests' }
